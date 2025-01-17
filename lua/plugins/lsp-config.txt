@@ -1,0 +1,59 @@
+ft = {
+        sh    = "sh",
+        zsh   = "sh",
+        glsl  = "glsl",
+        vsh   = "glsl",
+        fsh   = "glsl",
+        glslv = "glsl",
+        glslf = "glsl",
+        vert  = "glsl",
+        tesc  = "glsl",
+        tese  = "glsl",
+        geom  = "glsl",
+        frag  = "glsl",
+        comp  = "glsl",
+}
+
+return {
+        "neovim/nvim-lspconfig",
+        event  = "BufReadPre",
+        config = function()
+                -- local cmp_lsp      = require("cmp_nvim_lsp")
+                local lsp = require("lspconfig")
+                local capabilities = vim.tbl_deep_extend(
+                        "force",
+                        {},
+                        vim.lsp.protocol.make_client_capabilities()
+                -- cmp_lsp.default_capabilities()
+                )
+
+                vim.filetype.add({ extension = ft })
+
+                lsp.clangd.setup({})
+
+                lsp.lua_ls.setup({
+                        capabilities = capabilities,
+
+                        on_init = function(client)
+                                if client.workspace_folders then
+                                        local path = client.workspace_folders[1].name
+                                        if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+                                                return
+                                        end
+                                end
+                        end,
+                })
+
+                lsp.bashls.setup({
+                        capabilities = capabilities,
+
+                        filetypes    = { "bash", "sh", "zsh" }, -- force it to work in zsh as well
+                        bashIde      = {
+                                shfmt                      = { spaceRedirects = true },
+                                includeAllWorkspaceSymbols = true,
+                                globPattern                = "**/*@(.sh|.bash|.zsh)",
+                                shellcheckArguments        = "--shell=bash",
+                        },
+                })
+        end,
+}
