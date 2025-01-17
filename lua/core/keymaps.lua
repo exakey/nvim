@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-parameter
 local map = require("core.utils").uniqueKeymap
 
 -- vim.g.mapleader = " "
