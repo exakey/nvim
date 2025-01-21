@@ -37,13 +37,14 @@ return {
                                                 { "kind_icon",   gap = 1 },
                                                 { "label",       gap = 1 },
                                                 { "source_name", gap = 1 },
+                                                { "kind",        gap = 1 },
                                         },
                                         components = {
                                                 kind_icon = {
                                                         text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
                                                 },
                                                 source_name = {
-                                                        text = function(ctx) return ctx.source_name end
+                                                        text = function(ctx) return "[" .. ctx.source_name .. "]" end
                                                 },
                                         }
                                 }

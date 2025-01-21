@@ -16,6 +16,7 @@ local lspToMasonMap = {
         efm                   = "efm",                   -- linter/formatter integration
         emmet_language_server = "emmet-language-server", -- css/html snippets
         -- gh_actions_ls         = "gh-actions-language-server",
+        gopls                 = "gopls",
         html                  = "html-lsp",
         jsonls                = "json-lsp",
         ltex_plus             = "ltex-ls-plus",               -- ltex-fork, languagetool (natural language linter)
@@ -139,6 +140,27 @@ M.serverConfigs.efm                       = {
                     :totable()
                 return vim.fs.root(0, allRootMarkers)
         end,
+}
+
+--------------------------------------------------------------------------------
+-- GO
+M.serverConfigs.gopls                     = {
+        settings = {
+                gopls   = {
+                        semanticTokens  = false,
+                        usePlaceholders = false,
+                        hints           = {
+                                assignVariableTypes    = true,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes  = true,
+                                constantValues         = true,
+                                functionTypeParameters = true,
+                                parameterNames         = true,
+                                rangeVariableTypes     = true,
+                        }
+                },
+                gofumpt = true,
+        }
 }
 
 --------------------------------------------------------------------------------

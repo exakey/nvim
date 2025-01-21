@@ -17,7 +17,7 @@ return {
         },
         {
                 'jsongerber/thanks.nvim',
-                event  = "VeryLazy",
+                event  = "VimEnter",
                 config = true,
         },
         {

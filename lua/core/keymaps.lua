@@ -240,7 +240,7 @@ map("x", "v", "<C-v>", { desc = "`vv` starts visual block" })
 --------------------------------------------------------------------------------
 -- INSPECT & EVAL
 
-map("n", "<leader>ip", vim.show_pos, { desc = " Position at cursor" })
+map("n", "<leader>ih", vim.show_pos, { desc = " Position at cursor" })
 map("n", "<leader>it", vim.treesitter.inspect_tree, { desc = " TS tree" })
 map("n", "<leader>iq", vim.treesitter.query.edit, { desc = " TS query" })
 -- map("n", "<leader>ih", vim.cmd.inspect, { desc = " TS query" })

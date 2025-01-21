@@ -1,7 +1,7 @@
 return {
         "folke/snacks.nvim",
-        priority = 1000,
         lazy     = false,
+        priority = 1000,
         opts     = {
                 styles    = {
                         float = {
@@ -10,7 +10,16 @@ return {
                 },
                 words     = { enabled = false },
                 lazygit   = { enabled = true },
+                input     = {
+                        wo = {
+                                cursorline = false,
+                                winhighlight =
+                                "NormalFloat:SnacksInputNormal,DropBarMenuThumb:SnacksInputBorder,FloatTitle:SnacksInputTitle",
+                        },
+
+                },
                 notifier  = {
+                        enabled = true,
                         timeout = 2000,
                         icons   = {
                                 error = " ■",
@@ -199,7 +208,7 @@ return {
                 { "<leader>S",  function() Snacks.scratch.select() end,          desc = "Select Scratch Buffer" },
                 -- { "<leader>pp", function() Snacks.toggle.profiler() end,            desc = "Toggle profiler" },
                 -- { "<leader>ph", function() Snacks.toggle.profiler_highlights() end, desc = "Toggle profiler highlights" },
-                -- { "<leader>ps", function() Snacks.profiler.scratch() end,           desc = "Profiler Scratch Bufer" },
+                -- { "<leader>ps", function() Snacks.profiler.scratch() end,           desc = "Profiler Scratch Buffer" },
                 { "<A-b>",      function() Snacks.bufdelete() end,               desc = "Delete Buffer" },
                 { "<leader>cR", function() Snacks.rename.rename_file() end,      desc = "Rename File" },
                 { "<leader>gB", function() Snacks.gitbrowse() end,               desc = "Git Browse" },
