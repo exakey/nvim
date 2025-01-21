@@ -1,15 +1,16 @@
 local ft  = {
         c          = { "clang_format" },
         cpp        = { "clang_format" },
+        css        = { "prettierd", "prettier" },
+        glsl       = { "clang_format" },
+        go         = { "gofmt", "goimports" },
+        html       = { "prettierd", "prettier" },
+        javascript = { "prettierd", "prettier" },
+        jsonc      = { "prettierd", "prettier" },
+        json       = { "prettierd", "prettier" },
+        python     = { "ruff", "isort", "black" },
         sh         = { "shfmt" },
         zsh        = { "shfmt" },
-        go         = { "gofmt", "goimports" },
-        javascript = { "prettierd", "prettier" },
-        html       = { "prettierd", "prettier" },
-        css        = { "prettierd", "prettier" },
-        json       = { "prettierd", "prettier" },
-        jsonc      = { "prettierd", "prettier" },
-        python     = { "ruff", "isort", "black" },
 }
 
 local fmt = {

@@ -28,7 +28,7 @@ local lspToMasonMap = {
         taplo                 = "taplo",                      -- toml lsp
         ts_ls                 = "typescript-language-server", -- also used for javascript
         ts_query_ls           = "ts_query_ls",                -- tree-sitter queries
-        typos_lsp             = "typos-lsp",                  -- spellchecker for code
+        -- typos_lsp             = "typos-lsp",                  -- spellchecker for code
         yamlls                = "yaml-language-server",
 }
 
