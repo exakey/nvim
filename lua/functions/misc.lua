@@ -147,8 +147,8 @@ function M.smartDuplicate()
 
         -- MOVE CURSOR DOWN, AND TO VALUE/FIELD (IF EXISTS)
         local _, luadocFieldPos = line:find("%-%-%-@%w+ ")
-        local _, valuePos = line:find("[:=][:=]? ")
-        local targetCol = luadocFieldPos or valuePos or col
+        local _, valuePos       = line:find("[:=][:=]? ")
+        local targetCol         = luadocFieldPos or valuePos or col
         vim.api.nvim_win_set_cursor(0, { row + 1, targetCol })
 end
 
@@ -157,7 +157,7 @@ end
 ---@param limit number
 function M.spellSuggest(limit)
         local suggestions = vim.fn.spellsuggest(vim.fn.expand("<cword>"))
-        suggestions = vim.list_slice(suggestions, 1, limit)
+        suggestions       = vim.list_slice(suggestions, 1, limit)
 
         vim.ui.select(
                 suggestions,

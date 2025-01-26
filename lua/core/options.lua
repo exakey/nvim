@@ -16,9 +16,8 @@ o.splitright  = true
 o.splitbelow  = true
 
 o.cursorline  = true
--- o.colorcolumn = "+1"
-o.signcolumn  = "yes:2"
--- o.signcolumn  = "yes"
+-- o.signcolumn  = "yes:2"
+o.signcolumn  = "yes:1"
 
 o.wrap        = false
 o.breakindent = true

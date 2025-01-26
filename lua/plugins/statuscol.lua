@@ -8,7 +8,7 @@ return {
             relculright = true,
             segments    = {
                 {
-                    { text = { "%s" }, click = "v:lua.ScFa" },
+                    -- { text = { "%s" }, click = "v:lua.ScFa" },
                     text  = { builtin.lnumfunc, " " },
                     click = "v:lua.ScLa",
                 },

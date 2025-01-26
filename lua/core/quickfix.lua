@@ -105,19 +105,3 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
         vim.defer_fn(function() pcall(vim.cmd.cfirst) end, 100)
     end,
 })
-
---------------------------------------------------------------------------------
--- STATUSBAR: COUNT OF ITEMS
-local M = {}
-
-function M.quickfixCounterStatusbar()
-    local qf = vim.fn.getqflist { idx = 0, title = true, items = true }
-    if #qf.items == 0 then return "" end
-
-    -- remove empty brackets and/or flags from `makeprg`
-    local title = qf.title:gsub(" %(%)", ""):gsub("%-%-[%w-_]+ ?", "")
-
-    return (" %d/%d %q"):format(qf.idx, #qf.items, title)
-end
-
-return M

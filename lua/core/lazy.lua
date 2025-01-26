@@ -2,7 +2,7 @@ local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
         local repo = "https://github.com/folke/lazy.nvim.git"
         local args = { "git", "clone", "--filter=blob:none", "--branch=stable", repo, lazypath }
-        local out = vim.system(args):wait()
+        local out  = vim.system(args):wait()
         if out.code ~= 0 then
                 vim.api.nvim_echo({ { "Failed to clone lazy.nvim:\n" .. out.stderr, "ErrorMsg" } }, true, {})
                 vim.fn.getchar()

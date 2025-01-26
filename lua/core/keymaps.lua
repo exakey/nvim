@@ -77,7 +77,7 @@ map("n", "<leader>ur", function() vim.cmd.later(vim.o.undolevels) end, { desc = 
 
 -- Duplicate
 -- stylua: ignore
--- map("n", "ww", function() require("functions.misc").smartDuplicate() end, { desc = "󰲢 Duplicate line" })
+map("n", "WW", function() require("functions.misc").smartDuplicate() end, { desc = "󰲢 Duplicate line" })
 
 -- Toggles
 map("n", "~", "v~", { desc = "󰬴 Toggle char case (w/o moving)" })
@@ -89,7 +89,7 @@ map("n", ">", function()
 end, { desc = "󰬴 Toggle camel and snake case" })
 
 -- Delete trailing character
-map("n", "<A-x>", function()
+map("n", "<C-S-x>", function()
         local updatedLine = vim.api.nvim_get_current_line():gsub("%S%s*$", "")
         vim.api.nvim_set_current_line(updatedLine)
 end, { desc = "󱎘 Delete char at EoL" })
