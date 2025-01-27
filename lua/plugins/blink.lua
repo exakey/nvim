@@ -76,7 +76,8 @@ return {
                                                 -- prevent useless suggestions when typing `--` in lua, but
                                                 -- keep the useful `---@param;@return` suggestion
                                                 local col                 = vim.api.nvim_win_get_cursor(0)[2]
-                                                local charsBefore         = vim.api.nvim_get_current_line():sub(col - 2, col)
+                                                local charsBefore         = vim.api.nvim_get_current_line():sub(col - 2,
+                                                        col)
                                                 local luadocButNotComment = not charsBefore:find("^%-%-?$")
                                                     and not charsBefore:find("%s%-%-?")
                                                 return luadocButNotComment

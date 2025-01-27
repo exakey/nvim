@@ -10,7 +10,7 @@ return {
     },
 
     config       = function()
-        require("functions.telescope-backdrop")
+        require("functions.backdrop-telescope")
         local telescope = require("telescope")
         local actions   = require("telescope.actions")
 

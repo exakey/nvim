@@ -375,9 +375,9 @@ M.serverConfigs.ltex_plus                 = {
 
 -- TYPOS
 -- DOCS https://github.com/tekumara/typos-lsp/blob/main/docs/neovim-lsp-config.md
-M.serverConfigs.typos_lsp                 = {
-        init_options = { diagnosticSeverity = "Hint" },
-}
+-- M.serverConfigs.typos_lsp                 = {
+--         init_options = { diagnosticSeverity = "Hint" },
+-- }
 
 --------------------------------------------------------------------------------
 return M
