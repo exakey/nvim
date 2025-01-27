@@ -34,7 +34,7 @@ return {
                         prompt_position = "top",
                         preview_height  = 0.50,
                         height          = 0.85,
-                        width           = 0.65,
+                        width           = 0.90,
                     },
                     horizontal = {
                         prompt_position = "top",

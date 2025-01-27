@@ -2,7 +2,7 @@ return {
         "rcarriga/nvim-dap-ui",
         dependencies = { "nvim-neotest/nvim-nio", "mfussenegger/nvim-dap" },
         keys         = {
-                { "<leader>du", function() require("dapui").toggle() end, desc = "󱂬 Toggle UI" },
+                { "<leader>du", function() require("dap-view").toggle() end, desc = "󱂬 Toggle UI" },
                 {
                         "<leader>db",
                         function() require("dapui").float_element("breakpoints", { enter = true }) end, ---@diagnostic disable-line: missing-fields
