@@ -95,7 +95,7 @@ map("n", "<C-S-x>", function()
 end, { desc = "󱎘 Delete char at EoL" })
 
 -- Append to EoL
-local trailChars = { ",", "\\", "{", "}", ")", ";", "." }
+local trailChars = { ",", "\\", "[", "]", "{", "}", ")", ";", "." }
 for _, key in pairs(trailChars) do
         local pad = key == "\\" and " " or ""
         map("n", "<leader>" .. key, ("mzA%s%s<Esc>`z"):format(pad, key))

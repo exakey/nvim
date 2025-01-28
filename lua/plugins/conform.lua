@@ -13,15 +13,12 @@ local ft  = {
         zsh        = { "shfmt" },
 }
 
-local fmt = {
+local options = {
         clang_format = {
                 args = { "--style=file" },
         },
         shfmt        = {
                 args = { "-ln=bash", "-i=8", "-ci" }
-        },
-        prettier     = {
-                args = { "--tab-width=8" }
         },
 }
 
@@ -33,7 +30,7 @@ return {
 
                 conform.setup({
                         formatters_by_ft = ft,
-                        formatters       = fmt,
+                        formatters       = options,
                 })
                 vim.keymap.set({ "n", "v" }, "<leader>f", function()
                         conform.format({
