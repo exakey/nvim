@@ -18,7 +18,7 @@ local options = {
                 args = { "--style=file" },
         },
         shfmt        = {
-                args = { "-ln=bash", "-i=8", "-ci" }
+                args = { "-ln=bash", "-i=8", "-ci", "-fn", "-s" }
         },
 }
 
