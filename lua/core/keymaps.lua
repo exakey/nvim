@@ -77,7 +77,7 @@ map("n", "<leader>ur", function() vim.cmd.later(vim.o.undolevels) end, { desc = 
 
 -- Duplicate
 -- stylua: ignore
-map("n", "pp", function() require("functions.misc").smartDuplicate() end, { desc = "󰲢 Duplicate line" })
+map("n", "ww", function() require("functions.misc").smartDuplicate() end, { desc = "󰲢 Duplicate line" })
 
 -- Toggles
 map("n", "~", "v~", { desc = "󰬴 Toggle char case (w/o moving)" })
