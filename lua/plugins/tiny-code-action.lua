@@ -22,7 +22,7 @@ return {
                                                 -- height         = 0.7,
                                                 preview_cutoff = 1,
                                                 preview_height = function(_, _, max_lines)
-                                                        local h = math.floor(max_lines * 0.5)
+                                                        local h = math.floor(max_lines * 0.6)
                                                         return math.max(h, 10)
                                                 end,
                                         },

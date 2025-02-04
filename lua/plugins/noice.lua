@@ -3,7 +3,14 @@ return {
         event  = "VeryLazy",
         config = function()
                 require("noice").setup({
-                        notify    = {},
+                        notify    = {
+                                enabled = false
+                        },
+                        lsp       = {
+                                progress = {
+                                        enabled = false
+                                }
+                        },
                         views     = {
                                 cmdline_popup = {
                                         border         = {

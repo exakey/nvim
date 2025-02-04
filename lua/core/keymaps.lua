@@ -13,7 +13,7 @@ map({ "n", "v" }, "<RightMouse>", function()
 
         require("menu").open(options, { mouse = true })
 end, {})
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- META
 
 map("n", "ZZ", "<cmd>qall<CR>", { desc = " Quit" })
@@ -21,7 +21,7 @@ map("n", "ZZ", "<cmd>qall<CR>", { desc = " Quit" })
 local pluginDir = vim.fn.stdpath("data") --[[@as string]]
 map("n", "<leader>pd", function() vim.ui.open(pluginDir) end, { desc = "󰝰 Plugin dir" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- NAVIGATION
 
 -- j/k should on wrapped lines
@@ -66,7 +66,7 @@ map("n", "F", function() require("functions.misc").fF("F") end, { desc = "F" })
 -- Move to the end of previous word
 map({ "n", "v" }, "W", "ge", { desc = "Jump to the end of previous word" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- EDITING
 
 -- Undo
@@ -137,7 +137,7 @@ map("n", "<C-q>", "ggVG", { desc = "Select all" })
 map({ "i", "n" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 map({ "i", "n" }, "<A-s>", "<cmd>wa<cr><esc>", { desc = "Save File" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- SURROUND
 
 -- map("n", '"', [[wBi"<Esc>ea"<Esc>b]], { desc = ' " surround cword' })
@@ -149,7 +149,7 @@ map("n", "<A-e>", [[wBi`<Esc>ea`<Esc>b]], { desc = " Inline Code cword" })
 map("x", "<A-e>", "<Esc>`<i`<Esc>`>la`<Esc>", { desc = " Inline Code selection" })
 map("i", "<A-e>", "``<Left>", { desc = " Inline Code" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- TEXTOBJECTS
 
 local textobjRemaps = {
@@ -172,7 +172,7 @@ map("n", "<C-Space>", '"_ciw', { desc = "󰬞 change word" })
 map("x", "<C-Space>", '"_c', { desc = "󰒅 change selection" })
 map("n", "<S-Space>", '"_daw', { desc = "󰬞 delete word" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- COMMENTS
 
 map({ "n", "x" }, "q", "gc", { desc = "󰆈 Comment operator", remap = true })
@@ -190,7 +190,7 @@ map("n", "Q", function() require("functions.comment").addComment("eol") end, { d
 map("n", "qo", function() require("functions.comment").addComment("below") end, { desc = "󰆈 Comment Below" })
 map("n", "qO", function() require("functions.comment").addComment("above") end, { desc = "󰆈 Comment Above" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- LINE & CHARACTER MOVEMENT
 
 map("n", "<A-h>", [["zdh"zph]], { desc = "󰜱 Move char left" })
@@ -255,7 +255,7 @@ map({ "n", "x" }, "<leader>ie", function() require("functions.inspect-and-eval")
         { desc = " Eval" })
 map("n", "<leader><leader>x", function() require("functions.inspect-and-eval").runFile() end, { desc = "󰜎 Run file" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- WINDOWS
 
 -- Create split
@@ -278,7 +278,7 @@ map("n", "<C-down>", "<C-w>" .. delta .. "+")
 map("n", "<C-left>", "<C-w>" .. delta .. "<")
 map("n", "<C-right>", "<C-w>" .. delta .. ">")
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- BUFFERS & FILES
 
 -- do
@@ -296,7 +296,7 @@ map("n", "<A-r>", vim.cmd.edit, { desc = "󰽙 Reload buffer" })
 map("n", "H", "<cmd>bprevious<cr>zz", { desc = "Prev Buffer" })
 map("n", "L", "<cmd>bnext<cr>zz", { desc = "Next Buffer" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- MACROS
 
 do
@@ -313,7 +313,7 @@ do
         map("n", "9", "@" .. reg, { desc = "󰃽 Play recording" })
 end
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- REFACTORING
 
 map("n", "<leader>vr", vim.lsp.buf.rename, { desc = "󰑕 LSP rename" })
@@ -355,7 +355,7 @@ map("i", "<A-t>", function() require("functions.auto-template-str").insertTempla
 --     return '<Esc>"_cgn'
 -- end, { desc = "󰆿 Multi-edit selection", expr = true })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- OPTION TOGGLING
 
 map("n", "<leader>on", "<cmd>set number!<CR>", { desc = " Line numbers" })
@@ -369,17 +369,17 @@ end, { desc = "󰋽 Diagnostics" })
 map("n", "<leader>oc", function() vim.wo.conceallevel = vim.wo.conceallevel == 0 and 2 or 0 end,
         { desc = "󰈉 Conceal" })
 
---------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 -- PLUGINS
 
 -- TELESCOPE
-map("n", "<leader><leader><leader>", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find old files" })
-map("n", "<leader><leader>f", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
-map("n", "<leader><leader>b", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find opened buffers" })
-map("n", "<leader><leader>d", "<cmd>Telescope diagnostics<cr>", { desc = "Fuzzy find diagnostics" })
-map("n", "<leader><leader>h", "<cmd>Telescope highlights<cr>", { desc = "Fuzzy find highlight groups" })
-map("n", "<leader><leader>g", "<cmd>Telescope live_grep<cr>", { desc = "Fuzzy find text in cwd" })
-map("n", "<leader><leader>s", "<cmd>Telescope grep_string<cr>", { desc = "Fuzzy find string under cursor" })
+-- map("n", "<leader><leader><leader>", "<cmd>oldfiles<cr>", { desc = "Fuzzy find old files" })
+-- map("n", "<leader><leader>f", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
+-- map("n", "<leader><leader>b", "<cmd>Telescope buffers<cr>", { desc = "Fuzzy find opened buffers" })
+-- map("n", "<leader><leader>d", "<cmd>Telescope diagnostics<cr>", { desc = "Fuzzy find diagnostics" })
+-- map("n", "<leader><leader>h", "<cmd>Telescope highlights<cr>", { desc = "Fuzzy find highlight groups" })
+-- map("n", "<leader><leader>g", "<cmd>Telescope live_grep<cr>", { desc = "Fuzzy find text in cwd" })
+-- map("n", "<leader><leader>s", "<cmd>Telescope grep_string<cr>", { desc = "Fuzzy find string under cursor" })
 
 -- TREE
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Tree" })
@@ -397,7 +397,3 @@ map("n", "<C-o>", "<cmd>Outline<cr>", { desc = "Outline" })
 -- WINSHIFT
 map("n", "<leader>w", "<Cmd>WinShift<cr>", { desc = "Start Win-Move mode" })
 map("n", "<leader>wt", "<Cmd>WindowsToggleAutowidth<cr>", { desc = "Toggle window autowidth" })
-
---------------------------------------------------------------------------------
--- DROPBAR
--- vim.keymap.set("n", "<A-q>", require('dropbar.api').dropbar_api.pick())

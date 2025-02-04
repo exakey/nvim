@@ -80,6 +80,7 @@ return {
                                                 -------------------------------------------------------------------------------------------------------------
                                                 -- SNACKS
 
+                                                SnacksPicker                     = {  bg = colors.crust },
                                                 SnacksNotifierBorderInfo         = { fg = colors.crust, bg = colors.crust },
                                                 SnacksNotifierBorderWarn         = { fg = colors.crust, bg = colors.crust },
                                                 SnacksNotifierBorderError        = { fg = colors.crust, bg = colors.crust },
@@ -204,9 +205,9 @@ return {
                                                 TelescopeResultsTitle            = { fg = colors.flamingo, bg = colors.crust },
                                                 TelescopeResultsNormal           = { fg = colors.overlay0, bg = colors.crust },
                                                 TelescopeResultsBorder           = { fg = colors.crust, bg = colors.crust },
-                                                TelescopePreviewTitle            = { fg = colors.text, bg = colors.mantle },
-                                                TelescopePreviewNormal           = { fg = colors.text, bg = colors.mantle },
-                                                TelescopePreviewBorder           = { fg = colors.mantle, bg = colors.mantle },
+                                                TelescopePreviewTitle            = { fg = colors.text, bg = colors.crust },
+                                                TelescopePreviewNormal           = { fg = colors.text, bg = colors.crust },
+                                                TelescopePreviewBorder           = { fg = colors.mantle, bg = colors.crust },
                                                 TelescopeSelection               = { fg = colors.red, bg = colors.crust },
                                                 TelescopeSelectionCaret          = { fg = colors.red, bg = colors.crust },
 

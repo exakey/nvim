@@ -25,9 +25,6 @@ return {
                         --[[ HINT:]]
                         HINT = { icon = " ", color = "#dce0e8" },
                 },
-                gui_style = {
-                        fg = "NONE",
-                        bg = "BOLD",
-                },
+                gui_style = { fg = "NONE", bg = "BOLD" },
         },
 }

@@ -40,11 +40,11 @@ return {
                                                 { "kind",        gap = 1 },
                                         },
                                         components = {
-                                                kind_icon = {
+                                                kind_icon   = {
                                                         text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
                                                 },
                                                 source_name = {
-                                                        text = function(ctx) return "[" .. ctx.source_name .. "]" end
+                                                        text = function(ctx) return "[" .. ctx.source_name .. "]" end,
                                                 },
                                         }
                                 }
@@ -54,10 +54,7 @@ return {
                         trigger       = { prefetch_on_insert = true }
                 },
                 sources    = {
-                        per_filetype = {
-                                ["rip-substitute"] = { "buffer" },
-                                gitcommit          = {},
-                        },
+                        per_filetype = { ["rip-substitute"] = { "buffer" }, gitcommit = {} },
                         default      = { "snippets", "lazydev", "lsp", "path", "buffer" },
                         providers    = {
                                 lazydev  = {
@@ -84,14 +81,8 @@ return {
                                         end,
 
                                 },
-                                snippets = {
-                                        name         = "Snip",
-                                        score_offset = 80,
-                                },
-                                path     = {
-                                        name         = "Path",
-                                        score_offset = 110
-                                },
+                                snippets = { name = "Snip", score_offset = 80 },
+                                path     = { name = "Path", score_offset = 110 },
                                 buffer   = {
                                         name               = "Buf",
                                         score_offset       = 60,
@@ -145,6 +136,6 @@ return {
                                 TypeParameter = "",
                         }
                 },
-                signature  = { enabled = true, window = { scrollbar = false } },
+                signature  = { enabled = false, window = { scrollbar = false } },
         },
 }
