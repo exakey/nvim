@@ -1,4 +1,5 @@
-local ft  = {
+local ft      = {
+        asm        = { "asmfmt" },
         c          = { "clang_format" },
         cpp        = { "clang_format" },
         css        = { "prettierd", "prettier" },

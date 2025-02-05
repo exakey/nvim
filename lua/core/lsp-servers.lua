@@ -7,6 +7,7 @@ local M             = {}
 ---mappings from https://github.com/williamboman/mason-lspconfig.nvim/blob/main/lua/mason-lspconfig/mappings/server.lua
 ---@type table<string, string>
 local lspToMasonMap = {
+        asm_lsp               = "asm-lsp",
         basedpyright          = "basedpyright",                  -- python lsp (fork of pyright)
         bashls                = "bash-language-server",          -- also used for zsh
         biome                 = "biome",                         -- ts/js/json/css linter/formatter
@@ -17,6 +18,7 @@ local lspToMasonMap = {
         emmet_language_server = "emmet-language-server", -- css/html snippets
         -- gh_actions_ls         = "gh-actions-language-server",
         gopls                 = "gopls",
+        glsl_analyzer         = "glsl_analyzer",
         html                  = "html-lsp",
         jsonls                = "json-lsp",
         ltex_plus             = "ltex-ls-plus",               -- ltex-fork, languagetool (natural language linter)
@@ -54,6 +56,12 @@ local extraDependencies                   = {
 
 -- for auto-installation via `mason-tool-installer`
 M.masonDependencies                       = vim.list_extend(extraDependencies, vim.tbl_values(lspToMasonMap))
+
+--------------------------------------------------------------------------------
+-- ASM
+M.serverConfigs.asm_lsp                   = {
+        filetypes = { "nasm", "asm" }
+}
 
 --------------------------------------------------------------------------------
 -- BASH / ZSH
@@ -165,7 +173,25 @@ M.serverConfigs.gopls                     = {
 
 --------------------------------------------------------------------------------
 -- C/C++
-M.serverConfigs.clangd                    = {}
+M.serverConfigs.clangd                    = {
+        settings = {
+                clangd = {
+                        InlayHints    = {
+                                Designators    = true,
+                                Enabled        = true,
+                                ParameterNames = true,
+                                DeducedTypes   = true,
+                        },
+                        fallbackFlags = { "-std=c++20" },
+                },
+        },
+}
+
+--------------------------------------------------------------------------------
+-- GLSL
+M.serverConfigs.glsl_analyzer             = {
+
+}
 
 --------------------------------------------------------------------------------
 -- LUA
