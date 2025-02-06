@@ -8,6 +8,7 @@
   "dropbar.nvim": { "branch": "master", "commit": "3afce85516c25823d5a1590f73ec19fe8553e2eb" },
   "eolmark.nvim": { "branch": "master", "commit": "81a281a4ceb9d237545d4f3a4926b3f359a4f12d" },
   "gitsigns.nvim": { "branch": "main", "commit": "fc56fc25cfc3dc3f24266508aa4a7096102eb6a6" },
+  "helpview.nvim": { "branch": "main", "commit": "2a77c8fc2992054fc650fc677ee83a37da5df783" },
   "hyprland-vim-syntax": { "branch": "main", "commit": "71760fe0cad972070657b0528f48456f7e0027b2" },
   "idascope": { "branch": "main", "commit": "d305eea0e3333bbd54d7a0d05a3411ee1df000d7" },
   "indent-blankline.nvim": { "branch": "master", "commit": "e10626f7fcd51ccd56d7ffc00883ba7e0aa28f78" },
