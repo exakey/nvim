@@ -16,6 +16,12 @@ return {
                         mode = { "n" },
                 },
                 {
+                        "<leader><leader>t",
+                        function() Snacks.picker.todo_comments({ layout = "select" }) end,
+                        desc = "Picker",
+                        mode = { "n" },
+                },
+                {
                         "<leader><leader>f",
                         function() Snacks.picker.files({ layout = "vertical" }) end,
                         desc = "File Picker",
@@ -343,7 +349,7 @@ return {
                                                 { "]", hl = "DropBarKindNumber" }
                                         },
                                         key     = "c",
-                                        action  = [[<cmd>Telescope find_files cwd=$HOME/.config/nvim<cr>]],
+                                        action  = function () Snacks.picker.files() end,
                                         padding = 1,
                                         align   = "center"
                                 },

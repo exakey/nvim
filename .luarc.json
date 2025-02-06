@@ -20,7 +20,8 @@
       "require",
       "string",
       "Snacks",
-      "NONE"
+      "NONE",
+            "pairs"
     ],
     "groupFileStatus": {
       "ambiguity": "Any",
