@@ -36,12 +36,12 @@ end
 return {
         "mfussenegger/nvim-dap",
         keys   = {
+                { "<f5>", function() require("dap").toggle_breakpoint() end, desc = " Toggle breakpoint" },
                 { "<f6>", function() require("dap").step_over() end, desc = " Step over" },
                 { "<f7>", function() require("dap").continue() end, desc = " Continue" },
-                { "<f8>", function() require("dap").toggle_breakpoint() end, desc = " Toggle breakpoint" },
 
-                { "gb", function() gotoBreakpoint("next") end, desc = " Goto next breakpoint" },
-                { "gB", function() gotoBreakpoint("prev") end, desc = " Goto previous breakpoint" },
+                { "]b", function() gotoBreakpoint("next") end, desc = " Goto next breakpoint" },
+                { "[b", function() gotoBreakpoint("prev") end, desc = " Goto previous breakpoint" },
 
                 { "<leader>do", function() require("dap").step_out() end, desc = "󰆸 Step out" },
                 { "<leader>di", function() require("dap").step_in() end, desc = "󰆹 Step in" },
@@ -81,5 +81,110 @@ return {
                         vim.opt.number = false
                         vim.diagnostic.enable(true)
                 end
+                local dap                      = require("dap")
+                dap.adapters.nlua              = function(callback, config)
+                        callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
+                end
+
+                ----------------------------------------------------------------
+                -- LUA
+
+                dap.configurations.lua         = {
+                        {
+                                type    = 'nlua',
+                                request = 'attach',
+                                name    = "Attach to running Neovim instance",
+                                program = function() pcall(require "osv".launch({ port = 8086 })) end,
+                        }
+                }
+
+                ----------------------------------------------------------------
+                -- C
+
+                dap.adapters.codelldb          = {
+                        type       = 'server',
+                        port       = "${port}",
+                        executable = {
+                                command  = vim.fn.stdpath('data') .. '/mason/bin/codelldb',
+                                args     = { "--port", "${port}" },
+                                detached = function() if is_windows then return false else return true end end,
+                        }
+                }
+                dap.configurations.c           = {
+                        {
+                                name        = 'Launch',
+                                type        = 'codelldb',
+                                request     = 'launch',
+                                program     = function() -- Ask the user what executable wants to debug
+                                        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/bin/program',
+                                                'file')
+                                end,
+                                cwd         = '${workspaceFolder}',
+                                stopOnEntry = false,
+                                args        = {},
+                        },
+                }
+
+                ----------------------------------------------------------------
+                -- C++
+                dap.configurations.cpp         = dap.configurations.c
+
+                ----------------------------------------------------------------
+                -- GO
+
+                dap.adapters.delve             = {
+                        type       = 'server',
+                        port       = '${port}',
+                        executable = {
+                                command = vim.fn.stdpath('data') .. '/mason/packages/delve/dlv',
+                                args    = { 'dap', '-l', '127.0.0.1:${port}' },
+                        }
+                }
+                dap.configurations.go          = {
+                        {
+                                type    = "delve",
+                                name    = "Compile module and debug this file",
+                                request = "launch",
+                                program = "./${relativeFileDirname}",
+                        },
+                        {
+                                type    = "delve",
+                                name    = "Compile module and debug this file (test)",
+                                request = "launch",
+                                mode    = "test",
+                                program = "./${relativeFileDirname}"
+                        },
+                }
+
+                ----------------------------------------------------------------
+                -- BASH
+                dap.adapters.bashdb            = {
+                        type    = 'executable',
+                        command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter',
+                        name    = 'bashdb',
+                }
+                dap.configurations.sh          = {
+                        {
+                                type            = 'bashdb',
+                                request         = 'launch',
+                                name            = "Launch file",
+                                showDebugOutput = true,
+                                pathBashdb      = vim.fn.stdpath("data") ..
+                                    '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
+                                pathBashdbLib   = vim.fn.stdpath("data") ..
+                                    '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
+                                trace           = true,
+                                file            = "${file}",
+                                program         = "${file}",
+                                cwd             = '${workspaceFolder}',
+                                pathCat         = "cat",
+                                pathBash        = "/bin/bash",
+                                pathMkfifo      = "mkfifo",
+                                pathPkill       = "pkill",
+                                args            = {},
+                                env             = {},
+                                terminalKind    = "integrated",
+                        }
+                }
         end,
 }
