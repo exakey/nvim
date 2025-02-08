@@ -22,6 +22,12 @@ return {
                         mode = { "n" },
                 },
                 {
+                        "<leader><leader>s",
+                        function() Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } }) end,
+                        desc = "Picker",
+                        mode = { "n" },
+                },
+                {
                         "<leader><leader>f",
                         function() Snacks.picker.files({ layout = "vertical" }) end,
                         desc = "File Picker",
@@ -349,7 +355,7 @@ return {
                                                 { "]", hl = "DropBarKindNumber" }
                                         },
                                         key     = "c",
-                                        action  = function () Snacks.picker.files() end,
+                                        action  = function() Snacks.picker.files() end,
                                         padding = 1,
                                         align   = "center"
                                 },

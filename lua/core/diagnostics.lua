@@ -118,16 +118,32 @@ end, {
 --------------------------------------------------------------------------------
 -- DIAGNOSTICS
 
-vim.diagnostic.config {
-        signs            = {
+local numbers = {
+                text = {
+                        [vim.diagnostic.severity.ERROR] = "",
+                        [vim.diagnostic.severity.WARN]  = "",
+                        [vim.diagnostic.severity.INFO]  = "",
+                        [vim.diagnostic.severity.HINT]  = "",
+                },
+                numhl = {
+                        [vim.diagnostic.severity.WARN]  = "WarningMsg",
+                        [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+                        [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
+                        [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
+                },
+        }
+local icons = {
                 text = {
                         [vim.diagnostic.severity.ERROR] = "󰨓",
                         [vim.diagnostic.severity.WARN]  = "󰨓",
                         [vim.diagnostic.severity.INFO]  = "󰨓",
                         [vim.diagnostic.severity.HINT]  = "󰨓",
                 },
-        },
-        jump             = { float = false }, -- (nvim 0.11)
+        }
+
+vim.diagnostic.config {
+        signs            = numbers,
+        jump             = { float = false },
         virtual_text     = false,
         update_in_insert = false,
         severity_sort    = true,
