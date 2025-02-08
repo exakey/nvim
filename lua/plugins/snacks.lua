@@ -22,12 +22,6 @@ return {
                         mode = { "n" },
                 },
                 {
-                        "<leader><leader>s",
-                        function() Snacks.picker.lsp_symbols({ layout = { preset = "vscode", preview = "main" } }) end,
-                        desc = "Picker",
-                        mode = { "n" },
-                },
-                {
                         "<leader><leader>f",
                         function() Snacks.picker.files({ layout = "vertical" }) end,
                         desc = "File Picker",
