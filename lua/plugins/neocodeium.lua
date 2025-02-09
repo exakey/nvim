@@ -1,7 +1,8 @@
 return {
         "monkoose/neocodeium",
-        lazy   = false,
-        config = function()
+        enabled = false,
+        lazy    = false,
+        config  = function()
                 local neocodeium = require("neocodeium")
                 neocodeium.setup({
                         bin        = ".codeium/bin/1.26.0/language_server_linux_x64",

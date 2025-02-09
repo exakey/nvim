@@ -105,12 +105,19 @@ end
 map("n", "<CR>", '@="m`o<C-V><Esc>``"<cr>', { desc = " blank below", silent = true })
 map("n", "<S-CR>", '@="m`O<C-V><Esc>``"<cr>', { desc = " blank above", silent = true })
 
-map("n", "<Tab>", ">>", { desc = "󰉶 indent" })
-map("n", "<S-Tab>", "<<", { desc = "󰉵 outdent" })
-map("x", "<Tab>", ">gv", { desc = "󰉶 indent" })
-map("x", "<S-Tab>", "<gv", { desc = "󰉵 outdent" })
-map("i", "<Tab>", "<C-t>", { desc = "󰉶 indent" })
-map("i", "<S-Tab>", "<C-d>", { desc = "󰉵 outdent" })
+-- map("n", "<Tab>", ">>", { desc = "󰉶 indent" })
+-- map("n", "<S-Tab>", "<<", { desc = "󰉵 outdent" })
+-- map("x", "<Tab>", ">gv", { desc = "󰉶 indent" })
+-- map("x", "<S-Tab>", "<gv", { desc = "󰉵 outdent" })
+-- map("i", "<Tab>", "<C-t>", { desc = "󰉶 indent" })
+-- map("i", "<S-Tab>", "<C-d>", { desc = "󰉵 outdent" })
+
+map("n", "<A-l>", ">>", { desc = "󰉶 indent" })
+map("n", "<A-h>", "<<", { desc = "󰉵 outdent" })
+map("x", "<A-l>", ">gv", { desc = "󰉶 indent" })
+map("x", "<A-h>", "<gv", { desc = "󰉵 outdent" })
+map("i", "<A-l>", "<C-t>", { desc = "󰉶 indent" })
+map("i", "<A-h>", "<C-d>", { desc = "󰉵 outdent" })
 
 -- Spelling (these work even with `spell=false`)
 map("n", "z.", "1z=", { desc = "󰓆 Fix spelling" })
@@ -118,8 +125,7 @@ map("n", "z.", "1z=", { desc = "󰓆 Fix spelling" })
 map("n", "zl", function() require("functions.misc").spellSuggest(9) end, { desc = "󰓆 Spell suggestions" })
 
 -- Merging
-map("n", "m", "J", { desc = "󰽜 Merge line up" })
-map("n", "M", "<cmd>. move +1<CR>kJ", { desc = "󰽜 Merge line down" }) -- `:move` preserves marks
+map("n", "m", "J", { desc = "󰽜 Merge line up" }) map("n", "M", "<cmd>. move +1<CR>kJ", { desc = "󰽜 Merge line down" }) -- `:move` preserves marks
 
 -- Last line
 map("n", "G", "Gzz", { desc = "Goto last line" })
@@ -140,14 +146,9 @@ map({ "i", "n" }, "<A-s>", "<cmd>wa<cr><esc>", { desc = "Save File" })
 --------------------------------------------------------------------------------
 -- SURROUND
 
--- map("n", '"', [[wBi"<Esc>ea"<Esc>b]], { desc = ' " surround cword' })
--- map("n", "'", [[wBi'<Esc>ea'<Esc>b]], { desc = " ' surround cword" })
--- map("n", "(", [[wBi(<Esc>ea)<Esc>b]], { desc = "󰅲 surround cword" })
--- map("n", "[", [[wBi[<Esc>ea]<Esc>b]], { desc = "󰅪 surround cword", nowait = true })
--- map("n", "{", [[wBi{<Esc>ea}<Esc>b]], { desc = " surround cword" })
-map("n", "<A-e>", [[wBi`<Esc>ea`<Esc>b]], { desc = " Inline Code cword" })
-map("x", "<A-e>", "<Esc>`<i`<Esc>`>la`<Esc>", { desc = " Inline Code selection" })
-map("i", "<A-e>", "``<Left>", { desc = " Inline Code" })
+map("n", "<A-`>", [[wBi`<Esc>ea`<Esc>b]], { desc = " Inline Code cword" })
+map("x", "<A-`>", "<Esc>`<i`<Esc>`>la`<Esc>", { desc = " Inline Code selection" })
+map("i", "<A-`>", "``<Left>", { desc = " Inline Code" })
 
 --------------------------------------------------------------------------------
 -- TEXTOBJECTS
@@ -193,14 +194,15 @@ map("n", "qO", function() require("functions.comment").addComment("above") end, 
 --------------------------------------------------------------------------------
 -- LINE & CHARACTER MOVEMENT
 
-map("n", "<A-h>", [["zdh"zph]], { desc = "󰜱 Move char left" })
+-- map("n", "<A-h>", [["zdh"zph]], { desc = "󰜱 Move char left" })
+-- map("n", "<A-l>", [["zx"zp]], { desc = "󰜴 Move char right" })
+-- map("x", "<A-h>", [["zxhh"zpgvhoho]], { desc = "󰜱 Move selection left" })
+-- map("x", "<A-l>", [["zx"zpgvlolo]], { desc = "󰜴 Move selection right" })
+
 map("n", "<A-j>", [[<cmd>. move +1<CR>==]], { desc = "󰜮 Move line down" })
 map("n", "<A-k>", [[<cmd>. move -2<CR>==]], { desc = "󰜷 Move line up" })
-map("n", "<A-l>", [["zx"zp]], { desc = "󰜴 Move char right" })
-map("x", "<A-h>", [["zxhh"zpgvhoho]], { desc = "󰜱 Move selection left" })
 map("x", "<A-j>", [[:move '>+1<CR>gv=gv]], { desc = "󰜮 Move selection down", silent = true })
 map("x", "<A-k>", [[:move '<-2<CR>gv=gv]], { desc = "󰜷 Move selection up", silent = true })
-map("x", "<A-l>", [["zx"zpgvlolo]], { desc = "󰜴 Move selection right" })
 
 --------------------------------------------------------------------------------
 -- LSP

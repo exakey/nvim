@@ -1,9 +1,8 @@
-return { -- refactoring utilities
+return {
         "ThePrimeagen/refactoring.nvim",
         dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter" },
         opts         = { show_success_message = true },
         keys         = {
-                -- stylua: ignore start
                 {
                         "<leader>fi",
                         function() require("refactoring").refactor("Inline Variable") end,
@@ -28,6 +27,5 @@ return { -- refactoring utilities
                         mode = "x",
                         desc = "󱗘 Extract Func to File",
                 },
-                -- stylua: ignore end
         },
 }

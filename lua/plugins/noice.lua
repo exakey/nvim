@@ -3,36 +3,17 @@ return {
         event  = "VeryLazy",
         config = function()
                 require("noice").setup({
-                        notify    = {
-                                enabled = false
-                        },
-                        lsp       = {
-                                progress = {
-                                        enabled = false
-                                }
-                        },
+                        routes    = { { opts = { skip = true }, filter = { event = "msg_show", kind = "search_count" } } },
+                        lsp       = { progress = { enabled = false } },
+                        notify    = { enabled = false },
                         views     = {
                                 cmdline_popup = {
-                                        border         = {
-                                                style   = "none",
-                                                padding = { 1, 1 },
-                                        },
-                                        position       = {
-                                                row = 6,
-                                                col = "50%",
-                                        },
+                                        border         = { style = "none", padding = { 1, 1 } },
+                                        position       = { row = 6, col = "50%" },
                                         filter_options = {},
-                                        win_options    = {
-                                                -- winhighlight = {
-                                                -- 	Normal = "Pmenu",
-                                                -- 	FloatBorder = "Normal",
-                                                -- },
-                                        },
                                 },
                         },
-                        messages  = {
-                                enabled = true,
-                        },
+                        messages  = { enabled = true },
                         cmdline   = {
                                 format = {
                                         cmdline     = { pattern = "^:", icon = ">", lang = "vim" },
@@ -44,9 +25,7 @@ return {
                                         input       = { view = "cmdline_input", icon = "󰥻 " },
                                 },
                         },
-                        popupmenu = {
-                                enabled = "cmp",
-                        },
+                        popupmenu = { enabled = "cmp" },
                 })
         end,
 }
