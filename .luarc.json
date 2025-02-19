@@ -1,73 +1,85 @@
 {
-  "diagnostics": {
-    "globals": [
-      "bit",
-      "vim",
-      "it",
-      "describe",
-      "before_each",
-      "after_each",
-      "get_warnings_component",
-      "get_errors_component",
-      "get_infos_component",
-      "get_saved_component",
-      "get_mode_component",
-      "get_file_component",
-      "get_component",
-      "get_component_separator",
-      "get_branch_component",
-      "get_branch_changes_component",
-      "require",
-      "string",
-      "Snacks",
-      "NONE",
-            "pairs"
-    ],
-    "groupFileStatus": {
-      "ambiguity": "Any",
-      "await": "Any",
-      "duplicate": "Any",
-      "global": "Any",
-      "luadoc": "Any",
-      "redefined": "Any",
-      "strict": "Any",
-      "type-check": "Any",
-      "unbalanced": "Any",
-      "unused": "Any"
-    },
-    "disable": [
-      "missing-fields",
-      "trailing-space",
-      "lowercase-global",
-      "undefined-field"
-    ],
-    "workspaceDelay": -1,
-    "workspaceEvent": "OnSave",
-    "workspaceRate": 100
-  },
-  "hint": {
-    "enable": true
-  },
-  "runtime": {
-    "version": "LuaJIT"
-  },
-  "hover": {
-    "enable": true
-  },
-  "workspace": {
-    "maxPreload": 1600,
-    "preloadFileSize": 1000,
-    "ignoreDir": ["/locale/", "/libs/", "/3rd", "/.vscode", "/meta"],
-    "checkThirdParty": "Disable"
-  },
-  "semantic": {
-    "enable": false,
-    "annotation": true,
-    "keyword": true,
-    "variable": true
-  },
-  "format": {
-    "enable": true
-  },
-  "telemetry": false
+        "diagnostics": {
+                "globals": [
+                        "bit",
+                        "vim",
+                        "it",
+                        "describe",
+                        "before_each",
+                        "after_each",
+                        "get_warnings_component",
+                        "get_errors_component",
+                        "get_infos_component",
+                        "get_saved_component",
+                        "get_mode_component",
+                        "get_file_component",
+                        "get_component",
+                        "get_component_separator",
+                        "get_branch_component",
+                        "get_branch_changes_component",
+                        "require",
+                        "string",
+                        "Snacks",
+                        "NONE",
+                        "pairs",
+            "snacks"
+                ],
+                "groupFileStatus": {
+                        "ambiguity": "Any",
+                        "await": "Any",
+                        "duplicate": "Any",
+                        "global": "Any",
+                        "luadoc": "Any",
+                        "redefined": "Any",
+                        "strict": "Any",
+                        "type-check": "Any",
+                        "unbalanced": "Any",
+                        "unused": "Any"
+                },
+                "disable": [
+                        "missing-fields",
+                        "trailing-space",
+                        "lowercase-global",
+                        "undefined-field"
+                ],
+                "workspaceDelay": -1,
+                "workspaceEvent": "OnSave",
+                "workspaceRate": 100
+        },
+        "hint": {
+                "enable": true
+        },
+        "runtime": {
+                "version": "LuaJIT"
+        },
+        "hover": {
+                "enable": true
+        },
+        "workspace": {
+                "maxPreload": 1600,
+                "preloadFileSize": 1000,
+                "ignoreDir": [
+                        "/locale/",
+                        "/libs/",
+                        "/3rd",
+                        "/.vscode",
+                        "/meta"
+                ],
+                "checkThirdParty": "Disable",
+                "library": [
+                        "$VIMRUNTIME",
+                        "$XDG_DATA_HOME/nvim/lazy",
+                        "${3rd}/luv/library"
+                ]
+        },
+        "semantic": {
+                "enable": false,
+                "annotation": true,
+                "keyword": true,
+                "variable": true
+        },
+        "format": {
+                "enable": true
+        },
+        "telemetry": false
 }

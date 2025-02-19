@@ -54,7 +54,7 @@ return {
         -- init   = function() vim.g.whichkeyAddSpec { "<leader>d", group = "󰃤 Debugger" } end,
         config = function()
                 -- ICONS & HIGHLIGHTS
-                vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
+                vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticError" })
                 vim.fn.sign_define("DapBreakpointCondition", { text = "󰇽", texthl = "DiagnosticInfo" })
                 vim.fn.sign_define("DapLogPoint", { text = "󰍩", texthl = "DiagnosticInfo" })
                 vim.fn.sign_define("DapLogRejected", { text = "", texthl = "DiagnosticInfo" })

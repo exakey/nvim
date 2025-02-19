@@ -1,149 +1,154 @@
-local o = vim.opt
+local opt = vim.opt
 
 -- GENERAL
 
-o.spelloptions:append("noplainbuffer")
+opt.spelloptions:append("noplainbuffer")
 
-o.undofile    = true
-o.undolevels  = 10000
-o.swapfile    = false
+opt.undofile    = true
+opt.undolevels  = 10000
+opt.swapfile    = false
 
-o.spell       = false
--- o.spellfile
-o.spelllang   = "en_us"
+opt.spell       = false
+-- opt.spellfile
+opt.spelllang   = "en_us"
 
-o.splitright  = true
-o.splitbelow  = true
+opt.splitright  = true
+opt.splitbelow  = true
 
-o.cursorline  = true
--- o.signcolumn  = "yes:2"
-o.signcolumn  = "yes:1"
+opt.cursorline  = true
+-- opt.signcolumn  = "yes:2"
+opt.signcolumn  = "yes:1"
 
-o.wrap        = false
-o.breakindent = true
+opt.wrap        = false
+opt.breakindent = true
 
-o.shortmess:append({ W = true, I = true, c = true, C = true })
-o.report = 9901
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.report = 9901
 
-o.iskeyword:append("-")
--- o.nrformats = {}
+opt.iskeyword:append("-")
+-- opt.nrformats = {}
 
-o.autowrite     = false
-o.autowriteall  = false
+opt.autowrite     = false
+opt.autowriteall  = false
 
-o.jumpoptions   = { "stack" }
-o.startofline   = true
+opt.jumpoptions   = { "stack" }
+opt.startofline   = true
 
--- o.timeoutlen     = 666
+-- opt.timeoutlen     = 666
 
-o.scrolloff     = 12
-o.sidescrolloff = 4
+opt.scrolloff     = 12
+opt.sidescrolloff = 4
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 -- EDITORCONFIG
 
-o.textwidth     = 80
+opt.textwidth     = 80
 
-o.expandtab     = true
--- o.tabstop = 3
-o.shiftwidth    = 8
+opt.expandtab     = true
+-- opt.tabstop = 3
+opt.shiftwidth    = 8
 
-o.shiftround    = true
-o.smartindent   = true
+opt.shiftround    = true
+opt.smartindent   = true
 
 --------------------------------------------------------------------------------
 -- FILETYPES
 
 vim.filetype.add {
-    filename = {
-        [".ignore"] = "gitignore", -- ignore files for fd/rg
-    },
+        filename = {
+                [".ignore"] = "gitignore", -- ignore files for fd/rg
+        },
 }
 
 --------------------------------------------------------------------------------
 -- SEARCH & CMDLINE
 
-o.ignorecase   = true
-o.smartcase    = true
-o.cmdheight    = 0
+opt.ignorecase   = true
+opt.smartcase    = true
+opt.cmdheight    = 0
 
 --------------------------------------------------------------------------------
 -- INVISIBLE CHARS
 
-o.list         = true
-o.conceallevel = 3
-o.fillchars:append {
-    fold      = " ",
-    vert      = "▕",
-    -- vert      = "█",
-    -- horiz     = "▄",
-    -- horizup   = "█",
-    -- horizdown = "█",
-    -- vertleft  = "█",
-    -- vertright = "█",
-    -- verthoriz = "█",
-    eob       = " ",
-    foldclose = "",
-    foldopen  = "",
-    foldsep   = " ",
-    diff      = "╱",
-}
-vim.opt.listchars = {
-    nbsp       = " ",
-    precedes   = "…",
-    extends    = "…",
-    multispace = " ",
-    lead       = " ",
-    trail      = " ",
-    tab        = "  ",
+opt.list         = true
+opt.conceallevel = 3
+opt.fillchars:append {
+        fold      = " ",
+        vert      = "▕",
+        -- vert      = "█",
+        -- horiz     = "▄",
+        -- horizup   = "█",
+        -- horizdown = "█",
+        -- vertleft  = "█",
+        -- vertright = "█",
+        -- verthoriz = "█",
+        eob       = " ",
+        foldclose = "",
+        foldopen  = "",
+        foldsep   = " ",
+        diff      = "╱",
 }
 
-o.completeopt     = "menu,menuone,noselect"
-o.conceallevel    = 0
-o.confirm         = true
-o.grepformat      = "%f:%l:%c:%m"
-o.grepprg         = "rg --vimgrep"
-o.inccommand      = "nosplit"
-o.incsearch       = true
-o.linebreak       = false
-o.list            = true
-o.mouse           = "a"
-o.number          = true
-o.pumblend        = 10
-o.pumheight       = 20
-o.relativenumber  = true
-o.sessionoptions  = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
-o.showmode        = false
-o.termguicolors   = true
-o.termsync        = true
-o.updatetime      = 50
-o.virtualedit     = "block"
-o.wildmode        = "longest:full,full"
-o.winminwidth     = 5
-o.wrapmargin      = 120
-o.syntax          = "on"
+opt.listchars      = {
+        nbsp       = " ",
+        precedes   = "…",
+        extends    = "…",
+        multispace = " ",
+        lead       = " ",
+        trail      = " ",
+        tab        = "  ",
+}
 
-if vim.fn.has("nvim-0.10") == 1 then
-    o.smoothscroll = true
-    o.foldexpr     = "v:lua.require'lazyvim.util'.ui.foldexpr()"
-    o.foldmethod   = "expr"
-    o.foldtext     = ""
-else
-    o.foldmethod = "indent"
-    o.foldtext   = "v:lua.require'lazyvim.util'.ui.foldtext()"
-end
+opt.completeopt    = "menu,menuone,noselect"
+opt.confirm        = true
+opt.grepformat     = "%f:%l:%c:%m"
+opt.grepprg        = "rg --vimgrep"
+opt.inccommand     = "nosplit"
+opt.incsearch      = true
+opt.linebreak      = false
+opt.list           = true
+opt.mouse          = "a"
+opt.number         = true
+opt.pumblend       = 10
+opt.pumheight      = 20
+opt.relativenumber = true
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.showmode       = false
+opt.syntax         = "on"
+opt.termguicolors  = true
+opt.termsync       = true
+opt.updatetime     = 50
+opt.virtualedit    = "block"
+opt.wildmode       = "longest:full,full"
+opt.winminwidth    = 5
+opt.wrapmargin     = 120
+
+opt.foldmethod     = 'expr'
+opt.foldexpr       = 'nvim_treesitter#foldexpr()'
+opt.foldlevelstart = 99
+
+-- opt.foldcolumn     = "auto"
+-- opt.foldenable     = true
+-- opt.foldlevel      = 99
+-- -- opt.foldlevelstart = 1
+-- opt.foldmethod     = "indent"
+-- opt.foldnestmax    = 4
+-- opt.foldtext       = ""
+
+opt.smoothscroll   = true
+
 
 vim.g.markdown_recommended_style = 0
 
 vim.cmd("autocmd BufEnter * set fo-=c fo-=r fo-=o")
 
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
-    group = vim.api.nvim_create_augroup("Color", {}),
-    pattern = "*",
-    callback = function() end,
+        group    = vim.api.nvim_create_augroup("Color", {}),
+        pattern  = "*",
+        callback = function() end,
 })
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { focusable = false }
+        vim.lsp.handlers.signature_help,
+        { focusable = false }
 )

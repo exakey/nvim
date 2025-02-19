@@ -21,7 +21,8 @@ local lspToMasonMap = {
         glsl_analyzer         = "glsl_analyzer",
         html                  = "html-lsp",
         jsonls                = "json-lsp",
-        ltex_plus             = "ltex-ls-plus",               -- ltex-fork, languagetool (natural language linter)
+        jdtls                 = "jdtls",
+        -- ltex_plus             = "ltex-ls-plus",               -- ltex-fork, languagetool (natural language linter)
         lua_ls                = "lua-language-server",
         marksman              = "marksman",                   -- markdown lsp
         ruff                  = "ruff",                       -- python linter & formatter
@@ -189,49 +190,47 @@ M.serverConfigs.clangd                    = {
 
 --------------------------------------------------------------------------------
 -- GLSL
-M.serverConfigs.glsl_analyzer             = {
-
-}
+M.serverConfigs.glsl_analyzer             = {}
 
 --------------------------------------------------------------------------------
 -- LUA
 
 -- DOCS https://luals.github.io/wiki/settings/
 M.serverConfigs.lua_ls                    = {}
--- M.serverConfigs.lua_ls                    = {
---         settings = {
---                 Lua = {
---                         completion  = {
---                                 callSnippet    = "Replace", -- functions -> no replace snippet
---                                 keywordSnippet = "Replace", -- keywords -> replace
---                                 showWord       = "Disable", -- already done by completion plugin
---                                 workspaceWord  = false,     -- already done by completion plugin
---                                 postfix        = ".",       -- useful for `table.insert` and the like
---                         },
---                         diagnostics = {
---                                 disable = {
---                                         -- formatter already handles that
---                                         "trailing-space",
---                                         -- don't dim content of unused functions
---                                         -- (no loss of diagnostic, used `unused-local` will still inform
---                                         -- us about these functions)
---                                         "unused-function",
---                                 },
---                         },
---                         hint        = { -- inlay hints
---                                 enable     = true,
---                                 setType    = true,
---                                 arrayIndex = "Disable", -- too noisy
---                                 semicolon  = "Disable", -- mostly wrong on invalid code
---                         },
---                         format      = {
---                                 enable = false, -- using `stylua` instead
---                         },
---                         -- FIX https://github.com/sumneko/lua-language-server/issues/679#issuecomment-925524834
---                         workspace   = { checkThirdParty = "Disable" },
---                 },
---         },
--- }
+M.serverConfigs.lua_ls                    = {
+        settings = {
+                Lua = {
+                        completion  = {
+                                callSnippet    = "Replace", -- functions -> no replace snippet
+                                keywordSnippet = "Replace", -- keywords -> replace
+                                showWord       = "Disable", -- already done by completion plugin
+                                workspaceWord  = false,     -- already done by completion plugin
+                                postfix        = ".",       -- useful for `table.insert` and the like
+                        },
+                        diagnostics = {
+                                disable = {
+                                        -- formatter already handles that
+                                        "trailing-space",
+                                        -- don't dim content of unused functions
+                                        -- (no loss of diagnostic, used `unused-local` will still inform
+                                        -- us about these functions)
+                                        "unused-function",
+                                },
+                        },
+                        hint        = { -- inlay hints
+                                enable     = true,
+                                setType    = true,
+                                arrayIndex = "Disable", -- too noisy
+                                semicolon  = "Disable", -- mostly wrong on invalid code
+                        },
+                        format      = {
+                                enable = false, -- using `stylua` instead
+                        },
+                        -- FIX https://github.com/sumneko/lua-language-server/issues/679#issuecomment-925524834
+                        workspace   = { checkThirdParty = "Disable" },
+                },
+        },
+}
 
 --------------------------------------------------------------------------------
 -- PYTHON

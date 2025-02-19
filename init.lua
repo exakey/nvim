@@ -1,3 +1,11 @@
+_G.dd = function(...)
+        Snacks.debug.inspect(...)
+end
+_G.bt = function()
+        Snacks.debug.backtrace()
+end
+vim.print = _G.dd
+
 -- FIX broken `:Inspect` https://github.com/neovim/neovim/issues/31675
 -- can be removed on the version after 0.10.3
 vim.hl = vim.highlight
@@ -19,7 +27,7 @@ end
 
 -- CONFIG
 vim.g.mapleader      = " "
-vim.g.maplocalleader = "<Nop>" -- disable `\` being default local leader
+vim.g.maplocalleader = "<Nop>"  -- disable `\` being default local leader
 -- vim.g.borderStyle    = NONE
 vim.g.localRepos     = vim.fs.normalize("~/Documents/Code/")
 
@@ -37,10 +45,10 @@ end
 safeRequire("core.options")
 
 if not vim.env.NO_PLUGINS then
-	-- INFO only load plugins when `NO_PLUGINS` is not set.
-	-- This is for security reasons, e.g., when editing a password with `pass`.
-	safeRequire("core.lazy")
-	if vim.g.setColorscheme then vim.g.setColorscheme("init") end
+        -- INFO only load plugins when `NO_PLUGINS` is not set.
+        -- This is for security reasons, e.g., when editing a password with `pass`.
+        safeRequire("core.lazy")
+        if vim.g.setColorscheme then vim.g.setColorscheme("init") end
 end
 
 safeRequire("core.autocmds")

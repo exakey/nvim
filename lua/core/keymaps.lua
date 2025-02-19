@@ -39,11 +39,11 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up" })
 
 -- Search
-map("n", "-", "/")
-map("x", "-", "<Esc>/\\%V", { desc = " Search in sel" })
+-- map("n", "-", "/")
+-- map("x", "-", "<Esc>/\\%V", { desc = " Search in sel" })
 map("n", "n", "nzz", { desc = "Search next" })
 map("n", "N", "Nzz", { desc = "Search previous" })
-map({ "i", "n" }, "<esc>", "<cmd>nohlsearch<cr><esc>", { desc = "Escape and Clear hlsearch" })
+map({ "n", "i" }, "<esc>", "<cmd>nohlsearch<cr><esc>", { desc = "Escape and Clear hlsearch" })
 
 -- Goto matching parenthesis (`remap` needed to use builtin `MatchIt` plugin)
 map("n", "gm", "%", { desc = "󰅪 Goto match", remap = true })
@@ -63,6 +63,12 @@ end, { desc = " Open first URL in file" })
 map("n", "f", function() require("functions.misc").fF("f") end, { desc = "f" })
 map("n", "F", function() require("functions.misc").fF("F") end, { desc = "F" })
 
+-- Jump between folds
+map("n", "<C-a>", "zkzzzz", { desc = "Next fold" })
+map("n", "<C-x>", "zjzzzz", { desc = "Prev fold" })
+map("n", "zh", "zczzzz", { desc = "Close current fold" })
+map("n", "zl", "zRzzzz", { desc = "Open all folds" })
+
 -- Move to the end of previous word
 map({ "n", "v" }, "W", "ge", { desc = "Jump to the end of previous word" })
 
@@ -76,7 +82,6 @@ map("n", "<leader>uu", ":earlier ", { desc = "󰜊 Undo to earlier" })
 map("n", "<leader>ur", function() vim.cmd.later(vim.o.undolevels) end, { desc = "󰛒 Redo all" })
 
 -- Duplicate
--- stylua: ignore
 map("n", "ww", function() require("functions.misc").smartDuplicate() end, { desc = "󰲢 Duplicate line" })
 
 -- Toggles
@@ -122,10 +127,11 @@ map("i", "<A-h>", "<C-d>", { desc = "󰉵 outdent" })
 -- Spelling (these work even with `spell=false`)
 map("n", "z.", "1z=", { desc = "󰓆 Fix spelling" })
 -- stylua: ignore
-map("n", "zl", function() require("functions.misc").spellSuggest(9) end, { desc = "󰓆 Spell suggestions" })
+map("n", "z,", function() require("functions.misc").spellSuggest(9) end, { desc = "󰓆 Spell suggestions" })
 
 -- Merging
-map("n", "m", "J", { desc = "󰽜 Merge line up" }) map("n", "M", "<cmd>. move +1<CR>kJ", { desc = "󰽜 Merge line down" }) -- `:move` preserves marks
+map("n", "m", "J", { desc = "󰽜 Merge line up" })
+map("n", "M", "<cmd>. move +1<CR>kJ", { desc = "󰽜 Merge line down" }) -- `:move` preserves marks
 
 -- Last line
 map("n", "G", "Gzz", { desc = "Goto last line" })
@@ -199,14 +205,14 @@ map("n", "qO", function() require("functions.comment").addComment("above") end, 
 -- map("x", "<A-h>", [["zxhh"zpgvhoho]], { desc = "󰜱 Move selection left" })
 -- map("x", "<A-l>", [["zx"zpgvlolo]], { desc = "󰜴 Move selection right" })
 
-map("n", "<A-j>", [[<cmd>. move +1<CR>==]], { desc = "󰜮 Move line down" })
-map("n", "<A-k>", [[<cmd>. move -2<CR>==]], { desc = "󰜷 Move line up" })
+map("n", "<A-j>", "ddp", { desc = "󰜮 Move line down", silent = true })
+map("n", "<A-k>", [[<cmd>. move -2<CR>==]], { desc = "󰜷 Move line up", silent = true })
 map("x", "<A-j>", [[:move '>+1<CR>gv=gv]], { desc = "󰜮 Move selection down", silent = true })
 map("x", "<A-k>", [[:move '<-2<CR>gv=gv]], { desc = "󰜷 Move selection up", silent = true })
 
 --------------------------------------------------------------------------------
 -- LSP
-map({ "n", "i", "v" }, "<A-i>", vim.lsp.buf.signature_help, { desc = "󰏪 LSP Signature" })
+map({ "n", "v" }, "K", vim.lsp.buf.signature_help, { desc = "󰏪 LSP Signature" })
 -- map({ "n", "x" }, "<C-s>", function() require("functions.misc").formatWithFallback() end, { desc = "󱉯 Save & Format" })
 map({ "n", "x" }, "<leader><leader>c", function()
         require("tiny-code-action").code_action()
@@ -360,8 +366,11 @@ map("i", "<A-t>", function() require("functions.auto-template-str").insertTempla
 --------------------------------------------------------------------------------
 -- OPTION TOGGLING
 
+map("n", "<leader>or", "<cmd>set relativenumber!<CR>", { desc = " Relative line numbers" })
 map("n", "<leader>on", "<cmd>set number!<CR>", { desc = " Line numbers" })
 map("n", "<leader>ow", "<cmd>set wrap!<CR>", { desc = "󰖶 Wrap" })
+map("n", "<leader>oi", "<cmd>IBLToggle<CR>", { desc = "󰖶 Indent guides" })
+map("n", "<leader>os", "<cmd>ScrollbarToggle<CR>", { desc = "Scrollbar" })
 
 map("n", "<leader>od", function()
         local isEnabled = vim.diagnostic.is_enabled { bufnr = 0 }
@@ -385,10 +394,6 @@ map("n", "<leader>oc", function() vim.wo.conceallevel = vim.wo.conceallevel == 0
 
 -- TREE
 map("n", "<leader>e", "<cmd>Neotree toggle<cr>", { desc = "Tree" })
-map("n", "<leader>fe", "<cmd>Neotree toggle filesystem selector=false<cr>", { desc = "Tree" })
-map("n", "<leader>ge", "<cmd>Neotree toggle git_status selector=false<cr>", { desc = "Git status" })
-map("n", "<leader>be", "<cmd>Neotree toggle buffers selector=false<cr>", { desc = "Buffers" })
--- map("n", "<leader>de", "<cmd>Neotree toggle document_symbols selector=false right<cr>", { desc = "Symbols" })
 
 -- UNDOTREE
 map("n", "<leader>ut", "<cmd>UndotreeToggle<cr>", { desc = "Undo tree" })
@@ -399,3 +404,22 @@ map("n", "<C-o>", "<cmd>Outline<cr>", { desc = "Outline" })
 -- WINSHIFT
 map("n", "<leader>w", "<Cmd>WinShift<cr>", { desc = "Start Win-Move mode" })
 map("n", "<leader>wt", "<Cmd>WindowsToggleAutowidth<cr>", { desc = "Toggle window autowidth" })
+
+--------------------------------------------------------------------------------
+-- RELOAD PLUGINS
+
+map("n", "<leader>lr", function()
+        local plugins      = require("lazy").plugins()
+        local plugin_names = {}
+        for _, plugin in ipairs(plugins) do
+                table.insert(plugin_names, plugin.name)
+        end
+
+        vim.ui.select(
+                plugin_names,
+                { title = "Reload plugin" },
+                function(selected)
+                        require("lazy").reload({ plugins = { selected } })
+                end
+        )
+end, { desc = "Reload plugin" })

@@ -31,7 +31,7 @@ return {
                 { "<leader>uh", "<cmd>Gitsigns reset_hunk<CR>", mode = { "n", "x" }, desc = "󰊢 Reset Hunk" },
 
                 -- OPTIONS
-                { "<leader>oi", "<cmd>Gitsigns toggle_deleted<CR>", desc = "󰊢 Inline Deletions" },
+                -- { "<leader>oi", "<cmd>Gitsigns toggle_deleted<CR>", desc = "󰊢 Inline Deletions" },
                 -- stylua: ignore end
                 {
                         "<leader>op",

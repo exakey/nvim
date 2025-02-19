@@ -1,16 +1,39 @@
+local nodeMode = function(ctx)
+        local success, node = pcall(vim.treesitter.get_node)
+        if vim.bo.filetype == 'lua' then
+                return { 'lsp', 'path' }
+        elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                return { 'buffer' }
+        else
+                return { 'lsp', 'path', 'snippets', 'buffer' }
+        end
+end
+
+local normalBuf = function()
+        return vim.tbl_filter(function(bufnr)
+                return vim.bo[bufnr].buftype == ''
+        end, vim.api.nvim_list_bufs())
+end
+
 return {
         "saghen/blink.cmp",
         event        = { "InsertEnter" },
         dependencies = {
-                -- "rafamadriz/friendly-snippets",
-                -- "L3MON4D3/LuaSnip",
+                {
+                        "L3MON4D3/LuaSnip",
+                        -- version      = "v2.*",
+                        dependencies = {
+                                "rafamadriz/friendly-snippets",
+                                config = function()
+                                        require('luasnip.loaders.from_vscode').lazy_load()
+                                end
+                        },
+                        config       = function() require('luasnip') end,
+                },
         },
         build        = "cargo build --release",
-
-        ---@module "blink.cmp"
-        ---@type blink.cmp.Config
         opts         = {
-                snippets   = { preset = "default" },
+                snippets   = { preset = "luasnip" },
                 completion = {
                         keyword       = { range = "prefix" },
                         accept        = {
@@ -21,7 +44,7 @@ return {
                                 },
                         },
                         list          = {
-                                selection = { preselect = true, auto_insert = false },
+                                selection = { preselect = false, auto_insert = false },
                                 cycle     = { from_bottom = true, from_top = true }
                         },
                         menu          = {
@@ -55,6 +78,7 @@ return {
                 },
                 sources    = {
                         per_filetype = { ["rip-substitute"] = { "buffer" }, gitcommit = {} },
+                        -- default      = nodeMode,
                         default      = { "snippets", "lazydev", "lsp", "path", "buffer" },
                         providers    = {
                                 lazydev  = {
@@ -65,13 +89,10 @@ return {
                                 lsp      = {
                                         name         = "LSP",
                                         module       = "blink.cmp.sources.lsp",
-                                        score_offset = 90,
-                                        -- fallback     = {},
+                                        score_offset = 80,
                                         enabled      = function()
                                                 if vim.bo.ft ~= "lua" then return true end
 
-                                                -- prevent useless suggestions when typing `--` in lua, but
-                                                -- keep the useful `---@param;@return` suggestion
                                                 local col                 = vim.api.nvim_win_get_cursor(0)[2]
                                                 local charsBefore         = vim.api.nvim_get_current_line():sub(col - 2,
                                                         col)
@@ -81,30 +102,52 @@ return {
                                         end,
 
                                 },
-                                snippets = { name = "Snip", score_offset = 80 },
-                                path     = { name = "Path", score_offset = 110 },
+                                snippets = {
+                                        name = "Snip",
+                                        score_offset = 90,
+                                },
+                                path     = {
+                                        name         = "Path",
+                                        module       = 'blink.cmp.sources.path',
+                                        score_offset = 110,
+                                        opts         = {
+                                                trailing_slash               = true,
+                                                label_trailing_slash         = true,
+                                                -- get_cwd                      = function(context)
+                                                --         return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
+                                                -- end,
+                                                show_hidden_files_by_default = false,
+                                        }
+                                },
                                 buffer   = {
                                         name               = "Buf",
                                         score_offset       = 60,
                                         max_items          = 4,
                                         min_keyword_length = 4,
                                         opts               = {
-                                                get_bufnrs = function()
-                                                        return vim.tbl_filter(function(bufnr)
-                                                                return vim.bo[bufnr].buftype == ''
-                                                        end, vim.api.nvim_list_bufs())
-                                                end
+                                                -- get_bufnrs = normalBuf,
+                                                get_bufnrs = vim.api.nvim_list_bufs,
                                         }
                                 }
                         },
                 },
                 keymap     = {
                         preset        = "none",
-                        ["<C-c>"]     = { "show" },
-                        ["<C-e>"]     = { "hide" },
-                        ["<C-k>"]     = { "select_prev", "fallback" },
+                        ["<C-h>"]     = { "snippet_backward", "fallback" },
+                        ["<C-l>"]     = { "snippet_forward", "fallback" },
                         ["<C-j>"]     = { "select_next", "fallback" },
-                        ["<C-Space>"] = { "select_and_accept" },
+                        ["<C-k>"]     = { "select_prev", "fallback" },
+                        ["<C-c>"]     = { function(cmp) if cmp.is_menu_visible() then cmp.hide() else cmp.show() end end },
+                        ["<C-Space>"] = {
+                                function(cmp)
+                                        if cmp.is_menu_visible() then
+                                                cmp.accept()
+                                                cmp.hide()
+                                        else
+                                                cmp.show()
+                                        end
+                                end
+                        },
                 },
                 appearance = {
                         nerd_font_variant = "mono",
@@ -138,4 +181,5 @@ return {
                 },
                 signature  = { enabled = false, window = { scrollbar = false } },
         },
+        opts_extend  = { "sources.default" }
 }

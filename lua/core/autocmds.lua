@@ -223,3 +223,5 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNew" }, {
                 end, 150)
         end,
 })
+
+vim.cmd("IBLDisable")

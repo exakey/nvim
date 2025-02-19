@@ -2,7 +2,6 @@ return { -- Better input/selection fields
         "stevearc/dressing.nvim",
         lazy = false,
         init = function(spec)
-                ---@diagnostic disable: duplicate-set-field
                 vim.ui.select = function(...)
                         require("lazy").load { plugins = { spec.name } }
                         return vim.ui.select(...)
@@ -12,7 +11,6 @@ return { -- Better input/selection fields
                         require("lazy").load { plugins = { spec.name } }
                         return vim.ui.input(...)
                 end
-                ---@diagnostic enable: duplicate-set-field
         end,
         keys = {
                 { "<Tab>",   "j", ft = "DressingSelect" },
