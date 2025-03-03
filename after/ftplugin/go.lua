@@ -18,9 +18,9 @@ vim.cmd(" highlight @type.builtin.go                        guifg=#89b4fa ")
 --------------------------------------------------------------------------------
 -- GO NORMAL SYNTAX HIGHLIGHTING
 
-vim.cmd(" highlight @keyword.import.go                      guifg=#cba6f7 ")
-vim.cmd(" highlight @keyword.function.go                    guifg=#89b4fa ")
-vim.cmd(" highlight @module.go                              guifg=#a6e3a1 ")
+vim.cmd(" highlight @keyword.import.go                      guifg=#f9e2af ")
+vim.cmd(" highlight @keyword.function.go                    guifg=#cba6f7 ")
+vim.cmd(" highlight @module.go                              guifg=#f38ba8 ")
 vim.cmd(" highlight @function.go                            guifg=#dce0e8 ")
 vim.cmd(" highlight @function.method.call.go                guifg=#f38ba8 ")
 vim.cmd(" highlight @type.builtin.go                        guifg=#89b4fa ")

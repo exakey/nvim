@@ -105,4 +105,7 @@ return {
                         },
                 })
         end,
+        keys         = {
+                { "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Tree", mode = { "n" } },
+        },
 }

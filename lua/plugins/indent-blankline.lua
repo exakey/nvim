@@ -1,8 +1,8 @@
 return {
         "lukas-reineke/indent-blankline.nvim",
-        lazy    = false,
-        main    = "ibl",
-        config  = function()
+        lazy   = false,
+        main   = "ibl",
+        config = function()
                 require("ibl").setup({
                         indent     = {
                                 tab_char = "󰨕",
@@ -18,4 +18,5 @@ return {
                         },
                 })
         end,
+        keys   = { { "<leader>oi", "<cmd>IBLToggle<CR>", desc = "󰖶 Indent guides", mode = { "n" } } },
 }

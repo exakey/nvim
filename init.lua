@@ -54,7 +54,6 @@ end
 safeRequire("core.autocmds")
 safeRequire("core.diagnostics")
 safeRequire("core.keymaps")
-safeRequire("core.quickfix")
 safeRequire("core.yank-paste")
 safeRequire("core.highlights")
 

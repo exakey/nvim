@@ -106,7 +106,7 @@ bkeymap("x", "<D-i>", "<Esc>`<i*<Esc>`>la*<Esc>", { desc = " Italics" })
 bkeymap("n", "<leader>er", function()
         -- CONFIG
         local outputPath = "/tmp/markdown-preview.html"
-        local browser    = "Brave Browser"
+        local browser    = "Firefox"
         local css        = vim.fn.stdpath("config") .. "/after/ftplugin/github-markdown.css"
 
         -- create github-html via pandoc

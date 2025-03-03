@@ -19,6 +19,7 @@ return { -- treesitter-based textobjs
                         mode = "o", -- only operator-pending to not conflict with selection-commenting
                         desc = "󰆈 Single Comment",
                 },
+
                 {
                         "dq",
                         function()
@@ -29,6 +30,7 @@ return { -- treesitter-based textobjs
                         end,
                         desc = "󰆈 Sticky Delete Comment",
                 },
+
                 {
                         "cq",
                         function()
@@ -44,10 +46,12 @@ return { -- treesitter-based textobjs
 
                 -- MOVE & SWAP
                 -- stylua: ignore start
-                { "<C-e>", "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz", desc = " Goto next function" },
-                { "<C-b>", "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz", desc = " Goto prev function" },
-                -- { "ä", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>", desc = " Swap next arg" },
-                -- { "Ä", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>", desc = " Swap prev arg" },
+                { "q,", "<cmd>TSTextobjectGotoPreviousStart @comment.outer<CR>", desc = " Swap next arg" },
+                { "q.", "<cmd>TSTextobjectGotoNextStart @comment.outer<CR>", desc = " Swap next arg" },
+                { "<A-,>", "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz", desc = " Goto prev function" },
+                { "<A-.>", "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz", desc = " Goto next function" },
+                { "<C-,>", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>", desc = " Swap prev arg" },
+                { "<C-.>", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>", desc = " Swap next arg" },
                 -- stylua: ignore end
 
                 -- TEXT OBJECTS

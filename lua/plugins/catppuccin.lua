@@ -90,7 +90,7 @@ local customCol = function(colors)
                 BlinkCmpAbbrMatch                = { fg = colors.text, bg = "NONE", bold = false },
                 BlinkCmpAbbrMatchFuzzy           = { fg = colors.text, bg = "NONE", bold = false },
                 BlinkCmpMenu                     = { fg = colors.overlay0, bg = "#11111b", bold = false },
-                BlinkCmpMenuSelection            = { fg = colors.maroon, bg = colors.mantle, bold = false },
+                BlinkCmpMenuSelection            = { fg = "NONE", bg = colors.mantle, bold = true },
                 BlinkCmpKindField                = { fg = colors.rosewater, bg = "NONE" },
                 BlinkCmpKindProperty             = { fg = colors.rosewater, bg = "NONE" },
                 BlinkCmpKindEvent                = { fg = colors.rosewater, bg = "NONE" },
@@ -145,7 +145,7 @@ local customCol = function(colors)
                 SignatureHelpBorder              = { fg = colors.mantle, bg = colors.mantle },
                 HoverBorder                      = { fg = colors.mantle, bg = colors.mantle },
                 RipSubBackdrop                   = { fg = colors.mantle, bg = colors.mantle },
-                Folded                           = { fg = colors.crust, bg = colors.subtext0, bold = true },
+                Folded                           = { fg = "NONE", bg = colors.mantle, bold = true },
 
                 -------------------------------------------------------------------------------------------------------------
                 -- NEOTREE
@@ -192,16 +192,16 @@ local customCol = function(colors)
                 lualine_a_visual                 = { fg = colors.crust, bg = colors.text },
 
                 -------------------------------------------------------------------------------------------------------------
+                -- OUTLINE
+                OutlineCurrent                   = { fg = "NONE", bg = "NONE", bold = true },
+                OutlineDetails                   = { fg = colors.surface1 },
+
+                -------------------------------------------------------------------------------------------------------------
                 -- DROPBAR
 
                 DropBarCurrentContext            = { fg = colors.overlay1 },
                 DropBarFzfMatch                  = { fg = colors.red },
                 DropBarHover                     = { fg = colors.overlay1 },
-
-                -------------------------------------------------------------------------------------------------------------
-                -- OUTLINE
-                OutlineCurrent                   = { fg = colors.flamingo, bg = colors.crust },
-                OutlineDetails                   = { fg = colors.surface1 },
 
                 -------------------------------------------------------------------------------------------------------------
                 -- DROPBAR ICON UI
@@ -210,6 +210,7 @@ local customCol = function(colors)
                 DropBarIconUiPickpivot           = { fg = colors.red },
                 DropBarIconUiSeparator           = { fg = colors.surface1 },
                 DropBarIconUiSeparatormenu       = { fg = colors.rosewater },
+                -- DropBarFileName                  = { fg = "#dce0e8", italics = false },
 
                 DropBarMenuCurrentContext        = { fg = colors.red, bg = colors.base },
                 DropBarMenuFloatBorder           = { fg = colors.rosewater, bg = colors.mantle },

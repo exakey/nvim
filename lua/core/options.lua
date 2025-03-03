@@ -123,18 +123,6 @@ opt.wildmode       = "longest:full,full"
 opt.winminwidth    = 5
 opt.wrapmargin     = 120
 
-opt.foldmethod     = 'expr'
-opt.foldexpr       = 'nvim_treesitter#foldexpr()'
-opt.foldlevelstart = 99
-
--- opt.foldcolumn     = "auto"
--- opt.foldenable     = true
--- opt.foldlevel      = 99
--- -- opt.foldlevelstart = 1
--- opt.foldmethod     = "indent"
--- opt.foldnestmax    = 4
--- opt.foldtext       = ""
-
 opt.smoothscroll   = true
 
 

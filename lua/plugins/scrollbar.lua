@@ -20,7 +20,8 @@ return {
                         },
                         marks               = {
                                 Cursor    = {
-                                        text      = "󰨓",
+                                        -- text      = "󰨓",
+                                        text      = "=",
                                         priority  = 0,
                                         gui       = nil,
                                         color     = nil,
@@ -152,4 +153,5 @@ return {
 
                 })
         end,
+        keys   = { { "<leader>os", function() require("scrollbar.utils").toggle() end, desc = "Scrollbar", mode = { "n" } } },
 }

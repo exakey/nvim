@@ -18,6 +18,8 @@ end
 return {
         "saghen/blink.cmp",
         event        = { "InsertEnter" },
+        build        = "cargo build --release",
+
         dependencies = {
                 {
                         "L3MON4D3/LuaSnip",
@@ -31,9 +33,10 @@ return {
                         config       = function() require('luasnip') end,
                 },
         },
-        build        = "cargo build --release",
+
         opts         = {
                 snippets   = { preset = "luasnip" },
+
                 completion = {
                         keyword       = { range = "prefix" },
                         accept        = {
@@ -43,10 +46,12 @@ return {
                                         semantic_token_resolution = { enabled = true, timeout_ms = 400 },
                                 },
                         },
+
                         list          = {
                                 selection = { preselect = false, auto_insert = false },
                                 cycle     = { from_bottom = true, from_top = true }
                         },
+
                         menu          = {
                                 min_width  = 30,
                                 max_height = 20,
@@ -76,16 +81,19 @@ return {
                         ghost_text    = { enabled = false },
                         trigger       = { prefetch_on_insert = true }
                 },
+
                 sources    = {
                         per_filetype = { ["rip-substitute"] = { "buffer" }, gitcommit = {} },
                         -- default      = nodeMode,
                         default      = { "snippets", "lazydev", "lsp", "path", "buffer" },
                         providers    = {
-                                lazydev  = {
+
+                               lazydev  = {
                                         name         = "LazyDev",
                                         module       = "lazydev.integrations.blink",
                                         score_offset = 140,
                                 },
+
                                 lsp      = {
                                         name         = "LSP",
                                         module       = "blink.cmp.sources.lsp",
@@ -100,12 +108,13 @@ return {
                                                     and not charsBefore:find("%s%-%-?")
                                                 return luadocButNotComment
                                         end,
-
                                 },
+
                                 snippets = {
                                         name = "Snip",
                                         score_offset = 90,
                                 },
+
                                 path     = {
                                         name         = "Path",
                                         module       = 'blink.cmp.sources.path',
@@ -119,11 +128,12 @@ return {
                                                 show_hidden_files_by_default = false,
                                         }
                                 },
+
                                 buffer   = {
                                         name               = "Buf",
                                         score_offset       = 60,
-                                        max_items          = 4,
-                                        min_keyword_length = 4,
+                                        max_items          = 8,
+                                        min_keyword_length = 3,
                                         opts               = {
                                                 -- get_bufnrs = normalBuf,
                                                 get_bufnrs = vim.api.nvim_list_bufs,
@@ -131,6 +141,7 @@ return {
                                 }
                         },
                 },
+
                 keymap     = {
                         preset        = "none",
                         ["<C-h>"]     = { "snippet_backward", "fallback" },
@@ -149,6 +160,7 @@ return {
                                 end
                         },
                 },
+
                 appearance = {
                         nerd_font_variant = "mono",
                         kind_icons        = {
@@ -179,6 +191,7 @@ return {
                                 TypeParameter = "",
                         }
                 },
+
                 signature  = { enabled = false, window = { scrollbar = false } },
         },
         opts_extend  = { "sources.default" }

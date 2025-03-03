@@ -7,7 +7,6 @@ return {
         {
                 "3rd/image.nvim",
                 event        = "VeryLazy",
-                enabled      = true,
                 dependencies = { "luarocks.nvim" },
                 config       = function()
                         require("image").setup({
@@ -16,7 +15,7 @@ return {
                                 integrations                    = {
                                         markdown = {
                                                 enabled                     = true,
-                                                clear_in_insert_mode        = false,
+                                                clear_in_insert_mode        = true,
                                                 download_remote_images      = true,
                                                 only_render_image_at_cursor = vim.g.neovim_mode == "skitty" and false or
                                                     true,

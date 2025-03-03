@@ -59,79 +59,88 @@ local extraDependencies                   = {
 M.masonDependencies                       = vim.list_extend(extraDependencies, vim.tbl_values(lspToMasonMap))
 
 --------------------------------------------------------------------------------
--- ASM
-M.serverConfigs.asm_lsp                   = {
-        filetypes = { "nasm", "asm" }
-}
-
---------------------------------------------------------------------------------
--- BASH / ZSH
-
--- DOCS https://github.com/bash-lsp/bash-language-server/blob/main/server/src/config.ts
-M.serverConfigs.bashls                    = {
-        filetypes = { "bash", "sh", "zsh" }, -- force it to work in zsh as well
-        settings  = {
-                bashIde = {
-                        shfmt                      = { spaceRedirects = true },
-                        includeAllWorkspaceSymbols = true,
-                        globPattern                = "**/*@(.sh|.bash|.zsh)",
-                        shellcheckArguments        = "--shell=bash",
-                },
-        },
-}
-
---------------------------------------------------------------------------------
+-- EFM
 
 -- DOCS https://github.com/mattn/efm-langserver#configuration-for-neovim-builtin-lsp-with-nvim-lspconfig
+local asmfmt                              = {
+        formatCommand = "asmfmt",
+        formatStdin   = true
+}
+
+local lua                                 = {
+        {
+                formatCommand =
+                -- "stylua --search-parent-directories --stdin-filepath='${INPUT}' --respect-ignores -",
+                "lua-format -c ~/.config/nvim/lua-format.yaml",
+                formatStdin   = true,
+                rootMarkers   = { "stylua.toml", ".stylua.toml", "lua-format.yaml", ".lua-format.yaml" },
+        },
+}
+
+local shfmt                               = {
+        {
+                formatCommand = "shfmt",
+                formatStdin   = true,
+                rootMarkers   = { ".editorconfig" }
+        }
+}
+
+local clang                               = {
+        { formatCommand = "clang-format", formatStdin = true, rootMarkers = { "clang-format", ".clang-format" } },
+}
+
+local go                                  = {
+        { formatCommand = "gofmt",     formatStdin = true },
+        { formatCommand = "goimports", formatStdin = true },
+}
+
+local markdown                            = {
+        { -- HACK use `cat` due to https://github.com/mattn/efm-langserver/issues/258
+                formatCommand = "markdown-toc --indent=$'\t' -i '${INPUT}' && cat '${INPUT}'",
+                formatStdin   = false,
+        },
+        { -- HACK use `cat` due to https://github.com/mattn/efm-langserver/issues/258
+                formatCommand = "markdownlint --fix '${INPUT}' && cat '${INPUT}'",
+                rootMarkers   = { ".markdownlint.yaml" },
+                formatStdin   = false,
+        },
+        {
+                lintSource         = "markdownlint",
+                lintCommand        = "markdownlint --stdin",
+                lintIgnoreExitCode = true,
+                lintStdin          = true,
+                lintSeverity       = 3, -- 3: info, 2: warning
+                lintFormats        = { "%f:%l:%c %m", "%f:%l %m", "%f: %l: %m" },
+        },
+}
+
+local prettier                            = {
+        { formatCommand = "prettierd '${INPUT}'", formatStdin = false, rootMarkers = { "prettierrc.json", ".prettierrc.json" } },
+        { formatCommand = "prettier",             formatStdin = false, rootMarkers = { "prettierrc.json", ".prettierrc.json" } },
+}
+
+local python                              = {
+        { formatCommand = "ruff ", formatStdin = true, rootMarkers = ".git/" },
+        { formatCommand = "isort", formatStdin = true, rootMarkers = ".git/" },
+        { formatCommand = "black", formatStdin = true, rootMarkers = ".git/" },
+}
+
 local efmConfig                           = {
-        -- lua = {
-        -- 	{
-        -- 		formatCommand = "stylua --search-parent-directories --stdin-filepath='${INPUT}' --respect-ignores -",
-        -- 		formatStdin = true,
-        -- 		rootMarkers = { "stylua.toml", ".stylua.toml" },
-        -- 	},
-        -- },
-        markdown = {
-                { -- HACK use `cat` due to https://github.com/mattn/efm-langserver/issues/258
-                        formatCommand = "markdown-toc --indent=$'\t' -i '${INPUT}' && cat '${INPUT}'",
-                        formatStdin   = false,
-                },
-                { -- HACK use `cat` due to https://github.com/mattn/efm-langserver/issues/258
-                        formatCommand = "markdownlint --fix '${INPUT}' && cat '${INPUT}'",
-                        rootMarkers   = { ".markdownlint.yaml" },
-                        formatStdin   = false,
-                },
-                {
-                        lintSource         = "markdownlint",
-                        lintCommand        = "markdownlint --stdin",
-                        lintIgnoreExitCode = true,
-                        lintStdin          = true,
-                        lintSeverity       = 3, -- 3: info, 2: warning
-                        lintFormats        = { "%f:%l:%c %m", "%f:%l %m", "%f: %l: %m" },
-                },
-        },
-        zsh      = {
-                -- HACK use efm to force shellcheck to work with zsh files via `--shell=bash`,
-                -- since doing so with bash-lsp does not work
-                -- PENDING https://github.com/bash-lsp/bash-language-server/pull/1133
-                {
-                        lintSource  = "shellcheck",
-                        lintCommand = "shellcheck --format=gcc --external-sources --shell=bash -",
-                        lintStdin   = true,
-                        lintFormats = {
-                                "-:%l:%c: %trror: %m [SC%n]",
-                                "-:%l:%c: %tarning: %m [SC%n]",
-                                "-:%l:%c: %tote: %m [SC%n]",
-                        },
-                },
-        },
-        just     = {
-                {
-                        formatCommand = 'just --fmt --unstable --justfile="${INPUT}" ; cat "${INPUT}"',
-                        formatStdin   = false,
-                        rootMarkers   = { "Justfile", ".justfile" },
-                },
-        },
+        -- lua      = lua,
+        -- asm        = asmfmt,
+        bash       = shfmt,
+        zsh        = shfmt,
+        go         = go,
+        c          = clang,
+        cpp        = clang,
+        glsl       = clang,
+        markdown   = markdown,
+        jsonc      = prettier,
+        json       = prettier,
+        html       = prettier,
+        css        = prettier,
+        javascript = prettier,
+        py         = python
 }
 
 M.serverConfigs.efm                       = {
@@ -152,7 +161,29 @@ M.serverConfigs.efm                       = {
 }
 
 --------------------------------------------------------------------------------
+-- ASM
+M.serverConfigs.asm_lsp                   = {
+        filetypes = { "nasm", "asm" }
+}
+
+--------------------------------------------------------------------------------
+-- BASH / ZSH
+
+-- DOCS https://github.com/bash-lsp/bash-language-server/blob/main/server/src/config.ts
+M.serverConfigs.bashls                    = {
+        filetypes = { "bash", "sh", "zsh" }, -- force it to work in zsh as well
+        settings  = {
+                bashIde = {
+                        includeAllWorkspaceSymbols = true,
+                        globPattern                = "**/*@(.sh|.bash)",
+                        shellcheckArguments        = "--shell=bash",
+                },
+        },
+}
+
+--------------------------------------------------------------------------------
 -- GO
+
 M.serverConfigs.gopls                     = {
         settings = {
                 gopls   = {
@@ -174,6 +205,7 @@ M.serverConfigs.gopls                     = {
 
 --------------------------------------------------------------------------------
 -- C/C++
+
 M.serverConfigs.clangd                    = {
         settings = {
                 clangd = {
@@ -190,13 +222,14 @@ M.serverConfigs.clangd                    = {
 
 --------------------------------------------------------------------------------
 -- GLSL
+
 M.serverConfigs.glsl_analyzer             = {}
 
 --------------------------------------------------------------------------------
 -- LUA
 
 -- DOCS https://luals.github.io/wiki/settings/
-M.serverConfigs.lua_ls                    = {}
+-- M.serverConfigs.lua_ls                    = {}
 M.serverConfigs.lua_ls                    = {
         settings = {
                 Lua = {
@@ -326,6 +359,7 @@ M.serverConfigs.ts_ls.settings.javascript = M.serverConfigs.ts_ls.settings.types
 
 --------------------------------------------------------------------------------
 -- JSON & YAML
+
 -- DOCS https://github.com/Microsoft/vscode/tree/main/extensions/json-language-features/server#configuration
 M.serverConfigs.jsonls                    = {
         -- Disable formatting in favor of biome

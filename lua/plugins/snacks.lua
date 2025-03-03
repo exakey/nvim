@@ -53,7 +53,7 @@ return {
                 },
                 {
                         "<leader><leader>h",
-                        function() Snacks.picker.highlights({ layout = "ivy" }) end,
+                        function() Snacks.picker.highlights({ layout = "default" }) end,
                         desc = "Highlight Picker",
                         mode = { "n" },
                 },
