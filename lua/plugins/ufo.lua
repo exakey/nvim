@@ -4,8 +4,22 @@ return {
         event        = "UIEnter",
         keys         = {
                 { "<leader>if", vim.cmd.UfoInspect, desc = " Fold info" },
-                { "zH", function() require("ufo").closeFoldsWith(0) end, desc = "󱃄 Close all folds" },
+                {
+                        "zH",
+                        function() require("ufo").openFoldsExceptKinds { "comment", "imports", "region" } end,
+                        desc = "󱃄 Close all folds",
+                },
                 { "zm", function() require("ufo").closeAllFolds() end, desc = "󱃄 Close all folds" },
+                {
+                        "zK",
+                        function()
+                                local winid = require("ufo").peekFoldedLinesUnderCursor()
+                                if not winid then
+                                        vim.lsp.buf.hover()
+                                end
+                        end,
+                        desc = "󱃄 Close all folds"
+                },
                 {
                         "zL",
                         function() require("ufo").openFoldsExceptKinds { "comment", "imports" } end,
@@ -28,10 +42,19 @@ return {
                         json     = { "array" },
                         markdown = {}, -- avoid everything becoming folded
                         toml     = {},
-                        lua      = { "array", "region", }
+                        lua      = { "region" }
                         -- use `:UfoInspect` to get see available fold kinds
                 },
+
                 open_fold_hl_timeout    = 100,
+
+                preview                 = {
+                        win_config = {
+                                border       = "none",
+                                winblend     = 0,
+                                winhighlight = "NormalFloat:NormalFloat",
+                        }
+                },
 
                 provider_selector       = function(_bufnr, ft, _buftype)
                         -- ufo accepts only two kinds as priority, see https://github.com/kevinhwang91/nvim-ufo/issues/256
@@ -42,7 +65,7 @@ return {
 
                 -- show folds with number of folded lines instead of just the icon
                 fold_virt_text_handler  = function(virtText, lnum, endLnum, width, truncate)
-                        local hlgroup     = "diffAdded"
+                        local hlgroup     = "Error"
                         local icon        = ""
                         local newVirtText = {}
                         local suffix      = ("  %s %d"):format(icon, endLnum - lnum)
