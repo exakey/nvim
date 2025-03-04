@@ -135,6 +135,6 @@ return
                 })
         end,
         keys   = {
-                { "<A-l>", "<cmd>Outline<cr>", desc = "Outline", mode = { "n" } }
+                { "<A-s>", "<cmd>Outline<cr>", desc = "Outline", mode = { "n" } }
         },
 }

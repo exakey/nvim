@@ -145,7 +145,7 @@ map(n, "<C-q>", "ggVG", { desc = "Select all" })
 
 -- Save file
 map(ni, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
-map(ni, "<A-s>", "<cmd>wa<cr><esc>", { desc = "Save File" })
+map(ni, "<C-S-s>", "<cmd>wa<cr><esc>", { desc = "Save File" })
 
 --------------------------------------------------------------------------------
 -- SURROUND
@@ -194,19 +194,6 @@ map(n, "qf", function() require("functions.comment").docstring() end, { desc = "
 map(n, "Q", function() require("functions.comment").addComment("eol") end, { desc = "󰆈 Append Comment" })
 map(n, "qo", function() require("functions.comment").addComment("below") end, { desc = "󰆈 Comment Below" })
 map(n, "qO", function() require("functions.comment").addComment("above") end, { desc = "󰆈 Comment Above" })
-
---------------------------------------------------------------------------------
--- LINE & CHARACTER MOVEMENT
-
--- map(n, "<A-h>", [["zdh"zph]], { desc = "󰜱 Move char left" })
--- map(n, "<A-l>", [["zx"zp]], { desc = "󰜴 Move char right" })
--- map(x, "<A-h>", [["zxhh"zpgvhoho]], { desc = "󰜱 Move selection left" })
--- map(x, "<A-l>", [["zx"zpgvlolo]], { desc = "󰜴 Move selection right" })
-
-map(n, "<A-j>", "ddp", { desc = "󰜮 Move line down", silent = true })
-map(n, "<A-k>", [[<cmd>. move -2<CR>==]], { desc = "󰜷 Move line up", silent = true })
-map(x, "<A-j>", [[:move '>+1<CR>gv=gv]], { desc = "󰜮 Move selection down", silent = true })
-map(x, "<A-k>", [[:move '<-2<CR>gv=gv]], { desc = "󰜷 Move selection up", silent = true })
 
 --------------------------------------------------------------------------------
 -- LSP

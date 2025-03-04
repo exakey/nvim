@@ -4,7 +4,8 @@ return {
         event        = "UIEnter",
         keys         = {
                 { "<leader>if", vim.cmd.UfoInspect, desc = " Fold info" },
-                { "zH", function() require("ufo").closeAllFolds() end, desc = "󱃄 Close all folds" },
+                { "zH", function() require("ufo").closeFoldsWith(0) end, desc = "󱃄 Close all folds" },
+                { "zm", function() require("ufo").closeAllFolds() end, desc = "󱃄 Close all folds" },
                 {
                         "zL",
                         function() require("ufo").openFoldsExceptKinds { "comment", "imports" } end,
@@ -27,7 +28,7 @@ return {
                         json     = { "array" },
                         markdown = {}, -- avoid everything becoming folded
                         toml     = {},
-                        lua      = { "array", "table" }
+                        lua      = { "array", "region", "table_constructor", "expression_list" }
                         -- use `:UfoInspect` to get see available fold kinds
                 },
                 open_fold_hl_timeout    = 100,
