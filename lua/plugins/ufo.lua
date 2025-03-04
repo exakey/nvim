@@ -28,7 +28,7 @@ return {
                         json     = { "array" },
                         markdown = {}, -- avoid everything becoming folded
                         toml     = {},
-                        lua      = { "array", "region", "table_constructor", "expression_list" }
+                        lua      = { "array", "region", }
                         -- use `:UfoInspect` to get see available fold kinds
                 },
                 open_fold_hl_timeout    = 100,
