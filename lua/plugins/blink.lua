@@ -221,7 +221,7 @@ return {
                                         name         = "Env",
                                         module       = "blink-cmp-env",
                                         max_items    = 10,
-                                        score_offset = 40,
+                                        score_offset = 20,
                                         opts         = {
                                                 show_braces               = true,
                                                 show_documentation_window = true,
