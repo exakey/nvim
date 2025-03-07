@@ -25,3 +25,11 @@
 ; (requires setting the hlgroup `@comments.bold`)
 ("text" @comment.bold
  (#lua-match? @comment.bold "^[%u%d%p][%u%d%p]+$"))
+
+("text" @issue
+ (#match? @issue "^#[0-9]+$"))
+
+;; NOTE This matches `!10` and `! 10`.
+("text" @symbol . "text" @issue
+ (#eq? @symbol "!")
+ (#match? @issue "^[0-9]+$"))

@@ -32,7 +32,7 @@ return {
                 { "<leader>uh", "<cmd>Gitsigns reset_hunk<CR>", mode = { "n", "x" }, desc = "󰊢 Reset Hunk" },
 
                 -- OPTIONS
-                { "<leader>og", "<cmd>Gitsigns toggle_signs<CR>", desc = "󰊢 Inline Deletions" },
+                { "<leader>og", function () require("gitsigns").toggle_signs() end, desc = "󰊢 Toggle Gitsigns" },
                 -- stylua: ignore end
                 {
                         "<leader>op",

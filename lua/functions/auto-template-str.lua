@@ -68,15 +68,17 @@ local function pyStr(node)
 end
 
 ---@param node TSNode
-local function jsStr(node)
+local function cStr(node)
         local strNode
-        if node:type() == "string" or node:type() == "template_string" then
+        if node:type() == "string" then
                 strNode = node
-        elseif node:type() == "string_fragment" or node:type() == "escape_sequence" then
+        elseif node:type():find("^string_") then
                 strNode = node:parent()
+        elseif node:type() == "escape_sequence" then
+                strNode = node:parent():parent()
         end
-        local transformer = function(nodeText) return "`" .. nodeText:sub(2, -2) .. "`" end
-        updateNode(strNode, "${}", transformer, nil, 2)
+        local transformer = function(nodeText) return "f" .. nodeText end
+        updateNode(strNode, "{}", transformer, nil, 2)
 end
 
 --------------------------------------------------------------------------------
@@ -88,10 +90,10 @@ function M.insertTemplateStr()
         end
 
         local availableFiletypes = {
+                c          = cStr,
+                cpp        = cStr,
                 lua        = luaStr,
                 python     = pyStr,
-                javascript = jsStr,
-                typescript = jsStr,
         }
         local updateFunc = availableFiletypes[vim.bo.filetype]
         if not updateFunc then

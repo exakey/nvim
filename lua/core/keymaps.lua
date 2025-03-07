@@ -362,10 +362,10 @@ end, { desc = "󰋽 Diagnostics" })
 map(n, "<leader>oc", function() vim.wo.conceallevel = vim.wo.conceallevel == 0 and 2 or 0 end,
         { desc = "󰈉 Conceal" })
 
-map(n, "<leader>oo", function ()
+map(n, "<leader>oo", function()
         vim.cmd("IBLToggle")
-        vim.cmd("Gitsigns toggle_signs")
         require("lsp-endhints")
+        require("gitsigns").toggle_signs()
         require("symbol-usage").toggle()
         vim.lsp.inlay_hint.enable( not vim.lsp.inlay_hint.is_enabled() )
 end, { desc = "Toggle IDE stuff" })
