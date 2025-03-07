@@ -7,7 +7,7 @@ return {
         event  = "VeryLazy", -- load for status line component
         keys   = {
                 -- stylua: ignore start
-                { "<leader>qg", function() require("tinygit").smartCommit { pushIfClean = true } end, desc = "󰊢 Smart-commit & push", nowait = true },
+                { "<leader>qq", function() require("tinygit").smartCommit { pushIfClean = true } end, desc = "󰊢 Smart-commit & push", nowait = true },
                 { "<leader>qc", function() require("tinygit").smartCommit { pushIfClean = false } end, desc = "󰊢 Smart-commit" },
                 { "<leader>qn", function() require("tinygit").interactiveStaging() end, desc = "󰊢 Interactive staging" },
                 { "<leader>qp", function() require("tinygit").push { pullBefore = true } end, desc = "󰊢 Pull & push" },
@@ -24,7 +24,7 @@ return {
                 { "<leader>qt", function() require("tinygit").stashPush() end, desc = "󰜦 Stash" },
                 { "<leader>qT", function() require("tinygit").stashPop() end, desc = "󰜦 Stash pop" },
 
-                { "gi", function() require("tinygit").openIssueUnderCursor() end, desc = " Open issue under cursor" },
+                { "qi", function() require("tinygit").openIssueUnderCursor() end, desc = " Open issue under cursor" },
 
                 { "<leader>uc", function() require("tinygit").undoLastCommitOrAmend() end, desc = "󰊢 Undo last commit/amend" },
                 -- stylua: ignore end

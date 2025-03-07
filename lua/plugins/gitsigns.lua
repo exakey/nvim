@@ -16,6 +16,7 @@ return {
 
         keys   = {
                 -- stylua: ignore start
+                { "<leader>og", function () require("gitsigns").toggle_signs() end, desc = "󰊢 Toggle Gitsigns" },
                 { "gh", function() require("gitsigns").nav_hunk("next", { foldopen = true, navigation_message = true }) end, desc = "󰊢 Next Hunk" },
                 { "gH", function() require("gitsigns").nav_hunk("prev", { foldopen = true, navigation_message = true }) end, desc = "󰊢 Previous Hunk" },
                 { "ga", "<cmd>Gitsigns stage_hunk<CR>", desc = "󰊢 Stage Hunk" },

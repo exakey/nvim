@@ -266,8 +266,8 @@ return {
 
                 keymap     = {
                         preset        = "none",
-                        ["<C-h>"]     = { "snippet_backward", "fallback" },
-                        ["<C-l>"]     = { "snippet_forward", "fallback" },
+                        ["<A-h>"]     = { "snippet_backward", "fallback" },
+                        ["<A-l>"]     = { "snippet_forward", "fallback" },
                         ["<C-j>"]     = { "select_next", "fallback" },
                         ["<C-k>"]     = { "select_prev", "fallback" },
                         ["<C-c>"]     = { function(cmp) if cmp.is_menu_visible() then cmp.hide() else cmp.show() end end },
@@ -316,5 +316,6 @@ return {
 
                 signature  = { enabled = false, window = { scrollbar = false } },
         },
+
         opts_extend  = { "sources.default" }
 }

@@ -2,6 +2,7 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         lazy   = false,
         main   = "ibl",
+
         config = function()
                 require("ibl").setup({
                         indent     = {
@@ -18,5 +19,6 @@ return {
                         },
                 })
         end,
+
         keys   = { { "<leader>oi", "<cmd>IBLToggle<CR>", desc = "󰖶 Indent guides", mode = { "n" } } },
 }

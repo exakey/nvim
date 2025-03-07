@@ -131,19 +131,11 @@ local globToTemplateMap = {
         [vim.g.localRepos .. "/**/*.lua"]                    = "module.lua",
         [vim.fn.stdpath("config") .. "/lua/functions/*.lua"] = "module.lua",
         [vim.fn.stdpath("config") .. "/lua/plugins/*.lua"]   = "plugin-spec.lua",
-        ["**/hammerspoon/modules/*.lua"]                     = "module.lua",
 
         ["**/*.py"]                                          = "template.py",
         ["**/*.sh"]                                          = "template.zsh",
         ["**/*.*sh"]                                         = "template.zsh",
-        ["**/*.applescript"]                                 = "template.applescript",
-
-        ["**/*.mjs"]                                         = "node-module.mjs",
-        ["**/Alfred.alfredpreferences/workflows/**/*.js"]    = "jxa.js",
-
-        ["**/Justfile"]                                      = "justfile.just",
-        ["**/*typos.toml"]                                   = "typos.toml",
-        ["**/.github/workflows/**/*.y*ml"]                   = "github-action.yaml",
+        ["**/*.c*"]                                          = "template.cpp",
 }
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
