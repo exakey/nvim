@@ -5,21 +5,21 @@ return {
                 references           = { enabled = true, include_declaration = true },
                 definition           = { enabled = true },
                 implementation       = { enabled = true },
-                vt_position          = "signcolumn",
+                vt_position          = "end_of_line",
                 vt_priority          = 7,     -- gitsigns have priority of 6
                 hl                   = { link = "Comment" },
                 request_pending_text = false, -- disable "loading…"
-                text_format          = function(symbol)
-                        if not symbol.references or symbol.references == 0 then return "" end
-                        if symbol.references < 2 and vim.bo.filetype == "css" then return "" end
-                        if symbol.references > 99 then return "󰐗" end
-
-                        local digits =
-                        { "󰎡", "󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳", "󰎶", "󰎹", "󰎼" }
-
-                        -- stylua: ignore
-                        return tostring(symbol.references):gsub("%d", function(d) return digits[tonumber(d) + 1] end)
-                end,
+                -- text_format          = function(symbol)
+                --         if not symbol.references or symbol.references == 0 then return "" end
+                --         if symbol.references < 2 and vim.bo.filetype == "css" then return "" end
+                --         if symbol.references > 99 then return "󰐗" end
+                --
+                --         local digits =
+                --         { "󰎡", "󰎤", "󰎧", "󰎪", "󰎭", "󰎱", "󰎳", "󰎶", "󰎹", "󰎼" }
+                --
+                --         -- stylua: ignore
+                --         return tostring(symbol.references):gsub("%d", function(d) return digits[tonumber(d) + 1] end)
+                -- end,
                 -- available kinds: https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
                 kinds                = {
                         vim.lsp.protocol.SymbolKind.File,
