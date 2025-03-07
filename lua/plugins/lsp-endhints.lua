@@ -1,6 +1,5 @@
 return {
         "chrisgrieser/nvim-lsp-endhints",
-        event = "LspAttach",
         keys  = {
                 { "<leader>oh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, desc = "󰑀 Endhints" },
                 { "<leader>oH", function() require("lsp-endhints").toggle() end, desc = "󰑀 Endhints" },

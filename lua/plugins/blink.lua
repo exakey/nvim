@@ -142,8 +142,9 @@ return {
                         default      = function(ctx)
                                 local success, node = pcall(vim.treesitter.get_node)
                                 if vim.bo.filetype == "lua" then
-                                        return { "snippets", "lazydev", "lsp", "path", "ripgrep", "env", "nerdfont",
-                                                "ripgrep" }
+                                        return { "snippets", "lazydev", "lsp", "path", "ripgrep", "env", "nerdfont" }
+                                elseif vim.bo.filetype == "c" or "cpp" then
+                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "env", "nerdfont" }
                                 elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
                                         return { "ripgrep" }
                                 else
@@ -156,18 +157,18 @@ return {
                                 lazydev  = {
                                         name         = "LazyDev",
                                         module       = "lazydev.integrations.blink",
-                                        score_offset = 160,
+                                        score_offset = 180,
                                 },
 
                                 snippets = {
                                         name         = "Snip",
-                                        score_offset = 140,
+                                        score_offset = 160,
                                 },
 
                                 lsp      = {
                                         name         = "LSP",
                                         module       = "blink.cmp.sources.lsp",
-                                        score_offset = 120,
+                                        score_offset = 140,
                                         enabled      = function()
                                                 if vim.bo.ft ~= "lua" then return true end
                                                 local col                 = vim.api.nvim_win_get_cursor(0)[2]
@@ -221,7 +222,7 @@ return {
                                         name         = "Env",
                                         module       = "blink-cmp-env",
                                         max_items    = 10,
-                                        score_offset = 20,
+                                        score_offset = 10,
                                         opts         = {
                                                 show_braces               = true,
                                                 show_documentation_window = true,

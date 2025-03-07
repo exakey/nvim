@@ -225,3 +225,4 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNew" }, {
 })
 
 vim.cmd("IBLDisable")
+vim.cmd("Gitsigns toggle_signs")

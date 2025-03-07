@@ -1,19 +1,19 @@
 return {
         "Wansmer/symbol-usage.nvim",
-        event  = "BufReadPre",
         keys   = { { "<leader>os", function() require("symbol-usage").toggle() end, desc = "Toggle symbol usage signs", mode = { "n" } } },
 
         config = function()
-
                 local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end
 
-                vim.api.nvim_set_hl(0, "SymbolUsageRef", { fg = h("Normal").bg, bg = h("@function.macro").fg, bold = true })
+                vim.api.nvim_set_hl(0, "SymbolUsageRef",
+                        { fg = h("Normal").bg, bg = h("@function.macro").fg, bold = true })
                 vim.api.nvim_set_hl(0, "SymbolUsageRefRound", { fg = h("@function.macro").fg })
 
                 vim.api.nvim_set_hl(0, "SymbolUsageDef", { fg = h("Normal").bg, bg = h("Type").fg, bold = true })
                 vim.api.nvim_set_hl(0, "SymbolUsageDefRound", { fg = h("Type").fg })
 
-                vim.api.nvim_set_hl(0, "SymbolUsageImpl", { fg = h("Normal").bg, bg = h("DiagnosticError").fg, bold = true })
+                vim.api.nvim_set_hl(0, "SymbolUsageImpl",
+                        { fg = h("Normal").bg, bg = h("DiagnosticError").fg, bold = true })
                 vim.api.nvim_set_hl(0, "SymbolUsageImplRound", { fg = h("DiagnosticError").fg })
 
                 local function box(symbol)
@@ -65,7 +65,7 @@ return {
                         definition           = { enabled = true },
                         implementation       = { enabled = true },
                         vt_position          = "end_of_line",
-                        vt_priority          = 1, -- gitsigns have priority of 6
+                        vt_priority          = 1,     -- gitsigns have priority of 6
                         request_pending_text = false, -- disable "loading…"
                         text_format          = box,
 

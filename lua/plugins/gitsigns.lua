@@ -13,6 +13,7 @@ return {
                         changedelete = { show_count = true },
                 },
         },
+
         keys   = {
                 -- stylua: ignore start
                 { "gh", function() require("gitsigns").nav_hunk("next", { foldopen = true, navigation_message = true }) end, desc = "󰊢 Next Hunk" },
@@ -31,7 +32,7 @@ return {
                 { "<leader>uh", "<cmd>Gitsigns reset_hunk<CR>", mode = { "n", "x" }, desc = "󰊢 Reset Hunk" },
 
                 -- OPTIONS
-                -- { "<leader>oi", "<cmd>Gitsigns toggle_deleted<CR>", desc = "󰊢 Inline Deletions" },
+                { "<leader>og", "<cmd>Gitsigns toggle_signs<CR>", desc = "󰊢 Inline Deletions" },
                 -- stylua: ignore end
                 {
                         "<leader>op",
@@ -55,6 +56,7 @@ return {
                         desc = "󰊢 Previous/Present Changes",
                 },
         },
+
         config = function(_, opts)
                 require("gitsigns").setup(opts)
         end,
