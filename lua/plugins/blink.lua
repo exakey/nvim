@@ -138,16 +138,16 @@ return {
                 },
 
                 sources    = {
-                        per_filetype = { ["rip-substitute"] = { "buffer" }, gitcommit = {} },
+                        per_filetype = { ["rip-substitute"] = { "ripgrep" }, gitcommit = {} },
                         default      = function(ctx)
                                 local success, node = pcall(vim.treesitter.get_node)
                                 if vim.bo.filetype == "lua" then
-                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "env", "nerdfont",
+                                        return { "snippets", "lazydev", "lsp", "path", "ripgrep", "env", "nerdfont",
                                                 "ripgrep" }
                                 elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
-                                        return { "buffer", "ripgrep" }
+                                        return { "ripgrep" }
                                 else
-                                        return { "snippets", "lsp", "path", "buffer", "env", "nerdfont" }
+                                        return { "snippets", "lsp", "path", "ripgrep", "env", "nerdfont" }
                                 end
                         end,
 
@@ -156,13 +156,18 @@ return {
                                 lazydev  = {
                                         name         = "LazyDev",
                                         module       = "lazydev.integrations.blink",
+                                        score_offset = 160,
+                                },
+
+                                snippets = {
+                                        name         = "Snip",
                                         score_offset = 140,
                                 },
 
                                 lsp      = {
                                         name         = "LSP",
                                         module       = "blink.cmp.sources.lsp",
-                                        score_offset = 80,
+                                        score_offset = 120,
                                         enabled      = function()
                                                 if vim.bo.ft ~= "lua" then return true end
                                                 local col                 = vim.api.nvim_win_get_cursor(0)[2]
@@ -172,11 +177,6 @@ return {
                                                     and not charsBefore:find("%s%-%-?")
                                                 return luadocButNotComment
                                         end,
-                                },
-
-                                snippets = {
-                                        name         = "Snip",
-                                        score_offset = 90,
                                 },
 
                                 path     = {
@@ -211,18 +211,19 @@ return {
                                 omni     = {
                                         name         = "Omni",
                                         module       = "blink.cmp.sources.complete_func",
-                                        score_offset = 80,
+                                        score_offset = 60,
                                         opts         = {
                                                 disable_omnifunc = { "v:lua.vim.lsp.omnifunc" }
                                         }
                                 },
 
                                 env      = {
-                                        name      = "Env",
-                                        module    = "blink-cmp-env",
-                                        max_items = 20,
-                                        opts      = {
-                                                show_braces               = false,
+                                        name         = "Env",
+                                        module       = "blink-cmp-env",
+                                        max_items    = 10,
+                                        score_offset = 40,
+                                        opts         = {
+                                                show_braces               = true,
                                                 show_documentation_window = true,
                                         }
                                 },
@@ -235,10 +236,11 @@ return {
                                 },
 
                                 ripgrep  = {
-                                        module    = "blink-cmp-rg",
-                                        name      = "Ripgrep",
-                                        max_items = 20,
-                                        opts      = {
+                                        module       = "blink-cmp-rg",
+                                        name         = "RG",
+                                        score_offset = 60,
+                                        max_items    = 20,
+                                        opts         = {
                                                 prefix_min_len = 3,
                                                 get_command    = function(context, prefix)
                                                         return {

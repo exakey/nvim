@@ -1,6 +1,11 @@
-return { -- display type hints at EoL, not in the middle of a line
+return {
         "chrisgrieser/nvim-lsp-endhints",
         event = "LspAttach",
+        keys  = {
+                { "<leader>oh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, desc = "󰑀 Endhints" },
+                { "<leader>oH", function() require("lsp-endhints").toggle() end, desc = "󰑀 Endhints" },
+        },
+
         opts  = {
                 icons = {
                         type      = "󰜁 ",
@@ -9,8 +14,5 @@ return { -- display type hints at EoL, not in the middle of a line
                         unknown   = "? ", -- hint kind is nil
                 },
                 label = { sameKindSeparator = " " },
-        },
-        keys  = {
-                { "<leader>oh", function() require("lsp-endhints").toggle() end, desc = "󰑀 Endhints" },
         },
 }
