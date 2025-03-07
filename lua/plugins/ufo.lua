@@ -4,12 +4,10 @@ return {
         event        = "UIEnter",
         keys         = {
                 { "<leader>if", vim.cmd.UfoInspect, desc = " Fold info" },
-                {
-                        "zH",
-                        function() require("ufo").openFoldsExceptKinds { "comment", "imports", "region" } end,
-                        desc = "󱃄 Close all folds",
-                },
+                { "zH", function() require("ufo").openFoldsExceptKinds { "comment", "imports", "region", "indent" } end, desc = "󱃄 Close all folds" },
+                -- { "zH", function() require("ufo").closeFoldsWith(1)  end, desc = "󱃄 Close all folds" },
                 { "zm", function() require("ufo").closeAllFolds() end, desc = "󱃄 Close all folds" },
+                { "zk", function() require("ufo").goPreviousStartFold() end, desc = "󱃄 Close all folds" },
                 {
                         "zK",
                         function()

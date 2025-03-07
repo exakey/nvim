@@ -32,6 +32,9 @@ return {
                         },
                         config       = function() require('luasnip') end,
                 },
+                { "bydlw98/blink-cmp-env" },
+                { "MahanRahmati/blink-nerdfont.nvim" },
+                { "niuiic/blink-cmp-rg.nvim" }
         },
 
         opts         = {
@@ -69,7 +72,8 @@ return {
                                         },
                                         components = {
                                                 kind_icon   = {
-                                                        text = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
+                                                        ellipsis = true,
+                                                        text     = function(ctx) return ctx.kind_icon .. ctx.icon_gap end,
                                                 },
                                                 source_name = {
                                                         text = function(ctx) return "[" .. ctx.source_name .. "]" end,
@@ -77,18 +81,79 @@ return {
                                         }
                                 }
                         },
+
                         documentation = { auto_show = true, auto_show_delay_ms = 250 },
                         ghost_text    = { enabled = false },
                         trigger       = { prefetch_on_insert = true }
                 },
 
+                fuzzy      = {
+                        implementation = "prefer_rust_with_warning",
+                        use_frecency   = true,
+                        use_proximity  = true,
+                        sorts          = { "score", "sort_text" }
+                },
+
+                cmdline    = {
+                        enabled    = true,
+                        keymap     = {
+                                preset        = "none",
+                                ["<C-h>"]     = { "snippet_backward", "fallback" },
+                                ["<C-l>"]     = { "snippet_forward", "fallback" },
+                                ["<C-j>"]     = { "select_next", "fallback" },
+                                ["<C-k>"]     = { "select_prev", "fallback" },
+                                ["<C-c>"]     = { function(cmp) if cmp.is_menu_visible() then cmp.hide() else cmp.show() end end },
+                                ["<C-Space>"] = {
+                                        function(cmp)
+                                                if cmp.is_menu_visible() then
+                                                        cmp.accept()
+                                                        cmp.hide()
+                                                else
+                                                        cmp.show()
+                                                end
+                                        end
+                                },
+                        },
+                        sources    = function()
+                                local type = vim.fn.getcmdtype()
+                                -- Search forward and backward
+                                if type == '/' or type == '?' then return { 'buffer' } end
+                                -- Commands
+                                if type == ':' or type == '@' then return { 'cmdline' } end
+                                return {}
+                        end,
+                        completion = {
+                                trigger = {
+                                        show_on_blocked_trigger_characters   = {},
+                                        show_on_x_blocked_trigger_characters = {},
+                                },
+                                list    = {
+                                        selection = {
+                                                preselect   = false,
+                                                auto_insert = false,
+                                        },
+                                },
+                                menu    = { auto_show = false },
+                        },
+                },
+
                 sources    = {
                         per_filetype = { ["rip-substitute"] = { "buffer" }, gitcommit = {} },
-                        -- default      = nodeMode,
-                        default      = { "snippets", "lazydev", "lsp", "path", "buffer" },
+                        default      = function(ctx)
+                                local success, node = pcall(vim.treesitter.get_node)
+                                if vim.bo.filetype == "lua" then
+                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "env", "nerdfont",
+                                                "ripgrep" }
+                                elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
+                                        return { "buffer", "ripgrep" }
+                                else
+                                        return { "snippets", "lsp", "path", "buffer", "env", "nerdfont" }
+                                end
+                        end,
+
                         providers    = {
 
-                               lazydev  = {
+                                lazydev  = {
                                         name         = "LazyDev",
                                         module       = "lazydev.integrations.blink",
                                         score_offset = 140,
@@ -100,7 +165,6 @@ return {
                                         score_offset = 80,
                                         enabled      = function()
                                                 if vim.bo.ft ~= "lua" then return true end
-
                                                 local col                 = vim.api.nvim_win_get_cursor(0)[2]
                                                 local charsBefore         = vim.api.nvim_get_current_line():sub(col - 2,
                                                         col)
@@ -111,7 +175,7 @@ return {
                                 },
 
                                 snippets = {
-                                        name = "Snip",
+                                        name         = "Snip",
                                         score_offset = 90,
                                 },
 
@@ -122,9 +186,9 @@ return {
                                         opts         = {
                                                 trailing_slash               = true,
                                                 label_trailing_slash         = true,
-                                                -- get_cwd                      = function(context)
-                                                --         return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
-                                                -- end,
+                                                get_cwd                      = function(context)
+                                                        return vim.fn.expand(('#%d:p:h'):format(context.bufnr))
+                                                end,
                                                 show_hidden_files_by_default = false,
                                         }
                                 },
@@ -135,8 +199,63 @@ return {
                                         max_items          = 8,
                                         min_keyword_length = 3,
                                         opts               = {
-                                                -- get_bufnrs = normalBuf,
                                                 get_bufnrs = vim.api.nvim_list_bufs,
+                                                -- get_bufnrs = function()
+                                                --         return vim.tbl_filter(function(bufnr)
+                                                --                 return vim.bo[bufnr].buftype == ''
+                                                --         end, vim.api.nvim_list_bufs())
+                                                -- end
+                                        }
+                                },
+
+                                omni     = {
+                                        name         = "Omni",
+                                        module       = "blink.cmp.sources.complete_func",
+                                        score_offset = 80,
+                                        opts         = {
+                                                disable_omnifunc = { "v:lua.vim.lsp.omnifunc" }
+                                        }
+                                },
+
+                                env      = {
+                                        name      = "Env",
+                                        module    = "blink-cmp-env",
+                                        max_items = 20,
+                                        opts      = {
+                                                show_braces               = false,
+                                                show_documentation_window = true,
+                                        }
+                                },
+
+                                nerdfont = {
+                                        module       = "blink-nerdfont",
+                                        name         = "Nerd",
+                                        score_offset = 200,
+                                        opts         = { insert = true }
+                                },
+
+                                ripgrep  = {
+                                        module    = "blink-cmp-rg",
+                                        name      = "Ripgrep",
+                                        max_items = 20,
+                                        opts      = {
+                                                prefix_min_len = 3,
+                                                get_command    = function(context, prefix)
+                                                        return {
+                                                                "rg",
+                                                                "--no-config",
+                                                                "--json",
+                                                                "--word-regexp",
+                                                                "--smart-case",
+                                                                "--",
+                                                                prefix .. "[\\w_-]+",
+                                                                vim.fs.root(0, ".git") or vim.fn.getcwd(),
+                                                        }
+                                                end,
+                                                get_prefix     = function(context)
+                                                        return context.line:sub(1, context.cursor[2]):match("[%w_-]+$") or
+                                                            ""
+                                                end,
                                         }
                                 }
                         },

@@ -48,10 +48,10 @@ return { -- treesitter-based textobjs
                 -- stylua: ignore start
                 { "q,", "<cmd>TSTextobjectGotoPreviousStart @comment.outer<CR>", desc = " Swap next arg" },
                 { "q.", "<cmd>TSTextobjectGotoNextStart @comment.outer<CR>", desc = " Swap next arg" },
-                { "<A-,>", "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz", desc = " Goto prev function" },
-                { "<A-.>", "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz", desc = " Goto next function" },
-                { "<C-,>", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>", desc = " Swap prev arg" },
-                { "<C-.>", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>", desc = " Swap next arg" },
+                { "f,", "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz", desc = " Goto prev function" },
+                { "f.", "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz", desc = " Goto next function" },
+                { "<A-;>", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>", desc = " Swap prev arg" },
+                { "<A-'>", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>", desc = " Swap next arg" },
                 -- stylua: ignore end
 
                 -- TEXT OBJECTS
