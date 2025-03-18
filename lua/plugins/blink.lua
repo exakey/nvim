@@ -142,13 +142,13 @@ return {
                         default      = function(ctx)
                                 local success, node = pcall(vim.treesitter.get_node)
                                 if vim.bo.filetype == "lua" then
-                                        return { "snippets", "lazydev", "lsp", "path", "ripgrep", "env", "nerdfont" }
+                                        return { "snippets", "lazydev", "lsp", "path", "ripgrep", "nerdfont" }
                                 elseif vim.bo.filetype == "c" or "cpp" then
-                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "env", "nerdfont" }
+                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "nerdfont" }
                                 elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
                                         return { "ripgrep" }
                                 else
-                                        return { "snippets", "lsp", "path", "ripgrep", "env", "nerdfont" }
+                                        return { "snippets", "lsp", "path", "ripgrep", "nerdfont" }
                                 end
                         end,
 
@@ -157,7 +157,7 @@ return {
                                 lazydev  = {
                                         name         = "LazyDev",
                                         module       = "lazydev.integrations.blink",
-                                        score_offset = 180,
+                                        score_offset = 220,
                                 },
 
                                 snippets = {
@@ -198,7 +198,7 @@ return {
                                         name               = "Buf",
                                         score_offset       = 60,
                                         max_items          = 8,
-                                        min_keyword_length = 3,
+                                        min_keyword_length = 1,
                                         opts               = {
                                                 get_bufnrs = vim.api.nvim_list_bufs,
                                                 -- get_bufnrs = function()

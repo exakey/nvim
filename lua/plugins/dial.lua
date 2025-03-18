@@ -1,14 +1,6 @@
 return {     --twilight
     "monaqa/dial.nvim",
     enabled = true,
-    keys    = {
-        {     -- example for lazy-loading on keystroke
-            "<leader>tl",
-            "<cmd>Twilight<CR>",
-            mode = { "n", "o", "x" },
-            desc = "Toggle Twilight",
-        },
-    },
     config  = function()
         local augend = require("dial.augend")
         require("dial.config").augends:register_group({

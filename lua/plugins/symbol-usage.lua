@@ -1,6 +1,6 @@
 return {
         "Wansmer/symbol-usage.nvim",
-        keys   = { { "<leader>os", function() require("symbol-usage").toggle() end, desc = "Toggle symbol usage signs", mode = { "n" } } },
+        keys   = { { "<leader>os", function() require("symbol-usage").toggle_globally() end, desc = "Toggle symbol usage signs", mode = { "n" } } },
 
         config = function()
                 local function h(name) return vim.api.nvim_get_hl(0, { name = name }) end

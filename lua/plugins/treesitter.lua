@@ -3,6 +3,7 @@ vim.filetype.add({
 })
 
 return {
+
         {
                 "nvim-treesitter/nvim-treesitter",
                 event = "BufReadPre",
@@ -22,6 +23,7 @@ return {
                         -- easier than keeping track of new "special parsers", which are not
                         -- auto-installed on entering a buffer (e.g., regex, luadocs, comments)
                         ensure_installed      = "all",
+                        ignore_install        = { "comment" },
 
                         highlight             = {
                                 enable  = true,
@@ -32,6 +34,7 @@ return {
                                         if ok and stats and stats.size > maxFilesizeKb * 1024 then return true end
                                 end,
                         },
+
                         indent                = {
                                 enable  = true,
                                 disable = { "markdown" }, -- indentation at bullet points is worse
@@ -43,17 +46,19 @@ return {
                                         include_surrounding_whitespace = false, -- doesn't work with my comment textobj mappings
                                 },
                         },
+
                         incremental_selection = {
                                 enable  = true,
                                 keymaps = {
                                         init_selection    = "<leader>v",
                                         node_incremental  = "<CR>",
                                         node_decremental  = "<S-CR>",
-                                        scope_incremental = "<TAB>",
+                                        -- scope_incremental = "<TAB>",
                                 }
                         }
                 },
         },
+
         {
                 'ckolkey/ts-node-action',
                 dependencies = { 'nvim-treesitter' },
@@ -61,6 +66,7 @@ return {
                 --     require("ts-node-action").setup({})
                 -- end
         },
+
         {
                 "theRealCarneiro/hyprland-vim-syntax",
                 dependencies = { "nvim-treesitter/nvim-treesitter" },

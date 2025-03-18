@@ -15,7 +15,7 @@ return {
                         scope      = {
                                 show_start = true,
                                 show_end   = true,
-                                char       = "󰨕",
+                                char       = "▏",
                         },
                 })
         end,

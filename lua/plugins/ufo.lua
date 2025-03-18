@@ -4,30 +4,45 @@ return {
         event        = "UIEnter",
         keys         = {
                 { "<leader>if", vim.cmd.UfoInspect, desc = " Fold info" },
-                { "zH", function() require("ufo").openFoldsExceptKinds { "comment", "imports", "region", "indent" } end, desc = "󱃄 Close all folds" },
-                -- { "zH", function() require("ufo").closeFoldsWith(1)  end, desc = "󱃄 Close all folds" },
-                { "zm", function() require("ufo").closeAllFolds() end, desc = "󱃄 Close all folds" },
-                { "zk", function() require("ufo").goPreviousStartFold() end, desc = "󱃄 Close all folds" },
-                {
-                        "zK",
-                        function()
-                                local winid = require("ufo").peekFoldedLinesUnderCursor()
-                                if not winid then
-                                        vim.lsp.buf.hover()
-                                end
-                        end,
-                        desc = "󱃄 Close all folds"
-                },
-                {
-                        "zL",
-                        function() require("ufo").openFoldsExceptKinds { "comment", "imports" } end,
-                        desc = "󱃄 Open regular folds",
-                },
                 { "z1", function() require("ufo").closeFoldsWith(1) end, desc = "󱃄 Close L1 folds" },
                 { "z2", function() require("ufo").closeFoldsWith(2) end, desc = "󱃄 Close L2 folds" },
                 { "z3", function() require("ufo").closeFoldsWith(3) end, desc = "󱃄 Close L3 folds" },
                 { "z4", function() require("ufo").closeFoldsWith(4) end, desc = "󱃄 Close L4 folds" },
                 { "z5", function() require("ufo").closeFoldsWith(5) end, desc = "󱃄 Close L5 folds" },
+                { -- OPEN
+                        "zL",
+                        function()
+                                require("ufo").openFoldsExceptKinds { "comment", "imports" }
+                                vim.cmd("norm zz")
+                        end,
+                        desc = "󱃄 Open regular folds",
+                },
+                { -- CLOSE
+                        "zH",
+                        function()
+                                require("ufo").openFoldsExceptKinds { "comment", "imports", "region", "indent" }
+                                vim.cmd("norm zz")
+                        end,
+                        desc = "󱃄 Close all folds",
+                },
+                { -- CLOSE ALL
+                        "zm",
+                        function() require("ufo").closeAllFolds() vim.cmd("norm zz") end,
+                        desc = "󱃄 Close all folds",
+                },
+                { -- FOLD PREVIEW
+                        "zK",
+                        function()
+                                local winid = require("ufo").peekFoldedLinesUnderCursor()
+                                if not winid then vim.lsp.buf.hover() end
+                        end,
+                        desc = "󱃄 Close all folds"
+                },
+                { -- GOTO PREVIOUS FOLD START
+                        "zk",
+                        function() require("ufo").goPreviousStartFold() vim.cmd("norm zz") end,
+                        desc = "󱃄 Close all folds",
+                },
         },
         init         = function()
                 vim.opt.foldlevel      = 99
@@ -40,7 +55,9 @@ return {
                         json     = { "array" },
                         markdown = {}, -- avoid everything becoming folded
                         toml     = {},
-                        lua      = { "region" }
+                        lua      = { "region" },
+                        c        = { "region", "comment" },
+                        cpp      = { "region", "comment" }
                         -- use `:UfoInspect` to get see available fold kinds
                 },
 
@@ -49,7 +66,7 @@ return {
                 preview                 = {
                         win_config = {
                                 border       = "none",
-                                winblend     = 0,
+                                winblend     = vim.g.winblend,
                                 winhighlight = "NormalFloat:NormalFloat",
                         }
                 },

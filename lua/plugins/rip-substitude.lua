@@ -14,9 +14,10 @@ return { -- better `:substitute`
                         desc = " remember cword (rip-sub)",
                 },
         },
+
         opts = {
                 popupWin        = {
-                        border                  = "single",
+                        border                  = "none",
                         hideSearchReplaceLabels = true,
                 },
                 prefill         = {

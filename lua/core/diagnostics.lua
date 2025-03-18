@@ -1,31 +1,48 @@
--- Add notification & writeall to renaming
-local originalRenameHandler             = vim.lsp.handlers["textDocument/rename"]
+-- HANDLERS
+
+-- `vim.lsp.buf.rename`: add notification & writeall to renaming
+local originalRenameHandler = vim.lsp.handlers["textDocument/rename"]
 vim.lsp.handlers["textDocument/rename"] = function(err, result, ctx, config)
-        originalRenameHandler(err, result, ctx, config)
-        if err or not result then return end
+	originalRenameHandler(err, result, ctx, config)
+	if err or not result then return end
 
-        -- count changes
-        local changes      = result.changes or result.documentChanges or {}
-        local changedFiles = vim.iter(vim.tbl_keys(changes))
-            :filter(function(file) return #changes[file] > 0 end)
-            :map(function(file) return "- " .. vim.fs.basename(file) end)
-            :totable()
-        local changeCount  = 0
-        for _, change in pairs(changes) do
-                changeCount = changeCount + #(change.edits or change)
-        end
+	-- count changes
+	local changes = result.changes or result.documentChanges or {}
+	local changedFiles = vim.iter(vim.tbl_keys(changes))
+		:filter(function(file) return #changes[file] > 0 end)
+		:map(function(file) return "- " .. vim.fs.basename(file) end)
+		:totable()
+	local changeCount = 0
+	for _, change in pairs(changes) do
+		changeCount = changeCount + #(change.edits or change)
+	end
 
-        -- notification
-        local pluralS = changeCount > 1 and "s" or ""
-        local msg     = ("%d instance%s"):format(changeCount, pluralS)
-        if #changedFiles > 1 then
-                msg = ("**%s in %d files:**\n"):format(msg, #changedFiles) .. table.concat(changedFiles, "\n")
-        end
-        vim.notify(msg, nil, { title = "Renamed with LSP" })
+	-- notification
+	local pluralS = changeCount > 1 and "s" or ""
+	local msg = ("[%d] instance%s"):format(changeCount, pluralS)
+	if #changedFiles > 1 then
+		msg = ("**%s in [%d] files**\n%s"):format(
+			msg,
+			#changedFiles,
+			table.concat(changedFiles, "\n")
+		)
+	end
+	vim.notify(msg, nil, { title = "Renamed with LSP", icon = "󰑕" })
 
-        -- SAVE ALL
-        if #changedFiles > 1 then vim.cmd.wall() end
+	-- save all
+	if #changedFiles > 1 then vim.cmd.wall() end
 end
+
+-- `vim.lsp.buf.signature_help`
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = vim.g.borderStyle,
+})
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+	border = vim.g.borderStyle,
+	title = " LSP hover ",
+	max_width = 75,
+})
 
 --------------------------------------------------------------------------------
 -- LSP PROGRESS
@@ -125,13 +142,15 @@ local numbers = {
                         [vim.diagnostic.severity.INFO]  = "",
                         [vim.diagnostic.severity.HINT]  = "",
                 },
+
                 numhl = {
-                        [vim.diagnostic.severity.WARN]  = "WarningMsg",
                         [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+                        [vim.diagnostic.severity.WARN]  = "WarningMsg",
                         [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
                         [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
                 },
         }
+
 local icons = {
                 text = {
                         [vim.diagnostic.severity.ERROR] = "󰨓",

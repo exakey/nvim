@@ -7,7 +7,7 @@ local config     = {
                 relative         = "cursor",
                 row              = 2,
                 col              = 0,
-                border           = vim.g.borderStyle,
+                -- border           = vim.g.borderStyle,
                 showKindInFooter = true,
         },
         keymaps           = {

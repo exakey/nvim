@@ -1,5 +1,5 @@
 -- CONFIG
-local blend = 40
+local blend = vim.g.backdrop
 
 vim.api.nvim_create_autocmd("FileType", {
         pattern  = "TelescopePrompt",

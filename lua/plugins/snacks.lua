@@ -9,67 +9,61 @@ return {
                 { "<leader>lg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
                 { "]]",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",      mode = { "n", "t" } },
                 { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",      mode = { "n", "t" } },
-                {
+                { -- MAIN
                         "<leader><leader><leader>",
                         function() Snacks.picker({ layout = "vscode" }) end,
-                        desc = "Picker",
+                        desc = "Main Picker",
                         mode = { "n" },
                 },
-                {
+                { -- TODO  COMMENTS
                         "<leader><leader>t",
                         function() Snacks.picker.todo_comments({ layout = "select" }) end,
-                        desc = "Picker",
+                        desc = "TODO comments",
                         mode = { "n" },
                 },
-                {
+                { -- FILES
                         "<leader><leader>f",
                         function() Snacks.picker.files({ layout = "vertical" }) end,
                         desc = "File Picker",
                         mode = { "n" },
                 },
-                {
+                { -- KEYMAPS
                         "<leader><leader>k",
                         function() Snacks.picker.keymaps({ layout = "select" }) end,
                         desc = "Keymap Picker",
                         mode = { "n" },
                 },
-                {
+                { -- GREP
                         "<leader><leader>g",
                         function() Snacks.picker.grep({ layout = "vertical" }) end,
                         desc = "Grep Picker",
                         mode = { "n" },
                 },
-                {
-                        "<leader><leader>r",
-                        function() Snacks.picker.registers({ layout = "vertical" }) end,
-                        desc = "Register Picker",
-                        mode = { "n" },
-                },
-                {
+                { -- GREP WORD
                         "<leader><leader>w",
                         function() Snacks.picker.grep_word({ layout = "default" }) end,
                         desc = "Grep Word",
                         mode = { "n" },
                 },
-                {
+                { -- REGISTERS
+                        "<leader><leader>R",
+                        function() Snacks.picker.registers({ layout = "vertical" }) end,
+                        desc = "Register Picker",
+                        mode = { "n" },
+                },
+                { -- HIGHLIGHTS
                         "<leader><leader>h",
                         function() Snacks.picker.highlights({ layout = "default" }) end,
                         desc = "Highlight Picker",
                         mode = { "n" },
                 },
-                {
-                        "<leader><leader>d",
-                        function() Snacks.picker.diagnostics({ layout = "default" }) end,
-                        desc = "Highlight Picker",
-                        mode = { "n" },
-                },
-                {
+                { -- LAZY
                         "<leader><leader>l",
                         function() Snacks.picker.lazy({ layout = "dropdown" }) end,
                         desc = "Lazy Picker",
                         mode = { "n" },
                 },
-                {
+                { -- BUFFERS
                         "<leader><leader>b",
                         function()
                                 Snacks.picker.buffers({
@@ -93,8 +87,8 @@ return {
                 ------------------------------------------------------------------------
                 -- STYLES
 
-                styles    = {
-                        float                = { backdrop = 40 },
+                styles   = {
+                        float                = { backdrop = vim.g.backdrop },
                         input                = {
                                 backdrop = true,
                                 wo       = {
@@ -113,12 +107,13 @@ return {
                         notification_history = { width = 0.9, height = 0.9 }
                 },
 
-                lazygit   = { enabled = true },
-                words     = { enabled = false },
+                lazygit  = { enabled = true },
+                words    = { enabled = false },
 
                 ----------------------------------------------------------------
                 -- DIM
-                dim       = {
+
+                dim      = {
                         {
                                 scope = {
                                         min_size = 5,
@@ -131,7 +126,7 @@ return {
                 ----------------------------------------------------------------
                 -- NOTIFIER
 
-                notifier  = {
+                notifier = {
                         icons   = { error = " ■", warn = " ■", info = " ■", debug = " ■", trace = " ■" },
                         style   = "minimal",
                         enabled = true,
@@ -141,7 +136,7 @@ return {
                 ----------------------------------------------------------------
                 -- PICKERS
 
-                picker    = {
+                picker   = {
                         win     = {
                                 input = {
                                         keys = {
@@ -260,6 +255,89 @@ return {
                                                 { win = "preview", title = "{preview}", height = 0.4, border = "top" },
                                         },
                                 }
+                        },
+                },
+
+                ----------------------------------------------------------------
+                -- IMAGE
+
+                image    = {
+                        formats  = { "png", "jpg", "jpeg", "gif", "bmp", "webp", "tiff", "heic", "avif", "mp4", "mov", "avi", "mkv", "webm", "pdf" },
+                        force    = false,
+                        doc      = {
+                                enabled = true,
+                                inline = true,
+                                float = true,
+                                max_width = 80,
+                                max_height = 40,
+
+                                conceal = function(lang, type)
+                                        return type == "math"
+                                end,
+                        },
+                        img_dirs = { "img", "images", "assets", "static", "public", "media", "attachments" },
+                        wo       = {
+                                wrap           = false,
+                                number         = false,
+                                relativenumber = false,
+                                cursorcolumn   = false,
+                                signcolumn     = "no",
+                                foldcolumn     = "0",
+                                list           = false,
+                                spell          = false,
+                                statuscolumn   = "",
+                        },
+                        cache    = vim.fn.stdpath("cache") .. "/snacks/image",
+                        debug    = {
+                                request   = false,
+                                convert   = false,
+                                placement = false,
+                        },
+                        env      = {},
+                        icons    = {
+                                math  = "󰪚 ",
+                                chart = "󰄧 ",
+                                image = " ",
+                        },
+                        convert  = {
+                                notify  = true,
+                                mermaid = function()
+                                        local theme = vim.o.background == "light" and "neutral" or "dark"
+                                        return { "-i", "{src}", "-o", "{file}", "-b", "transparent", "-t", theme,
+                                                "-s", "{scale}" }
+                                end,
+                                magick  = {
+                                        default = { "{src}[0]", "-scale", "1920x1080>" },
+                                        vector  = { "-density", 192, "{src}[0]" },
+                                        math    = { "-density", 192, "{src}[0]", "-trim" },
+                                        pdf     = { "-density", 192, "{src}[0]", "-background", "white", "-alpha", "remove", "-trim" },
+                                },
+                        },
+                        math     = {
+                                enabled = true,
+                                typst = {
+                                        tpl = [[
+                                                        #set page(width: auto, height: auto, margin: (x: 2pt, y: 2pt))
+                                                        #show math.equation.where(block: false): set text(top-edge: "bounds", bottom-edge: "bounds")
+                                                        #set text(size: 12pt, fill: rgb("${color}"))
+                                                        ${header}
+                                                        ${content}
+                                                ]],
+                                },
+                                latex = {
+                                        font_size = "Large",
+                                        packages = { "amsmath", "amssymb", "amsfonts", "amscd", "mathtools" },
+                                        tpl = [[
+                                                        \documentclass[preview,border=0pt,varwidth,12pt]{standalone}
+                                                        \usepackage{${packages}}
+                                                        \begin{document}
+                                                        ${header}
+                                                        { \${font_size} \selectfont
+                                                        \color[HTML]{${color}}
+                                                        ${content}}
+                                                        \end{document}
+                                                ]],
+                                },
                         },
                 },
 

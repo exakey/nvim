@@ -27,8 +27,11 @@ end
 
 -- CONFIG
 vim.g.mapleader      = " "
-vim.g.maplocalleader = "<Nop>"  -- disable `\` being default local leader
+vim.g.maplocalleader = "<Nop>" -- disable `\` being default local leader
 -- vim.g.borderStyle    = NONE
+vim.g.backdrop       = 80
+vim.g.blend          = 0
+vim.g.winblend       = 20
 vim.g.localRepos     = vim.fs.normalize("~/Documents/Code/")
 
 --------------------------------------------------------------------------------
@@ -56,6 +59,7 @@ safeRequire("core.diagnostics")
 safeRequire("core.keymaps")
 safeRequire("core.yank-paste")
 safeRequire("core.highlights")
+safeRequire("functions.quickfix")
 
 -- lazy-load spellfixes
 vim.api.nvim_create_autocmd("InsertEnter", {

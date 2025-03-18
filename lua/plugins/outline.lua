@@ -3,6 +3,8 @@ return
         "hedyhli/outline.nvim",
         event  = "LspAttach",
         cmd    = { "Outline", "OutlineOpen" },
+        keys   = { { "<A-s>", "<cmd>Outline<cr>", desc = "Outline", mode = { "n" } } },
+
         config = function()
                 require("outline").setup({
                         outline_window = {
@@ -59,7 +61,7 @@ return
                                 relative_height       = true,
                                 border                = 'single',
                                 winhl                 = 'NormalFloat:',
-                                winblend              = 0,
+                                winblend              = vim.g.winblend,
                                 live                  = true
                         },
                         keymaps        = {
@@ -134,7 +136,4 @@ return
                         },
                 })
         end,
-        keys   = {
-                { "<A-s>", "<cmd>Outline<cr>", desc = "Outline", mode = { "n" } }
-        },
 }

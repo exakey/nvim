@@ -6,6 +6,7 @@ return {
         },
         {
                 "3rd/image.nvim",
+                enabled = false,
                 event        = "VeryLazy",
                 dependencies = { "luarocks.nvim" },
                 config       = function()

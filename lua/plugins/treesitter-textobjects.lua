@@ -19,7 +19,6 @@ return { -- treesitter-based textobjs
                         mode = "o", -- only operator-pending to not conflict with selection-commenting
                         desc = "󰆈 Single Comment",
                 },
-
                 {
                         "dq",
                         function()
@@ -30,7 +29,6 @@ return { -- treesitter-based textobjs
                         end,
                         desc = "󰆈 Sticky Delete Comment",
                 },
-
                 {
                         "cq",
                         function()
@@ -43,15 +41,14 @@ return { -- treesitter-based textobjs
                         end,
                         desc = "󰆈 Change Comment",
                 },
-
                 -- MOVE & SWAP
                 -- stylua: ignore start
-                { "q,", "<cmd>TSTextobjectGotoPreviousStart @comment.outer<CR>", desc = " Swap next arg" },
-                { "q.", "<cmd>TSTextobjectGotoNextStart @comment.outer<CR>", desc = " Swap next arg" },
-                { "f,", "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz", desc = " Goto prev function" },
-                { "f.", "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz", desc = " Goto next function" },
-                { "<A-;>", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>", desc = " Swap prev arg" },
-                { "<A-'>", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>", desc = " Swap next arg" },
+                { "q,", "<cmd>TSTextobjectGotoPreviousStart @comment.outer<CR>zz", desc = " Swap next arg" },
+                { "q.", "<cmd>TSTextobjectGotoNextStart @comment.outer<CR>zz", desc = " Swap next arg" },
+                { "<A-;>", "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>zz", desc = " Swap prev arg" },
+                { "<A-'>", "<cmd>TSTextobjectSwapNext @parameter.inner<CR>zz", desc = " Swap next arg" },
+                { "<A-.>", "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>zz", desc = " Swap prev arg" },
+                { "<A-,>", "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>zz", desc = " Swap next arg" },
                 -- stylua: ignore end
 
                 -- TEXT OBJECTS

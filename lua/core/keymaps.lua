@@ -1,10 +1,14 @@
 ---@diagnostic disable: missing-parameter
-local map = require("core.utils").uniqueKeymap
+---@diagnostic disable: unused-local
 
+local map              = require("core.utils").uniqueKeymap
 local n, i, v, o, x, t = "n", "i", "v", "o", "x", "t"
-local nx = { n, x }
-local nv = { n, v }
-local ni = { n, i }
+
+
+local nx  = { n, x }
+local nv  = { n, v }
+local ni  = { n, i }
+local niv = { n, i, v }
 
 -- vim.g.mapleader = " "
 map(nv, "<RightMouse>", function()
@@ -40,8 +44,10 @@ map(i, "<C-k>", "<Up>", { desc = "Up with k in INSERT mode" })
 map(i, "<C-l>", "<Right>", { desc = "Right with l in INSERT mode" })
 
 -- Better scroll
-map(n, "<C-d>", "<C-d>zz", { desc = "Scroll down" })
-map(n, "<C-u>", "<C-u>zz", { desc = "Scroll up" })
+map(n, "<C-d>", "<C-d>zz", { desc = "Scroll down half page" })
+map(n, "<C-u>", "<C-u>zz", { desc = "Scroll up half a page" })
+map(n, "<C-f>", "<C-f>zz", { desc = "Scroll down a page" })
+map(n, "<C-b>", "<C-b>zz", { desc = "Scroll up a page" })
 
 -- Search
 -- map(n, "-", "/")
@@ -68,12 +74,16 @@ end, { desc = " Open first URL in file" })
 map(n, "f", function() require("functions.nano-plugins").fF("f") end, { desc = "f" })
 map(n, "F", function() require("functions.nano-plugins").fF("F") end, { desc = "F" })
 
--- Jump between folds
-map(n, "zh", "zczzzz", { desc = "Close current fold" })
-map(n, "zl", "zozzzz", { desc = "Open current fold" })
+-- Folds
+map(n, "zh", "zczz", { desc = "Close current fold", silent = true })
+map(n, "zl", "zozz", { desc = "Open current fold", silent = true })
+map(n, "zj", "zjzz", { desc = "Open current fold", silent = true })
 
 -- Move to the end of previous word
 map(nv, "W", "ge", { desc = "Jump to the end of previous word" })
+
+-- center Ctrl-o
+map(n, "<C-o>", "<C-o>zz", { silent = true })
 
 --------------------------------------------------------------------------------
 -- EDITING
@@ -106,7 +116,7 @@ end, { desc = "󱎘 Delete char at EoL" })
 local trailChars = { ",", "\\", "[", "]", "{", "}", ")", ";", "." }
 for _, key in pairs(trailChars) do
         local pad = key == "\\" and " " or ""
-        map(n, "<leader>" .. key, ("mzA%s%s<Esc>`z"):format(pad, key))
+        map(n, "<leader>" .. key, ("mzA%s%s<Esc>`z"):format(pad, key), { silent = true })
 end
 
 -- Whitespace & indentation
@@ -119,13 +129,6 @@ map(x, "<Tab>", ">gv", { desc = "󰉶 indent" })
 map(x, "<S-Tab>", "<gv", { desc = "󰉵 outdent" })
 map(i, "<Tab>", "<C-t>", { desc = "󰉶 indent" })
 map(i, "<S-Tab>", "<C-d>", { desc = "󰉵 outdent" })
-
--- map(n, "<A-l>", ">>", { desc = "󰉶 indent" })
--- map(n, "<A-h>", "<<", { desc = "󰉵 outdent" })
--- map(x, "<A-l>", ">gv", { desc = "󰉶 indent" })
--- map(x, "<A-h>", "<gv", { desc = "󰉵 outdent" })
--- map(i, "<A-l>", "<C-t>", { desc = "󰉶 indent" })
--- map(i, "<A-h>", "<C-d>", { desc = "󰉵 outdent" })
 
 -- Merging
 map(n, "m", "J", { desc = "󰽜 Merge line up" })
@@ -197,15 +200,27 @@ map(n, "qO", function() require("functions.comment").addComment("above") end, { 
 
 --------------------------------------------------------------------------------
 -- LSP
-map(nv, "K", vim.lsp.buf.signature_help, { desc = "󰏪 LSP Signature" })
-map(nx, "<leader>f", function() require("functions.nano-plugins").formatWithFallback() end, { desc = "󱉯 Save & Format" })
+
+map(niv, "<C-.>", function() require("functions.quickfix").code_actions() end, { desc = "Quickfix" })
+map(nv, "K",   "<cmd>lua vim.lsp.buf.signature_help<CR>zz", { desc = "󰏪 LSP Signature" })
+map(nx, "<leader>f", function() require("functions.nano-plugins").formatWithFallback() end, { desc = "󱉯 Format" })
 map(nx, "<leader><leader>c", function()
         require("tiny-code-action").code_action()
-end, { desc = "󰒕 Code Action" })
+end, { desc = "Code Action" })
+
+map(n, ",R", function() Snacks.picker.lsp_references() end, { desc = "Goto Reference", silent = true, })
+map(n, ",D", vim.lsp.buf.declaration, { desc = "Goto Declaration", silent = true, })
+map(n, ",d", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition", silent = true, })
+map(n, ",i", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation", silent = true, })
+map(n, ",t", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto Type Definition", silent = true, })
+map(n, "<leader><leader>d", function() Snacks.picker.diagnostics_buffer() end,
+        { desc = "Show Buffer Diagnostics", silent = true, })
+map(n, "<leader><leader>D", function() Snacks.picker.diagnostics() end, { desc = "Show Diagnostics", silent = true, })
+map(n, "<leader><leader>r", function() Snacks.picker.lsp_references() end, { desc = "Show Diagnostics", silent = true, })
+map(n, "<leader><leader>z", vim.lsp.codelens.get())
 
 do
         map(nx, "<leader>h", vim.lsp.buf.hover, { desc = "󰋽 LSP hover" })
-
         local function scrollLspWin(lines)
                 local winid = vim.b.lsp_floating_preview --> stores id of last `vim.lsp`-generated win
                 if not winid or not vim.api.nvim_win_is_valid(winid) then return end
@@ -219,8 +234,8 @@ do
 end
 
 --------------------------------------------------------------------------------
-
 -- INSERT MODE
+
 map(n, "i", function()
         local lineEmpty = vim.trim(vim.api.nvim_get_current_line()) == ""
         return (lineEmpty and [["_cc]] or "i")
@@ -257,12 +272,10 @@ map(n, "<A-->", "<C-W>s", { desc = "Split Window Below" })
 map(n, "<A-Bslash>", "<C-W>v", { desc = "Split Window Right" })
 
 -- Move to window
-map(n, "<C-h>", "<C-w>h", { desc = "Go to Left Window", })
--- map(n, "<w-j>", "<C-w>j", { desc = "Go to Lower Window", })
--- map(n, "<w-k>", "<C-w>k", { desc = "Go to Upper Window", })
-map(n, "<C-j>", "<C-w>j", { desc = "Go to Lower Window", })
-map(n, "<C-k>", "<C-w>k", { desc = "Go to Upper Window", })
-map(n, "<C-l>", "<C-w>l", { desc = "Go to Right Window", unique = false })
+-- map(n, "<C-h>", "<C-w>h", { desc = "Go to Left Window", })
+-- map(n, "<C-j>", "<C-w>j", { desc = "Go to Lower Window", })
+-- map(n, "<C-k>", "<C-w>k", { desc = "Go to Upper Window", })
+-- map(n, "<C-l>", "<C-w>l", { desc = "Go to Right Window", unique = false })
 
 -- Resize window
 local delta = 5
@@ -273,17 +286,6 @@ local delta = 5
 
 --------------------------------------------------------------------------------
 -- BUFFERS & FILES
-
--- do
---         -- stylua: ignore
---         map(nx, "<CR>", function() require("functions.alt-alt").gotoAltFile() end,
---                 { desc = "󰬈 Goto alt-file" })
---         vim.api.nvim_create_autocmd("FileType", {
---                 desc = "User: restore default behavior of `<CR>` for quickfix buffers.",
---                 pattern = "qf",
---                 callback = function(ctx) vim.keymap.set(n, "<CR>", "<CR>", { buffer = ctx.buf }) end,
---         })
--- end
 
 map(n, "<A-r>", vim.cmd.edit, { desc = "󰽙 Reload buffer" })
 map(n, "H", "<cmd>bprevious<cr>zz", { desc = "Prev Buffer" })
@@ -339,14 +341,6 @@ map(n, "<leader>f<Space>", function() retabber("spaces") end, { desc = "󱁐 Use
 map(i, "<A-t>", function() require("functions.auto-template-str").insertTemplateStr() end,
         { desc = "󰅳 Insert template string" })
 
--- MULTI-EDIT
--- map(n, "<D-j>", '*N"_cgn', { desc = "󰆿 Multi-edit cword" })
--- map(x, "<D-j>", function()
---     local selection = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = "v" })[1]
---     vim.fn.setreg("/", "\\V" .. vim.fn.escape(selection, [[/\]]))
---     return '<Esc>"_cgn'
--- end, { desc = "󰆿 Multi-edit selection", expr = true })
-
 --------------------------------------------------------------------------------
 -- OPTION TOGGLING
 
@@ -355,19 +349,14 @@ map(n, "<leader>on", "<cmd>set number!<CR>", { desc = " Line numbers" })
 map(n, "<leader>ow", "<cmd>set wrap!<CR>", { desc = "󰖶 Wrap" })
 
 map(n, "<leader>od", function()
-        local isEnabled = vim.diagnostic.is_enabled { bufnr = 0 }
-        vim.diagnostic.enable(not isEnabled, { bufnr = 0 })
+        vim.diagnostic.enable(not vim.diagnostic.is_enabled)
 end, { desc = "󰋽 Diagnostics" })
 
 map(n, "<leader>oc", function() vim.wo.conceallevel = vim.wo.conceallevel == 0 and 2 or 0 end,
         { desc = "󰈉 Conceal" })
 
 map(n, "<leader>oo", function()
-        vim.cmd("IBLToggle")
-        require("lsp-endhints")
-        require("gitsigns").toggle_signs()
-        require("symbol-usage").toggle()
-        vim.lsp.inlay_hint.enable( not vim.lsp.inlay_hint.is_enabled() )
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "Toggle IDE stuff" })
 
 --------------------------------------------------------------------------------

@@ -1,19 +1,24 @@
 return {
         "rachartier/tiny-code-action.nvim",
+        event        = "LspAttach",
+
         dependencies = {
                 { "nvim-lua/plenary.nvim" },
                 { "nvim-telescope/telescope.nvim" },
         },
-        event        = "LspAttach",
+
         config       = function()
                 require('tiny-code-action').setup({
                         backend        = "delta",
+
                         backend_opts   = {
                                 delta = {
                                         header_lines_to_remove = 4,
-                                        args                   = {},
+                                        line_numbers           = true,
+                                        -- args                   = { "--side-by-side" },
                                 },
                         },
+
                         telescope_opts = {
                                 layout_strategy = "vertical",
                                 layout_config   = {
@@ -28,6 +33,7 @@ return {
                                         },
                                 },
                         },
+
                         signs          = {
                                 quickfix                   = { "󰁨", { link = "DiagnosticInfo" } },
                                 others                     = { "?", { link = "DiagnosticWarning" } },
@@ -40,6 +46,7 @@ return {
                                 ["rename"]                 = { "", { link = "DiagnosticWarning" } },
                                 ["codeAction"]             = { "", { link = "DiagnosticError" } },
                         },
+
                         filters        = {
                                 kind = "refactor",
                                 str  = "Wrap"

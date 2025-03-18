@@ -132,10 +132,9 @@ local globToTemplateMap = {
         [vim.fn.stdpath("config") .. "/lua/functions/*.lua"] = "module.lua",
         [vim.fn.stdpath("config") .. "/lua/plugins/*.lua"]   = "plugin-spec.lua",
 
-        ["**/*.py"]                                          = "template.py",
+        -- ["**/*.py"]                                          = "template.py",
         ["**/*.sh"]                                          = "template.zsh",
         ["**/*.*sh"]                                         = "template.zsh",
-        ["**/*.c*"]                                          = "template.cpp",
 }
 
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, {
@@ -215,7 +214,3 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNew" }, {
                 end, 150)
         end,
 })
-
-vim.cmd("IBLDisable")
-vim.cmd("Gitsigns toggle_signs")
-vim.cmd(" highlight @comment.todo guifg=#11111b guibg=#f5d0ec ")

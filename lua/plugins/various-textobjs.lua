@@ -1,5 +1,4 @@
-return
-{ -- pattern-based textobjs
+return { -- pattern-based textobjs
         "chrisgrieser/nvim-various-textobjs",
         keys = {
                 -- stylua: ignore start
@@ -26,7 +25,7 @@ return
                 { "rg", "G", mode = "o", desc = " rest of buffer" },
 
                 { "ge", "<cmd>lua require('various-textobjs').diagnostic()<CR>", mode = { "x", "o" }, desc = " diagnostic" },
-                -- { "L", "<cmd>lua require('various-textobjs').url()<CR>", mode = "o", desc = " URL" },
+                { "L", "<cmd>lua require('various-textobjs').url()<CR>", mode = "o", desc = " URL" },
                 { "o", "<cmd>lua require('various-textobjs').column()<CR>", mode = "o", desc = "ﴳ column" },
                 { "#", "<cmd>lua require('various-textobjs').cssColor('outer')<CR>", mode = { "x", "o" }, desc = " outer color" },
 

@@ -1,6 +1,6 @@
 return {
         "fredrikaverpil/godoc.nvim",
-        event   = "VeryLazy",
+        lazy    = true,
         version = "*",
         build   = "go install github.com/lotusirous/gostdsym/stdsym@latest",
         cmd     = { "GoDoc" },

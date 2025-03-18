@@ -47,7 +47,4 @@ return {
                         end,
                 })
         end,
-        keys   = {
-                { "<leader>ww", "<Cmd>WinShift<cr>", desc = "Start Win-Move mode", mode = { "n" } }
-        },
 }

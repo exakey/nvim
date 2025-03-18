@@ -22,7 +22,7 @@
                         "Snacks",
                         "NONE",
                         "pairs",
-            "snacks"
+                        "snacks"
                 ],
                 "groupFileStatus": {
                         "ambiguity": "Any",
@@ -50,7 +50,8 @@
                 "enable": true
         },
         "runtime": {
-                "version": "LuaJIT"
+                "version": "LuaJIT",
+                "builtin": "always"
         },
         "hover": {
                 "enable": true

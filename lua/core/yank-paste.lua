@@ -60,9 +60,6 @@ map("i", "<A-v>", function()
         return "<C-g>u<C-r><C-o>+"                                -- `<C-g>u` adds undopoint before the paste
 end, { desc = " Paste charwise", expr = true })
 
--- for compatibility with macOS clipboard managers
-map("n", "<A-v>", "p", { desc = " Paste" })
-
 --------------------------------------------------------------------------------
 -- SPECIAL YANK OPERATIONS
 
