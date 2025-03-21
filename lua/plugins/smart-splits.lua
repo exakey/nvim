@@ -5,31 +5,31 @@ return {
                 { -- MOVE LEFT
                         "<C-h>",
                         function()
-                                require("smart-splits").move_cursor_left()
+                                require("smart-splits").move_cursor_left() vim.cmd("norm zz")
                         end
                 },
                 { -- MOVE DOWN
                         "<C-j>",
                         function()
-                                require("smart-splits").move_cursor_down()
+                                require("smart-splits").move_cursor_down() vim.cmd("norm zz")
                         end
                 },
                 { -- MOVE UP
                         "<C-k>",
                         function()
-                                require("smart-splits").move_cursor_up()
+                                require("smart-splits").move_cursor_up() vim.cmd("norm zz")
                         end
                 },
                 { -- MOVE RIGHT
                         "<C-l>",
                         function()
-                                require("smart-splits").move_cursor_right()
+                                require("smart-splits").move_cursor_right() vim.cmd("norm zz")
                         end
                 },
                 { -- MOVE PREVIOUS
                         "<C-S-o>",
                         function()
-                                require("smart-splits").move_cursor_previous()
+                                require("smart-splits").move_cursor_previous() vim.cmd("norm zz")
                         end
                 },
                 { -- RESIZE LEFT

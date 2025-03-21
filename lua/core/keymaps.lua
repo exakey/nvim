@@ -202,13 +202,13 @@ map(n, "qO", function() require("functions.comment").addComment("above") end, { 
 -- LSP
 
 map(niv, "<C-.>", function() require("functions.quickfix").code_actions() end, { desc = "Quickfix" })
-map(nv, "K",   "<cmd>lua vim.lsp.buf.signature_help<CR>zz", { desc = "󰏪 LSP Signature" })
+map(nv, "K", function() vim.lsp.buf.signature_help() vim.cmd("norm zz") end, { desc = "󰏪 LSP Signature" })
 map(nx, "<leader>f", function() require("functions.nano-plugins").formatWithFallback() end, { desc = "󱉯 Format" })
 map(nx, "<leader><leader>c", function()
         require("tiny-code-action").code_action()
 end, { desc = "Code Action" })
 
-map(n, ",R", function() Snacks.picker.lsp_references() end, { desc = "Goto Reference", silent = true, })
+map(n, ",R", vim.lsp.buf.reference, { desc = "Goto Reference", silent = true, })
 map(n, ",D", vim.lsp.buf.declaration, { desc = "Goto Declaration", silent = true, })
 map(n, ",d", function() Snacks.picker.lsp_definitions() end, { desc = "Goto Definition", silent = true, })
 map(n, ",i", function() Snacks.picker.lsp_implementations() end, { desc = "Goto Implementation", silent = true, })
@@ -216,7 +216,7 @@ map(n, ",t", function() Snacks.picker.lsp_type_definitions() end, { desc = "Goto
 map(n, "<leader><leader>d", function() Snacks.picker.diagnostics_buffer() end,
         { desc = "Show Buffer Diagnostics", silent = true, })
 map(n, "<leader><leader>D", function() Snacks.picker.diagnostics() end, { desc = "Show Diagnostics", silent = true, })
-map(n, "<leader><leader>r", function() Snacks.picker.lsp_references() end, { desc = "Show Diagnostics", silent = true, })
+map(n, "<leader><leader>r", function() Snacks.picker.lsp_references() end, { desc = "Show References", silent = true, })
 map(n, "<leader><leader>z", vim.lsp.codelens.get())
 
 do
@@ -267,9 +267,9 @@ map(n, "<leader><leader>x", function() require("functions.inspect-and-eval").run
 -- WINDOWS
 
 -- Create split
-map(n, "<A-w>", "<C-W>c", { desc = "Delete Window" })
-map(n, "<A-->", "<C-W>s", { desc = "Split Window Below" })
-map(n, "<A-Bslash>", "<C-W>v", { desc = "Split Window Right" })
+map(n, "<A-w>", "<C-W>czz", { desc = "Delete Window", silent = true })
+map(n, "<A-->", "<C-W>szz", { desc = "Split Window Below", silent = true })
+map(n, "<A-Bslash>", "<C-W>vzz", { desc = "Split Window Right", silent = true })
 
 -- Move to window
 -- map(n, "<C-h>", "<C-w>h", { desc = "Go to Left Window", })

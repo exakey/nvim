@@ -1,7 +1,7 @@
 vim.bo.commentstring = "/* %s */" -- add spaces
 
 --------------------------------------------------------------------------------
-local bkeymap = require("config.utils").bufKeymap
+local bkeymap = require("core.utils").bufKeymap
 
 bkeymap("n", "!", function()
 	local line = vim.api.nvim_get_current_line()

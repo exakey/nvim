@@ -18,7 +18,7 @@ end, 1)
 
 --------------------------------------------------------------------------------
 -- ABBREVIATIONS
-local abbr = require("config.utils").bufAbbrev
+local abbr = require("core.utils").bufAbbrev
 abbr("true", "True")
 abbr("false", "False")
 abbr("//", "#")
@@ -32,7 +32,7 @@ abbr("function", "def")
 --------------------------------------------------------------------------------
 -- KEYMAPS
 
-local bkeymap = require("config.utils").bufKeymap
+local bkeymap = require("core.utils").bufKeymap
 bkeymap("n", "g/", function()
 	vim.cmd.normal { '"zyi"vi"', bang = true } -- yank & reselect inside quotes
 

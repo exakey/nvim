@@ -4,8 +4,8 @@ return {
         event   = "VeryLazy",
         opts    = {
                 mappings = {
-                        start              = "<leader>a",
-                        start_with_preview = "<leader>A",
+                        start              = "ma",
+                        start_with_preview = "ma",
                 },
 
                 options  = {

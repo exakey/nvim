@@ -27,7 +27,10 @@ return {
                 },
                 { -- CLOSE ALL
                         "zm",
-                        function() require("ufo").closeAllFolds() vim.cmd("norm zz") end,
+                        function()
+                                require("ufo").closeAllFolds()
+                                vim.cmd("norm zz")
+                        end,
                         desc = "󱃄 Close all folds",
                 },
                 { -- FOLD PREVIEW
@@ -40,7 +43,10 @@ return {
                 },
                 { -- GOTO PREVIOUS FOLD START
                         "zk",
-                        function() require("ufo").goPreviousStartFold() vim.cmd("norm zz") end,
+                        function()
+                                require("ufo").goPreviousStartFold()
+                                vim.cmd("norm zz")
+                        end,
                         desc = "󱃄 Close all folds",
                 },
         },
@@ -51,7 +57,19 @@ return {
         opts         = {
                 -- when opening the buffer, close these fold kinds
                 close_fold_kinds_for_ft = {
-                        default  = { "imports", "comment" },
+                        default = { "imports", "comment" },
+                        { -- SHIFT LEFT
+                                "h", "<cmd>WinShift left<CR>"
+                        },
+                        { -- SHIFT DOWN
+                                "j", "<cmd>WinShift down<CR>"
+                        },
+                        { -- SHIFT UP
+                                "k", "<cmd>WinShift up<CR>"
+                        },
+                        { -- SHIFT RIGHT
+                                "l", "<cmd>WinShift right<CR>"
+                        },
                         json     = { "array" },
                         markdown = {}, -- avoid everything becoming folded
                         toml     = {},
@@ -61,7 +79,7 @@ return {
                         -- use `:UfoInspect` to get see available fold kinds
                 },
 
-                open_fold_hl_timeout    = 100,
+                open_fold_hl_timeout    = 0,
 
                 preview                 = {
                         win_config = {
@@ -74,7 +92,9 @@ return {
                 provider_selector       = function(_bufnr, ft, _buftype)
                         -- ufo accepts only two kinds as priority, see https://github.com/kevinhwang91/nvim-ufo/issues/256
                         local lspWithOutFolding = { "markdown", "zsh", "bash", "css", "python", "json" }
-                        if vim.tbl_contains(lspWithOutFolding, ft) then return { "treesitter", "indent" } end
+                        if vim.tbl_contains(lspWithOutFolding, ft) then
+                                return { "treesitter", "indent" }
+                        end
                         return { "lsp", "indent" }
                 end,
 

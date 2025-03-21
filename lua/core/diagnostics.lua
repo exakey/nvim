@@ -1,47 +1,47 @@
 -- HANDLERS
 
 -- `vim.lsp.buf.rename`: add notification & writeall to renaming
-local originalRenameHandler = vim.lsp.handlers["textDocument/rename"]
-vim.lsp.handlers["textDocument/rename"] = function(err, result, ctx, config)
-	originalRenameHandler(err, result, ctx, config)
-	if err or not result then return end
+local originalRenameHandler                    = vim.lsp.handlers["textDocument/rename"]
+vim.lsp.handlers["textDocument/rename"]        = function(err, result, ctx, config)
+        originalRenameHandler(err, result, ctx, config)
+        if err or not result then return end
 
-	-- count changes
-	local changes = result.changes or result.documentChanges or {}
-	local changedFiles = vim.iter(vim.tbl_keys(changes))
-		:filter(function(file) return #changes[file] > 0 end)
-		:map(function(file) return "- " .. vim.fs.basename(file) end)
-		:totable()
-	local changeCount = 0
-	for _, change in pairs(changes) do
-		changeCount = changeCount + #(change.edits or change)
-	end
+        -- count changes
+        local changes = result.changes or result.documentChanges or {}
+        local changedFiles = vim.iter(vim.tbl_keys(changes))
+            :filter(function(file) return #changes[file] > 0 end)
+            :map(function(file) return "- " .. vim.fs.basename(file) end)
+            :totable()
+        local changeCount = 0
+        for _, change in pairs(changes) do
+                changeCount = changeCount + #(change.edits or change)
+        end
 
-	-- notification
-	local pluralS = changeCount > 1 and "s" or ""
-	local msg = ("[%d] instance%s"):format(changeCount, pluralS)
-	if #changedFiles > 1 then
-		msg = ("**%s in [%d] files**\n%s"):format(
-			msg,
-			#changedFiles,
-			table.concat(changedFiles, "\n")
-		)
-	end
-	vim.notify(msg, nil, { title = "Renamed with LSP", icon = "󰑕" })
+        -- notification
+        local pluralS = changeCount > 1 and "s" or ""
+        local msg = ("[%d] instance%s"):format(changeCount, pluralS)
+        if #changedFiles > 1 then
+                msg = ("**%s in [%d] files**\n%s"):format(
+                        msg,
+                        #changedFiles,
+                        table.concat(changedFiles, "\n")
+                )
+        end
+        vim.notify(msg, nil, { title = "Renamed with LSP", icon = "󰑕" })
 
-	-- save all
-	if #changedFiles > 1 then vim.cmd.wall() end
+        -- save all
+        if #changedFiles > 1 then vim.cmd.wall() end
 end
 
 -- `vim.lsp.buf.signature_help`
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-	border = vim.g.borderStyle,
+        border = vim.g.borderStyle,
 })
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-	border = vim.g.borderStyle,
-	title = " LSP hover ",
-	max_width = 75,
+vim.lsp.handlers["textDocument/hover"]         = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = vim.g.borderStyle,
+        title = " LSP hover ",
+        max_width = 75,
 })
 
 --------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 -- (uses vim.notify opts tailored to `snacks.nvim`, but should in general work
 -- for other notifiers as well)
 ---@type table<number, {token:lsp.ProgressToken, msg:string, done:boolean}[]>
-local progress                          = vim.defaulttable()
+local progress                                 = vim.defaulttable()
 vim.api.nvim_create_autocmd("LspProgress", {
         ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
         callback = function(ev)
@@ -136,29 +136,30 @@ end, {
 -- DIAGNOSTICS
 
 local numbers = {
-                text = {
-                        [vim.diagnostic.severity.ERROR] = "",
-                        [vim.diagnostic.severity.WARN]  = "",
-                        [vim.diagnostic.severity.INFO]  = "",
-                        [vim.diagnostic.severity.HINT]  = "",
-                },
+        text = {
+                [vim.diagnostic.severity.ERROR] = "",
+                [vim.diagnostic.severity.WARN]  = "",
+                [vim.diagnostic.severity.INFO]  = "",
+                [vim.diagnostic.severity.HINT]  = "",
+        },
 
-                numhl = {
-                        [vim.diagnostic.severity.ERROR] = "ErrorMsg",
-                        [vim.diagnostic.severity.WARN]  = "WarningMsg",
-                        [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
-                        [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
-                },
-        }
+        numhl = {
+                [vim.diagnostic.severity.ERROR] = "ErrorMsg",
+                [vim.diagnostic.severity.WARN]  = "WarningMsg",
+                [vim.diagnostic.severity.INFO]  = "DiagnosticInfo",
+                [vim.diagnostic.severity.HINT]  = "DiagnosticHint",
+        },
+}
 
-local icons = {
-                text = {
-                        [vim.diagnostic.severity.ERROR] = "󰨓",
-                        [vim.diagnostic.severity.WARN]  = "󰨓",
-                        [vim.diagnostic.severity.INFO]  = "󰨓",
-                        [vim.diagnostic.severity.HINT]  = "󰨓",
-                },
-        }
+---@diagnostic disable-next-line: unused-local
+local icons   = {
+        text = {
+                [vim.diagnostic.severity.ERROR] = "󰨓",
+                [vim.diagnostic.severity.WARN]  = "󰨓",
+                [vim.diagnostic.severity.INFO]  = "󰨓",
+                [vim.diagnostic.severity.HINT]  = "󰨓",
+        },
+}
 
 vim.diagnostic.config {
         signs            = numbers,

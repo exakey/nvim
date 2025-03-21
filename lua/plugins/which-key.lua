@@ -1,15 +1,38 @@
 return {
         "folke/which-key.nvim",
         enabled = false,
-        event = "VeryLazy",
-        keys  = {
+        event   = "VeryLazy",
+        keys    = {
                 {
                         "<leader>?",
                         function() require("which-key").show({ global = false }) end,
                         desc = "Buffer Local Keymaps (which-key)",
                 },
+                {
+                        -- "<leader>t",
+                        function()
+                                require("which-key").show({
+                                        global = false,
+                                        loop   = true,
+                                        spec   = {
+                                                mode = { "n", "x" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                                { "" },
+                                        }
+                                })
+                        end,
+                        desc = "TREEMODE",
+                },
         },
-        opts  = {
+        opts    = {
                 delay   = 666,
                 preset  = "helix",
                 win     = {

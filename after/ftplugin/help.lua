@@ -5,7 +5,7 @@ vim.opt_local.wrap = true
 
 --------------------------------------------------------------------------------
 -- KEYMAPS
-local bkeymap = require("config.utils").bufKeymap
+local bkeymap = require("core.utils").bufKeymap
 
 -- `:bwipeout` so it isn't saved in oldfiles
 bkeymap("n", "q", vim.cmd.bwipeout, { desc = "Quit" })

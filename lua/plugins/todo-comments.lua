@@ -12,17 +12,17 @@ return {
                 signs          = false,
 
                 keywords       = {
-                        -- FIX
-                        FIX = { color = "error", alt = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
-                        -- TODO
+                        -- FIX  fix
+                        FIX = { color = "error", alt = { "FIXME", "BUG", "ERROR", "FIXIT", "ISSUE" } },
+                        -- TODO  todo
                         TODO = { color = "#f5e0dc", alt = { "PENDING", "GUARD", "REQUIRED", "VALIDATE", "TEMP", "TEMPLATE", "DEBUG" } },
-                        -- WARN
+                        -- WARN  warn
                         WARN = { color = "warning", alt = { "WARNING", "SIC", "CAVEAT", "DEPRECATION" } },
-                        -- NOTE
+                        -- NOTE  note
                         NOTE = { color = "info", alt = { "INFO", "CONFIG", "SOURCE", "DATA", "EXAMPLE", "IMPORTANT" } },
-                        -- TEST
+                        -- TEST  test
                         TEST = { color = "#89b4fa", alt = { "TESTING", "PASSED", "FAILED" } },
-                        -- HINT
+                        -- HINT  hint
                         HINT = { color = "#dce0e8", alt = { "HACK", "CLUE" } },
                 },
 
