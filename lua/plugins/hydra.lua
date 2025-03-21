@@ -1,3 +1,18 @@
+local config = {
+        invoke_on_body = true,
+        on_key         = function()
+                vim.wait(0, function() vim.cmd "redraw" end, 30, false)
+                vim.cmd("norm zz")
+        end,
+        color          = "pink"
+}
+
+local opts   = {
+        silent = true,
+        nowait = true,
+        mode   = { "n", "x" }
+}
+
 local fold   = {
 
         { -- L1
@@ -6,7 +21,7 @@ local fold   = {
                         require("ufo").closeFoldsWith(1)
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close L1 folds",
+                opts
         },
         { -- L2
                 "2",
@@ -14,7 +29,7 @@ local fold   = {
                         require("ufo").closeFoldsWith(2)
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close L2 folds",
+                opts
         },
         { -- L3
                 "3",
@@ -22,7 +37,7 @@ local fold   = {
                         require("ufo").closeFoldsWith(3)
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close L3 folds",
+                opts
         },
         { -- L4
                 "4",
@@ -30,7 +45,7 @@ local fold   = {
                         require("ufo").closeFoldsWith(4)
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close L4 folds",
+                opts
         },
         { -- L5
                 "5",
@@ -38,7 +53,7 @@ local fold   = {
                         require("ufo").closeFoldsWith(5)
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close L5 folds",
+                opts
         },
         { -- CLOSE ALL
                 "H",
@@ -46,7 +61,7 @@ local fold   = {
                         require("ufo").closeAllFolds()
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Close all folds",
+                opts
         },
         { -- OPEN ALL
                 "L",
@@ -54,27 +69,27 @@ local fold   = {
                         require("ufo").openAllFolds()
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Open all folds",
+                opts
         },
-        { "h", "zczz", desc = "󱃄 Close fold" },
-        { "l", "zozz", desc = "󱃄 Open fold" },
-        { "j", "zjzz", desc = "󱃄 Goto next fold" },
+        { "h", "zczz", opts },
+        { "l", "zozz", opts },
+        { "j", "zjzz", opts },
         { -- GOTO PREV
                 "k",
                 function()
                         require("ufo").goPreviousStartFold()
                         vim.cmd("norm zz")
                 end,
-                desc = "󱃄 Goto prev fold",
+                opts
         },
-        { "J", "zOzz", desc = "󱃄 Open all fold under cursor" },
+        { "J", "zOzz", opts },
         { -- PREVIEW
                 "K",
                 function()
                         local winid = require("ufo").peekFoldedLinesUnderCursor()
                         if not winid then vim.lsp.buf.hover() end
                 end,
-                desc = "󱃄 Preview fold"
+                opts
         },
 
         { -- CURSOR LEFT
@@ -82,64 +97,71 @@ local fold   = {
                 function()
                         require("smart-splits").move_cursor_left()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR DOWN
                 "<C-j>",
                 function()
                         require("smart-splits").move_cursor_down()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR UP
                 "<C-k>",
                 function()
                         require("smart-splits").move_cursor_up()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR RIGHT
                 "<C-l>",
                 function()
                         require("smart-splits").move_cursor_right()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR PREVIOUS
                 "<C-o>",
                 function()
                         require("smart-splits").move_cursor_previous()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
+
+        { '<Esc>', nil,  { exit = true, desc = false }}
 }
 
 local window = {
 
         -- SHIFT
         { -- SHIFT LEFT
-                "<C-h>", "<cmd>WinShift left<CR>"
+                "<C-h>", "<cmd>WinShift left<CR>", opts
         },
         { -- SHIFT DOWN
-                "<C-j>", "<cmd>WinShift down<CR>"
+                "<C-j>", "<cmd>WinShift down<CR>", opts
         },
         { -- SHIFT UP
-                "<C-k>", "<cmd>WinShift up<CR>"
+                "<C-k>", "<cmd>WinShift up<CR>", opts
         },
         { -- SHIFT RIGHT
-                "<C-l>", "<cmd>WinShift right<CR>"
+                "<C-l>", "<cmd>WinShift right<CR>", opts
         },
         { -- SHIFT LEFT  FAR
-                "<S-H>", "<cmd>WinShift far_left<CR>"
+                "<S-H>", "<cmd>WinShift far_left<CR>", opts
         },
         { -- SHIFT DOWN  FAR
-                "<S-J>", "<cmd>WinShift far_down<CR>"
+                "<S-J>", "<cmd>WinShift far_down<CR>", opts
         },
         { -- SHIFT UP    FAR
-                "<S-K>", "<cmd>WinShift far_up<CR>"
+                "<S-K>", "<cmd>WinShift far_up<CR>", opts
         },
         { -- SHIFT RIGHT FAR
-                "<S-L>", "<cmd>WinShift far_right<CR>"
+                "<S-L>", "<cmd>WinShift far_right<CR>", opts
         },
 
         -- CURSOR
@@ -148,68 +170,72 @@ local window = {
                 function()
                         require("smart-splits").move_cursor_left()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- DOWN
                 "j",
                 function()
                         require("smart-splits").move_cursor_down()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- UP
                 "k",
                 function()
                         require("smart-splits").move_cursor_up()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- RIGHT
                 "l",
                 function()
                         require("smart-splits").move_cursor_right()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- PREVIOUS
                 "u",
                 function()
                         require("smart-splits").move_cursor_previous()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
 
         -- RESIZE
         { -- LEFT
                 "<A-h>",
-                function() require("smart-splits").resize_left() end
+                function() require("smart-splits").resize_left() end, opts
         },
         { -- DOWN
                 "<A-j>",
-                function() require("smart-splits").resize_down() end
+                function() require("smart-splits").resize_down() end, opts
         },
         { -- UP
                 "<A-k>",
-                function() require("smart-splits").resize_up() end
+                function() require("smart-splits").resize_up() end, opts
         },
         { -- RIGHT
                 "<A-l>",
-                function() require("smart-splits").resize_right() end
+                function() require("smart-splits").resize_right() end, opts
         },
 
         -- SPLIT
         { -- VERTICAL
-                "v",
-                "<C-W>vzz"
+                "v", "<C-W>vzz", opts
         },
         { -- HORIZONTAL
-                "s",
-                "<C-W>szz"
+                "s", "<C-W>szz", opts
         },
         { -- DELETE
-                "d",
-                "<C-W>czz"
+                "d", "<C-W>czz", opts
         },
+
+        { '<Esc>', nil,  { exit = true, desc = false }}
 }
 
 local tree   = {
@@ -220,199 +246,208 @@ local tree   = {
                 function()
                         require("smart-splits").move_cursor_left()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR DOWN
                 "<C-j>",
                 function()
                         require("smart-splits").move_cursor_down()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR UP
                 "<C-k>",
                 function()
                         require("smart-splits").move_cursor_up()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR RIGHT
                 "<C-l>",
                 function()
                         require("smart-splits").move_cursor_right()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- CURSOR PREVIOUS
                 "<C-o>",
                 function()
                         require("smart-splits").move_cursor_previous()
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
 
         -- SWAP
         { -- ARG  INNER PREV
                 "<A-S-P>",
                 "<cmd>TSTextobjectSwapPrevious @parameter.inner<CR>zz",
-                desc = " Swap prev arg",
+                opts
         },
         { -- ARG  INNER NEXT
                 "<A-p>",
                 "<cmd>TSTextobjectSwapNext @parameter.inner<CR>zz",
-                desc = " Swap next arg",
+                opts
         },
 
         -- MOVE
         { -- FUNC OUTER PREV
                 "F",
                 "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz",
-                desc = " Goto prev function",
+                opts
         },
         { -- FUNC OUTER NEXT
                 "f",
                 "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz",
-                desc = " Goto next function",
+                opts
         },
         { -- FUNC INNER PREV
                 "<C-S-F>",
                 "<cmd>TSTextobjectGotoPreviousStart @function.inner<CR>zz",
-                desc = " Goto prev function",
+                opts
         },
         { -- FUNC INNER NEXT
                 "<C-f>",
                 "<cmd>TSTextobjectGotoNextStart @function.inner<CR>zz",
-                desc = " Goto next function",
+                opts
         },
 
         { -- COND OUTER PREV
                 "I",
                 "<cmd>TSTextobjectGotoPreviousStart @conditional.outer<CR>zz",
-                desc = " Goto prev cond",
+                opts
         },
         { -- COND OUTER NEXT
                 "i",
                 "<cmd>TSTextobjectGotoNextStart @conditional.outer<CR>zz",
-                desc = " Goto next cond",
+                opts
         },
         { -- COND INNER PREV
                 "<C-S-I>",
                 "<cmd>TSTextobjectGotoPreviousStart @conditional.inner<CR>zz",
-                desc = " Goto prev cond",
+                opts
         },
         { -- COND INNER NEXT
                 "<C-i>",
                 "<cmd>TSTextobjectGotoNextStart @conditional.inner<CR>zz",
-                desc = " Goto next cond",
+                opts
         },
 
         { -- LOOP OUTER PREV
                 "W",
                 "<cmd>TSTextobjectGotoPreviousStart @loop.outer<CR>zz",
-                desc = " Goto prev loop",
+                opts
         },
         { -- LOOP OUTER NEXT
                 "w",
                 "<cmd>TSTextobjectGotoNextStart @loop.outer<CR>zz",
-                desc = " Goto next loop",
+                opts
         },
         { -- LOOP INNER PREV
                 "<C-S-W>",
                 "<cmd>TSTextobjectGotoPreviousStart @loop.inner<CR>zz",
-                desc = " Goto prev loop",
+                opts
         },
         { -- LOOP INNER NEXT
                 "<C-w>",
                 "<cmd>TSTextobjectGotoNextStart @loop.inner<CR>zz",
-                desc = " Goto next loop",
+                opts
         },
 
         { -- ASGN OUTER PREV
                 "A",
                 "<cmd>TSTextobjectGotoPreviousStart @assignment.outer<CR>zz",
-                desc = " Goto next assignment",
+                opts
         },
         { -- ASGN OUTER NEXT
                 "a",
                 "<cmd>TSTextobjectGotoNextStart @assignment.outer<CR>zz",
-                desc = " Goto next assignment",
+                opts
         },
         { -- ASGN INNER PREV
                 "<C-S-A>",
                 "<cmd>TSTextobjectGotoPreviousStart @assignment.inner<CR>zz",
-                desc = " Goto next assignment",
+                opts
         },
         { -- ASGN INNER NEXT
                 "<C-a>",
                 "<cmd>TSTextobjectGotoNextStart @assignment.inner<CR>zz",
-                desc = " Goto next assignment",
+                opts
         },
 
         { -- CALL OUTER PREV
                 "K",
                 "<cmd>TSTextobjectGotoPreviousStart @call.outer<CR>zz",
-                desc = " Goto prev call",
+                opts
         },
         { -- CALL OUTER NEXT
                 "k",
                 "<cmd>TSTextobjectGotoNextStart @call.outer<CR>zz",
-                desc = " Goto next call",
+                opts
         },
         { -- CALL OUTER PREV
                 "<C-S-K>",
                 "<cmd>TSTextobjectGotoPreviousStart @call.inner<CR>zz",
-                desc = " Goto prev call",
+                opts
         },
         { -- CALL OUTER NEXT
                 "<C-k>",
                 "<cmd>TSTextobjectGotoNextStart @call.inner<CR>zz",
-                desc = " Goto next call",
+                opts
         },
 
         { -- ARG  INNER PREV
                 "P",
                 "<cmd>TSTextobjectGotoPreviousStart @parameter.inner<CR>zz",
-                desc = " Goto prev arg",
+                opts
         },
         { -- ARG  INNER NEXT
                 "p",
                 "<cmd>TSTextobjectGotoNextStart @parameter.inner<CR>zz",
-                desc = " Goto next arg",
+                opts
         },
 
         { -- COMM OUTER PREV
                 "Q",
                 "<cmd>TSTextobjectGotoPreviousStart @comment.outer<CR>zz",
-                desc = " Goto prev comment",
+                opts
         },
         { -- COMM OUTER NEXT
                 "q",
                 "<cmd>TSTextobjectGotoNextStart @comment.outer<CR>zz",
-                desc = " Goto next comment",
+                opts
         },
         { -- COMM TODO  PREV
                 "t",
-                function ()
+                function()
                         require("todo-comments").jump_next()
                 end,
+                opts
         },
         { -- COMM TODO  NEXT
                 "T",
-                function ()
+                function()
                         require("todo-comments").jump_prev()
                 end,
+                opts
         },
 
         { -- NODE END
                 "N",
                 "<cmd>TSTextobjectGotoPreviousStart @_end<CR>zz",
-                desc = " Goto prev arg",
+                opts
         },
         { -- NODE START
                 "n",
                 "<cmd>TSTextobjectGotoNextStart @_start<CR>zz",
-                desc = " Goto next arg",
+                opts
         },
+
+        { '<Esc>', nil,  { exit = true, desc = false }}
 }
 
 local lsp    = {
@@ -420,115 +455,125 @@ local lsp    = {
         -- DIAGNOSTICS
         { -- DIAG NEXT
                 "d",
-                function ()
+                function()
                         vim.diagnostic.goto_next({ float = false })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- DIAG PREV
                 "D",
-                function ()
+                function()
                         vim.diagnostic.goto_prev({ float = false })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- ERROR  NEXT
                 "e",
-                function ()
+                function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.ERROR })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- ERROR  PREV
                 "E",
-                function ()
+                function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.ERROR })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- WARN  NEXT
                 "w",
-                function ()
+                function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.WARN })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- WARN  PREV
                 "W",
-                function ()
+                function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.WARN })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- INFO  NEXT
                 "i",
-                function ()
+                function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.INFO })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- INFO  PREV
                 "I",
-                function ()
+                function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.INFO })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- HINT  NEXT
                 "h",
-                function ()
+                function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.HINT })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
         { -- HINT  PREV
                 "H",
-                function ()
+                function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.HINT })
                         vim.cmd("norm zz")
-                end
+                end,
+                opts
         },
 
         -- FUNC and CALL
         { -- FUNC OUTER PREV
                 "F",
                 "<cmd>TSTextobjectGotoPreviousStart @function.outer<CR>zz",
-                desc = " Goto prev function",
+                opts
         },
         { -- FUNC OUTER NEXT
                 "f",
                 "<cmd>TSTextobjectGotoNextStart @function.outer<CR>zz",
-                desc = " Goto next function",
+                opts
         },
         { -- FUNC INNER PREV
                 "<C-S-F>",
                 "<cmd>TSTextobjectGotoPreviousStart @function.inner<CR>zz",
-                desc = " Goto prev function",
+                opts
         },
         { -- FUNC INNER NEXT
                 "<C-f>",
                 "<cmd>TSTextobjectGotoNextStart @function.inner<CR>zz",
-                desc = " Goto next function",
+                opts
         },
         { -- CALL OUTER PREV
                 "K",
                 "<cmd>TSTextobjectGotoPreviousStart @call.outer<CR>zz",
-                desc = " Goto prev call",
+                opts
         },
         { -- CALL OUTER NEXT
                 "k",
                 "<cmd>TSTextobjectGotoNextStart @call.outer<CR>zz",
-                desc = " Goto next call",
+                opts
         },
         { -- CALL OUTER PREV
                 "<C-S-K>",
                 "<cmd>TSTextobjectGotoPreviousStart @call.inner<CR>zz",
-                desc = " Goto prev call",
+                opts
         },
         { -- CALL OUTER NEXT
                 "<C-k>",
                 "<cmd>TSTextobjectGotoNextStart @call.inner<CR>zz",
-                desc = " Goto next call",
+                opts
         },
 
         -- LSP NAV
@@ -537,15 +582,19 @@ local lsp    = {
                 function()
                         Snacks.picker.lsp_definitions()
                 end,
+                opts
         },
         { -- REFERENCE
                 "r",
-                function ()
+                function()
                         Snacks.picker.lsp_references({
                                 on_show = function() vim.cmd.stopinsert() end
                         })
-                end
+                end,
+                opts
         },
+
+        { '<Esc>', nil,  { exit = true, desc = false }}
 }
 
 return {
@@ -557,48 +606,29 @@ return {
 
                 hydra({ -- FOLDMODE
                         name   = "FOLDMODE",
-                        config = {
-                                invoke_on_body = true,
-                                on_key         = function()
-                                        vim.wait(0, function() vim.cmd "redraw" end, 0, false) vim.cmd("norm zz")
-                                end
-                        },
+                        config = config,
                         mode   = { "n", "v" },
                         body   = "<leader>z",
                         heads  = fold,
                 })
                 hydra({ -- WINMODE
                         name   = "winmode",
-                        config = {
-                                invoke_on_body = true,
-                                on_key         = function()
-                                        vim.wait(0, function() vim.cmd "redraw" end, 30, false) vim.cmd("norm zz")
-                                end
-                        },
+                        config = config,
                         mode   = { "n", "v" },
                         body   = "<leader>w",
                         heads  = window
                 })
                 hydra({ -- TREEMODE
                         name   = "TREEMODE",
-                        config = {
-                                invoke_on_body = true,
-                                on_key         = function()
-                                        vim.wait(0, function() vim.cmd "redraw" end, 30, false) vim.cmd("norm zz")
-                                end
-                        },
+                        config = config,
                         mode   = { "n", "v" },
                         body   = "<leader>t",
+                        color  = "pink",
                         heads  = tree
                 })
                 hydra({ -- LSPMODE
                         name   = "LSPMODE",
-                        config = {
-                                invoke_on_body = true,
-                                on_key         = function()
-                                        vim.wait(0, function() vim.cmd "redraw" end, 30, false) vim.cmd("norm zz")
-                                end
-                        },
+                        config = config,
                         mode   = { "n", "v" },
                         body   = "<leader>a",
                         heads  = lsp
