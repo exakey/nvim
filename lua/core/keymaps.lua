@@ -271,19 +271,6 @@ map(n, "<A-w>", "<C-W>czz", { desc = "Delete Window", silent = true })
 map(n, "<A-->", "<C-W>szz", { desc = "Split Window Below", silent = true })
 map(n, "<A-Bslash>", "<C-W>vzz", { desc = "Split Window Right", silent = true })
 
--- Move to window
--- map(n, "<C-h>", "<C-w>h", { desc = "Go to Left Window", })
--- map(n, "<C-j>", "<C-w>j", { desc = "Go to Lower Window", })
--- map(n, "<C-k>", "<C-w>k", { desc = "Go to Upper Window", })
--- map(n, "<C-l>", "<C-w>l", { desc = "Go to Right Window", unique = false })
-
--- Resize window
-local delta = 5
--- map(n, "<C-up>", "<C-w>" .. delta .. "-")
--- map(n, "<C-down>", "<C-w>" .. delta .. "+")
--- map(n, "<C-left>", "<C-w>" .. delta .. "<")
--- map(n, "<C-right>", "<C-w>" .. delta .. ">")
-
 --------------------------------------------------------------------------------
 -- BUFFERS & FILES
 
