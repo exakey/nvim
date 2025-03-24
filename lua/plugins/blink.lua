@@ -23,7 +23,6 @@ return {
         dependencies = {
                 {
                         "L3MON4D3/LuaSnip",
-                        -- version      = "v2.*",
                         dependencies = {
                                 "rafamadriz/friendly-snippets",
                                 config = function()
@@ -34,7 +33,8 @@ return {
                 },
                 { "bydlw98/blink-cmp-env" },
                 { "MahanRahmati/blink-nerdfont.nvim" },
-                { "niuiic/blink-cmp-rg.nvim" }
+                { "niuiic/blink-cmp-rg.nvim" },
+                { "jdrupal-dev/css-vars.nvim" }
         },
 
         opts         = {
@@ -144,7 +144,9 @@ return {
                                 if vim.bo.filetype == "lua" then
                                         return { "snippets", "lazydev", "lsp", "path", "ripgrep", "nerdfont" }
                                 elseif vim.bo.filetype == "c" or "cpp" then
-                                        return { "snippets", "lazydev", "lsp", "path", "buffer", "nerdfont" }
+                                        return { "snippets", "lsp", "path", "buffer", "nerdfont" }
+                                elseif vim.bo.filetype == "css" then
+                                        return { "snippets", "css-vars", "lsp", "path", "buffer", "nerdfont" }
                                 elseif success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
                                         return { "ripgrep" }
                                 else
@@ -183,7 +185,7 @@ return {
                                 path     = {
                                         name         = "Path",
                                         module       = 'blink.cmp.sources.path',
-                                        score_offset = 110,
+                                        score_offset = 260,
                                         opts         = {
                                                 trailing_slash               = true,
                                                 label_trailing_slash         = true,
@@ -207,6 +209,11 @@ return {
                                                 --         end, vim.api.nvim_list_bufs())
                                                 -- end
                                         }
+                                },
+
+                                css_vars = {
+                                        name   = "CSS",
+                                        module = "css-vars.blink"
                                 },
 
                                 omni     = {

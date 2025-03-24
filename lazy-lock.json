@@ -7,6 +7,7 @@
   "blink.cmp": { "branch": "main", "commit": "5b1d3498b13c9321c4ed862a217889a22fc3e565" },
   "catppuccin": { "branch": "main", "commit": "5b5e3aef9ad7af84f463d17b5479f06b87d5c429" },
   "cord.nvim": { "branch": "master", "commit": "825e7fdac34d0e9cc5e62195d14502ce0b62abf5" },
+  "css-vars.nvim": { "branch": "main", "commit": "0615782c320f729b04d9c51a8a61fb498ee4234a" },
   "demicolon.nvim": { "branch": "main", "commit": "eed33fc75e7af0aacd283c613d4500b188d62169" },
   "dial.nvim": { "branch": "master", "commit": "1fc4475c66b794aad3dde39414f73b2e2b26230e" },
   "dressing.nvim": { "branch": "master", "commit": "2d7c2db2507fa3c4956142ee607431ddb2828639" },
