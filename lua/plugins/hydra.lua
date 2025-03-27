@@ -237,22 +237,22 @@ local tree   = {
         },
 
         { -- CALL OUTER PREV
-                "C",
+                "R",
                 "<cmd>TSTextobjectGotoPreviousStart @call.outer<CR>zz",
                 opts
         },
         { -- CALL OUTER NEXT
-                "c",
+                "r",
                 "<cmd>TSTextobjectGotoNextStart @call.outer<CR>zz",
                 opts
         },
         { -- CALL INNER PREV
-                "<C-S-C>",
+                "<C-S-R>",
                 "<cmd>TSTextobjectGotoPreviousStart @call.inner<CR>zz",
                 opts
         },
         { -- CALL INNER NEXT
-                "<C-c>",
+                "<C-r>",
                 "<cmd>TSTextobjectGotoNextStart @call.inner<CR>zz",
                 opts
         },
@@ -509,22 +509,22 @@ local nav    = {
         },
 
         { -- CALL OUTER PREV
-                "C",
+                "R",
                 "<cmd>TSTextobjectGotoPreviousStart @call.outer<CR>zz",
                 opts
         },
         { -- CALL OUTER NEXT
-                "c",
+                "r",
                 "<cmd>TSTextobjectGotoNextStart @call.outer<CR>zz",
                 opts
         },
         { -- CALL INNER PREV
-                "<C-S-C>",
+                "<C-S-R>",
                 "<cmd>TSTextobjectGotoPreviousStart @call.inner<CR>zz",
                 opts
         },
         { -- CALL INNER NEXT
-                "<C-c>",
+                "<C-r>",
                 "<cmd>TSTextobjectGotoNextStart @call.inner<CR>zz",
                 opts
         },
@@ -657,24 +657,24 @@ local nav    = {
                 opts
         },
 
-        { -- DIAG NEXT
-                "d",
-                function()
-                        vim.diagnostic.goto_next({ float = false })
-                        vim.cmd("norm zz")
-                end,
-                opts
-        },
         { -- DIAG PREV
-                "D",
+                "<C-S-D>",
                 function()
                         vim.diagnostic.goto_prev({ float = false })
                         vim.cmd("norm zz")
                 end,
                 opts
         },
+        { -- DIAG NEXT
+                "<C-d>",
+                function()
+                        vim.diagnostic.goto_next({ float = false })
+                        vim.cmd("norm zz")
+                end,
+                opts
+        },
         { -- ERROR  PREV
-                "E",
+                "<C-S-E>",
                 function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.ERROR })
                         vim.cmd("norm zz")
@@ -682,7 +682,7 @@ local nav    = {
                 opts
         },
         { -- ERROR  NEXT
-                "e",
+                "<C-e>",
                 function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.ERROR })
                         vim.cmd("norm zz")
@@ -690,7 +690,7 @@ local nav    = {
                 opts
         },
         { -- WARN  PREV
-                "W",
+                "<C-S-W>",
                 function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.WARN })
                         vim.cmd("norm zz")
@@ -698,7 +698,7 @@ local nav    = {
                 opts
         },
         { -- WARN  NEXT
-                "w",
+                "<C-w>",
                 function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.WARN })
                         vim.cmd("norm zz")
@@ -706,7 +706,7 @@ local nav    = {
                 opts
         },
         { -- INFO  PREV
-                "I",
+                "<C-S-I>",
                 function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.INFO })
                         vim.cmd("norm zz")
@@ -714,7 +714,7 @@ local nav    = {
                 opts
         },
         { -- INFO  NEXT
-                "i",
+                "<C-i>",
                 function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.INFO })
                         vim.cmd("norm zz")
@@ -722,7 +722,7 @@ local nav    = {
                 opts
         },
         { -- HINT  PREV
-                "H",
+                "<C-S-H>",
                 function()
                         vim.diagnostic.goto_prev({ float = false, severity = vim.diagnostic.severity.HINT })
                         vim.cmd("norm zz")
@@ -730,7 +730,7 @@ local nav    = {
                 opts
         },
         { -- HINT  NEXT
-                "h",
+                "<C-h>",
                 function()
                         vim.diagnostic.goto_next({ float = false, severity = vim.diagnostic.severity.HINT })
                         vim.cmd("norm zz")
@@ -756,6 +756,7 @@ local nav    = {
 
 return {
         "anuvyklack/hydra.nvim",
+        enabled = false,
         lazy   = false,
         event  = "VeryLazy",
         config = function()
@@ -765,14 +766,16 @@ return {
                         name   = "FOLDMODE",
                         config = config,
                         mode   = { "n", "v" },
-                        body   = "<leader>z",
+                        body   = "''",
+                        color  = "pink",
                         heads  = fold,
                 })
                 hydra({ -- WINMODE
                         name   = "winmode",
                         config = config,
                         mode   = { "n", "v" },
-                        body   = "<leader>w",
+                        body   = '""',
+                        color  = "pink",
                         heads  = window
                 })
                 hydra({ -- TREEMODE
@@ -788,6 +791,7 @@ return {
                         config = config,
                         mode   = { "n", "v" },
                         body   = "[[",
+                        color  = "pink",
                         heads  = lsp
                 })
                 hydra({ -- NAVMODE
@@ -795,6 +799,7 @@ return {
                         config = config,
                         mode   = { "n", "v" },
                         body   = ",,",
+                        color  = "pink",
                         heads  = nav
                 })
         end

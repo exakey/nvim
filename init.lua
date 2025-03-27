@@ -67,3 +67,5 @@ vim.api.nvim_create_autocmd("InsertEnter", {
         once     = true,
         callback = function() safeRequire("core.spellfixes") end,
 })
+
+-- vim.lsp.enable({ "luals", "clangd", "bashls" })

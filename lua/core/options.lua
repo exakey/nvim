@@ -99,6 +99,7 @@ opt.listchars      = {
         tab        = "  ",
 }
 
+opt.mousemoveevent = true
 opt.completeopt    = "menu,menuone,noselect"
 opt.confirm        = true
 opt.grepformat     = "%f:%l:%c:%m"

@@ -9,6 +9,7 @@ return {
                         base     = "#1e1e2e",
                         mantle   = "#181825",
                         crust    = "#11111b",
+                        -- crust    = "#000000",
                         red      = "#f38ba8",
                         green    = "#a6e3a1",
                         yellow   = "#f9e2af"
@@ -58,14 +59,14 @@ return {
                                         "branch",
                                         {
                                                 'diff',
-                                                colored = true,
+                                                colored    = true,
                                                 diff_color = {
                                                         modified = "GitSignsChange",
                                                         added    = "GitSignsAdd",
                                                         removed  = "GitSignsDelete"
                                                 },
-                                                symbols = { added = '+', modified = '~', removed = '-' },
-                                                source = nil,
+                                                symbols    = { added = '+', modified = '~', removed = '-' },
+                                                source     = nil,
                                         }
                                 },
                                 lualine_c = {

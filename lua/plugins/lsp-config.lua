@@ -1,5 +1,6 @@
 return {
         "neovim/nvim-lspconfig",
+        enabled = true,
         event   = "BufReadPre",
         keys    = {
                 { "<leader>ol", vim.cmd.LspRestart, desc = "󰑓 LSP restart" },

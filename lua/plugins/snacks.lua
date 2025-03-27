@@ -23,9 +23,9 @@ return {
                 },
                 { -- FILES
                         "<leader><leader>f",
-                        function() Snacks.picker.files({ layout = "vertical" }) end,
-                        desc = "File Picker",
-                        mode = { "n" },
+                        function() Snacks.picker.files({ layout = "vertical", hidden = true }) end,
+                        desc   = "File Picker",
+                        mode   = { "n" },
                 },
                 { -- KEYMAPS
                         "<leader><leader>k",
@@ -80,8 +80,47 @@ return {
                         desc = "Buffer Picker",
                         mode = { "n" },
                 },
+                { -- REFERENCES
+                        "<leader><leader>r",
+                        function()
+                                Snacks.picker.lsp_references({
+                                        on_show = function() vim.cmd.stopinsert() end,
+                                })
+                        end,
+                        desc = "Show References",
+                        mode = { "n" }
+                },
+                { -- IMPLEMENTATIONS
+                        "<leader><leader>i",
+                        function()
+                                Snacks.picker.lsp_implementations({
+                                        on_show = function() vim.cmd.stopinsert() end,
+                                })
+                        end,
+                        desc = "Show Implementations",
+                        mode = { "n" }
+                },
+                { -- DEFINITIONS
+                        "<leader><leader>d",
+                        function()
+                                Snacks.picker.lsp_definitions({
+                                        on_show = function() vim.cmd.stopinsert() end,
+                                })
+                        end,
+                        desc = "Show Definitions",
+                        mode = { "n" }
+                },
+                { -- DECLARATIONS
+                        "<leader><leader>D",
+                        function()
+                                Snacks.picker.lsp_declarations({
+                                        on_show = function() vim.cmd.stopinsert() end,
+                                })
+                        end,
+                        desc = "Show Declarations",
+                        mode = { "n" }
+                },
         },
-
         opts     = {
 
                 ------------------------------------------------------------------------
@@ -137,10 +176,15 @@ return {
                 -- PICKERS
 
                 picker   = {
+                        hidden  = true,
+                        ignored = true,
+                        formats = { file = { filename_only = true } },
                         win     = {
                                 input = {
                                         keys = {
-                                                ["<Esc>"] = { "close", mode = { "n", "i" } },
+                                                ["h"]     = { "toggle_hidden", mode = { "n" } },
+                                                ["l"]     = { "confirm", mode = { "n" } },
+                                                ["<Esc>"] = { "close", mode = { "i", "n" } },
                                                 ["J"]     = { "preview_scroll_down", mode = { "i", "n" } },
                                                 ["K"]     = { "preview_scroll_up", mode = { "i", "n" } },
                                                 ["H"]     = { "preview_scroll_left", mode = { "i", "n" } },

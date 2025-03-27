@@ -91,7 +91,7 @@ local blinkBg   = "NONE"
                 BlinkCmpAbbrDeprecated           = { fg = colors.red, bg = blinkBg, strikethrough = false },
                 BlinkCmpAbbrMatch                = { fg = colors.text, bg = blinkBg, bold = false },
                 BlinkCmpAbbrMatchFuzzy           = { fg = colors.text, bg = blinkBg, bold = false },
-                BlinkCmpMenu                     = { fg = colors.overlay0, bg = "#11111b", bold = false },
+                BlinkCmpMenu                     = { fg = colors.overlay0, bg = colors.crust, bold = false },
                 BlinkCmpMenuSelection            = { fg = blinkBg, bg = colors.mantle, bold = true },
                 BlinkCmpKindField                = { fg = colors.rosewater, bg = blinkBg },
                 BlinkCmpKindProperty             = { fg = colors.rosewater, bg = blinkBg },
@@ -386,6 +386,10 @@ return {
                         no_bold                = false,
                         no_underline           = false,
 
+                        color_overrides        = { mocha = {
+                                -- crust  = "#000000",
+                                -- mantle = "#000000",
+                        } },
                         custom_highlights      = customCol,
 
                         default_integrations   = true,

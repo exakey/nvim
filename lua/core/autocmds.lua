@@ -131,6 +131,7 @@ local globToTemplateMap = {
         [vim.g.localRepos .. "/**/*.lua"]                    = "module.lua",
         [vim.fn.stdpath("config") .. "/lua/functions/*.lua"] = "module.lua",
         [vim.fn.stdpath("config") .. "/lua/plugins/*.lua"]   = "plugin-spec.lua",
+        [vim.fn.stdpath("config") .. "/lsp/*.lua"]           = "lsp.lua",
 
         -- ["**/*.py"]                                          = "template.py",
         ["**/*.sh"]                                          = "template.zsh",
